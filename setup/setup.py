@@ -10,6 +10,7 @@ import os
 import sys
 import subprocess
 import shutil
+import platform
 
 # Ruta absoluta o relativa al archivo .env
 file_path = os.path.dirname(__file__)
@@ -17,6 +18,21 @@ base_path = os.path.dirname(file_path)
 app_path  = os.path.join(base_path, 'app')
 env_path  = os.path.join(app_path, '.env')
 wall_path = os.path.join(app_path, 'wallet')
+
+# Detectar plataforma por argumento o sistema
+is_linux = "--linux" in sys.argv or platform.system() == "Linux"
+is_windows = "--windows" in sys.argv or platform.system() == "Windows"
+
+# Generar archivo filtrado si es Linux
+req_file = "requirements.txt"
+if is_linux:
+    req_filtered = "requirements.filtered.txt"
+    skip_pkgs = ["oci-ai-speech-realtime", "PyAudio", "websockets"]
+    with open("requirements.txt", "r") as src, open(req_filtered, "w") as dst:
+        for line in src:
+            if not any(pkg in line for pkg in skip_pkgs):
+                dst.write(line)
+    req_file = req_filtered
 
 # Verificar si el archivo .env existe
 if not os.path.exists(env_path):
@@ -209,8 +225,8 @@ def main():
     conda(f'conda run -n {con_conda_env_name} conda install -c conda-forge python-graphviz -y', 
           f'[OK] CONDA INSTALL GRAPHVIZ................................[ CONDA_INSTALL ]')
     
-    conda(f'conda run -n {con_conda_env_name} pip install -r requirements.txt', 
-          f'[OK] PIP INSTALL REQUIREMENTS..........................[ CONDA_ENVIRONMENT ]')
+    conda(f'conda run -n {con_conda_env_name} pip install -r {req_file}',
+      f'[OK] PIP INSTALL REQUIREMENTS..........................[ CONDA_ENVIRONMENT ]')
     
     print(f'\n                                                     [ VALIDATION ][ TOOLS ]')
     print(f'----------------------------------------------------------------------------')
@@ -290,10 +306,6 @@ def main():
     dest_streamlit = os.path.join(os.path.expanduser("~"), ".streamlit")
     shutil.copytree(source_streamlit, dest_streamlit, dirs_exist_ok=True)
     
-    # Streamlit
-    os.chdir(os.path.normpath(os.path.abspath(os.path.join(os.getcwd(), "..", "app"))))
-    conda(f'conda run -n {con_conda_env_name} streamlit run app.py --server.port 8501', 
-          f'[OK] OPEN STREAMLIT (http://localhost:8501)..........................[ APP ]')
     
 if __name__ == '__main__':
     main()

@@ -40,7 +40,7 @@ map_state = {
 reverse_map_state = {v: k for k, v in map_state.items()}
 
 st.set_page_config(
-    page_title="AI Data Platform | Oracle",
+    page_title="Oracle AI Accelerator",
     page_icon="🅾️"
 )
 

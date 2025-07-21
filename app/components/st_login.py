@@ -87,7 +87,7 @@ def get_login():
     else:
         # Login Form
         with st.form('form-login'):
-            st.subheader(":red[Oracle AI] Data Platform")
+            st.subheader(":red[Oracle AI] Accelerator")
             col1, col2 = st.columns(2)
             with col1:
                 st.image("images/st_login.gif")
