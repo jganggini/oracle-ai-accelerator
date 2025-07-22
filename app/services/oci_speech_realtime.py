@@ -1,15 +1,5 @@
 import asyncio
-import platform
-if platform.system() == "Windows":
-    import pyaudio
-else:
-    # Evita errores en Linux si se llama accidentalmente
-    class DummyPyAudio:
-        def __getattr__(self, name):
-            raise NotImplementedError("PyAudio is not available on this platform.")
-
-    pyaudio = DummyPyAudio()
-
+import pyaudio
 import os
 import logging
 from dotenv import load_dotenv
