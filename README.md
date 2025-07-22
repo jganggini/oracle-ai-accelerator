@@ -327,20 +327,20 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
 
   - Clonar el Repositorio:
     ```bash
-    git clone https://github.com/jganggini/oracle-ai.git
+    git clone https://github.com/jganggini/oracle-ai-accelerator.git
     ```
-    O descargue el ZIP del repositorio. [Download ZIP](https://github.com/jganggini/oracle-ai/archive/refs/heads/main.zip) 
+    O descargue el ZIP del repositorio. [Download ZIP](https://github.com/jganggini/oracle-ai-accelerator/archive/refs/heads/main.zip) 
   
   - Cree la siguiente estructura de carpetas:
     - Para Windows:
       ```bash
-      mkdir C:\oracle-ai-data-platform
+      mkdir C:\oracle-ai-accelerator
       ```
     - Para MacOS:
       ```bash
-      mkdir -p ~/oracle-ai-data-platform
+      mkdir -p ~/oracle-ai-accelerator
       ```
-    - Copie el contenido de la carpeta `oracle-ai-data-platform`.
+    - Copie el contenido de la carpeta `oracle-ai-accelerator`.
 
   #### e) Wallet on Autonomus Database 23ai (ADB23ai)
   
@@ -352,7 +352,7 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
 
   - Copie el archivo `wallet.zip` en:
     ```plaintext
-    C:\oracle-ai-data-platform/app/wallet
+    C:\oracle-ai-accelerator/app/wallet
     ```   
 
     Debera de quedar de la siguiente manera:
@@ -397,7 +397,7 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
 
   - Edite el archivo `.env` ubicado en:
     ```plaintext
-    C:\oracle-ai-data-platform/app/.env
+    C:\oracle-ai-accelerator/app/.env
     ```
 
   #### h) Run Environment Setup Script (setup.py)
@@ -408,7 +408,7 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
 
   ```cmd
   conda activate
-  cd oracle-ai-data-platform
+  cd oracle-ai-accelerator
   cd setup
   python setup.py --windows
   ```
@@ -418,7 +418,7 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
   Ejecuta manualmente la aplicación principal desde el entorno configurado. Este comando inicia la interfaz web usando `Streamlit` en el puerto `8501`.
 
   ```cmd
-  cd oracle-ai-data-platform
+  cd oracle-ai-accelerator
   cd app
   conda activate oracle-ai
   streamlit run app.py --server.port 8501
