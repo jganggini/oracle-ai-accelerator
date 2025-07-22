@@ -163,8 +163,9 @@ def exec(user, file_name, message):
         cursor = connection.cursor()
         for statement in statements:
             # Omitir si se cumple: Linux + contiene "6" + archivo específico
-            if is_linux and file_name == 'd.TABLE_MODULES.sql' and '6' in statement:
-                print(f'  > [SKIPPED on Linux - Module:6]: {statement}\n')
+            if is_linux and file_name == 'd.TABLE_MODULES.sql' and 'AI Speech to Text Real-Time' in statement:
+                print(f'  > [SKIPPED on Linux - Module:6]:\n')
+                print(f'    {statement}\n')
                 continue
 
             # Eliminar el último carácter si es un ';'
