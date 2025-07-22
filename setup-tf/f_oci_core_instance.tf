@@ -58,7 +58,7 @@ data "template_file" "user_data" {
   template = file("${path.module}/templatefile/user_data.sh")
 
   vars = {
-    bucket_name        = var.bucket_name
+    bucket_name        = oci_objectstorage_bucket.bucket.name
     oci_config_content = file("${path.module}/.oci/config")
     oci_key_content    = file("${path.module}/.oci/key.pem")
     env = templatefile("${path.module}/templatefile/.env.tmpl", {
@@ -68,7 +68,7 @@ data "template_file" "user_data" {
       autonomous_database_developer_password = var.autonomous_database_developer_password
       autonomous_database_wallet_password    = var.autonomous_database_wallet_password
       namespace                              = data.oci_objectstorage_namespace.ns.namespace
-      bucket_name                            = var.bucket_name
+      bucket_name                            = oci_objectstorage_bucket.bucket.name
     })
   }
 }
@@ -128,10 +128,10 @@ resource "null_resource" "wait_for_userdata" {
   provisioner "remote-exec" {
     inline = [
       "echo '[INI] Setup started...............'",
-      "while ! grep -q 'Cloud-init* finished at' /var/log/cloud-init-output.log; do sleep 10; done",
+      "while ! grep -q 'Cloud-init v.* finished at' /var/log/cloud-init-output.log; do sleep 10; done",
       "echo ''",
       "echo ''",
-      "echo 'Network URL: http://${oci_core_instance.linux_instance.public_ip}:8501'"
+      "echo 'Network URL: http://${oci_core_instance.linux_instance.public_ip}:8501'",
       "echo ''",
       "echo ''",
       "echo '[END] Setup completed.............'",
