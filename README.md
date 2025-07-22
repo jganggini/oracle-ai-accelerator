@@ -5,8 +5,7 @@
 <!-- Intro -->
 <br />
 <div align="center" style="text-align:center;">
-  <img align="center" src="img/smart_toy.svg" width="200" height="200"></img>
-  <h1 style="font-size:40px; font-bload"><b style="color:#ec4b42">Oracle AI</b> Data Platform</h1>
+  <h1 style="font-size:40px; font-bload"><b style="color:#ec4b42">Oracle AI</b> Acelerator</h1>
   
   <a style="font-size:large;" href="/src/">👨🏽‍💻 Explore the Code »</a>
   <br/>
@@ -21,13 +20,17 @@
 
 ## 📄 Project Description
 
-Oracle AI Data Platform es una solución integral que permite gestionar y analizar datos provenientes de múltiples fuentes como documentos, imágenes, archivos de audio y texto, mediante módulos de inteligencia artificial desplegados sobre Oracle Autonomous Database 23ai. Utiliza servicios avanzados de OCI como Generative AI, Document Understanding y Speech para aplicar procesamiento de lenguaje natural, extracción de texto, transcripción en tiempo real y análisis semántico. Toda la información es estructurada, almacenada y consultada desde una base vectorial en Oracle 23ai, lo que habilita búsquedas inteligentes, análisis de similitud y flujos de trabajo asistidos por agentes IA configurables, con control de acceso y compartición entre usuarios.
+Oracle AI Accelerator es una solución integral que permite gestionar y analizar datos provenientes de múltiples fuentes como documentos, imágenes, archivos de audio y texto, mediante módulos de inteligencia artificial desplegados sobre Oracle Autonomous Database 23ai. Utiliza servicios avanzados de OCI como Generative AI, Document Understanding y Speech para aplicar procesamiento de lenguaje natural, extracción de texto, transcripción en tiempo real y análisis semántico. Toda la información es estructurada, almacenada y consultada desde una base vectorial en Oracle 23ai, lo que habilita búsquedas inteligentes, análisis de similitud y flujos de trabajo asistidos por agentes IA configurables, con control de acceso y compartición entre usuarios.
 
 ## 🎯 Use Cases
   * Análisis de documentos legales o médicos con detección automática de entidades sensibles.
   * Transcripción en tiempo real de entrevistas o llamadas de soporte.
   * Clasificación y comprensión automática de documentos escaneados.
   * Recuperación de información basada en embeddings semánticos para sistemas de búsqueda tipo RAG (Retrieval-Augmented Generation).
+
+## 🚀 Architecture
+
+<img align="center" src="img/architecture.png"></img>
 
 ## 📋 Requirements
 
@@ -111,7 +114,7 @@ Oracle AI Data Platform es una solución integral que permite gestionar y analiz
     - Visibility: `Public`.
     - `[Save Changes]`
 
-  #### d) Create Instance (Optional)
+  #### d) Create Instance Windows (Optional)
   
   Si deseas desplegar y probar el proyecto en la nube, puedes crear temporalmente una instancia de cómputo en Oracle Cloud, lo cual es útil para ejecutar la aplicación en un entorno alojado. Alternativamente, puedes optar por ejecutar el proyecto en tu propia máquina local.
 
@@ -208,7 +211,7 @@ Oracle AI Data Platform es una solución integral que permite gestionar y analiz
 
     💡 `Nota`: Esta política otorga permisos completos a todos los usuarios autenticados sobre todos los recursos en el tenancy, por lo que debe utilizarse únicamente en entornos controlados, personales y no compartidos. Se recomienda eliminarla una vez finalizadas las pruebas para evitar acciones accidentales o un consumo innecesario de recursos que puedan agotar tu crédito trial.
 
-  ### 3. Instance or Local Machine Configuration
+  ### 3. Instance or Local Machine Configuration (Windows)
 
   En esta sección se configura el entorno necesario para ejecutar el proyecto, ya sea en una instancia en la nube o en una máquina local. A continuación, se presentan las principales tecnologías que conforman el stack de inteligencia artificial utilizado en la solución.
 
@@ -421,19 +424,111 @@ Oracle AI Data Platform es una solución integral que permite gestionar y analiz
   streamlit run app.py --server.port 8501
   ```
 
-### 4. Data Model Documentation
+  ### 4. Automated Deployment on OCI Resource Manager (Linux)
 
-Este modelo de datos está diseñado para una plataforma de análisis documental asistida por inteligencia artificial. Su objetivo es permitir a usuarios gestionar archivos, módulos funcionales, agentes de IA y análisis vectorial sobre fragmentos de documentos. Ofrece mecanismos de control de acceso, soporte para múltiples módulos AI y registro de metadatos enriquecidos.
+  Despliegue automatizado del proyecto en Oracle Cloud (OCI) usando Resource Manager sobre Linux. Incluye instalación de dependencias, configuración del entorno Conda, descarga del wallet y ejecución automática de la app Streamlit mediante `user_data.sh`.
 
-<p align="center">
-  <img src="img/data-model.svg">
-</p>
+  #### a) Create Compartment
+  
+  - Ingrese a ➡️ `Compartments` ➡️ `Create Compartment`.
+  - Cree un `compartment` para el proyecto.
+    - Name: `oracle-ai-demo`
+    - Description: `oracle-ai-demo`
+    - Parent Compartment: `Root Compartment`
+    - `[Create]`
+  
+  #### b) Configuring Policies in Identity
+  
+  Si estás realizando pruebas o laboratorios en una cuenta trial de Oracle Cloud, puedes usar temporalmente la siguiente política para facilitar el acceso sin restricciones:
 
-<div align="center" style="text-align:center;">
-  Modelo: <a href="https://raw.githubusercontent.com/jganggini/oracle-ai/187534d131828be7e586b4ee0dff4b816d218fde/oracle-ai-data-platform/img/data-model.svg">Mermaidchart</a>
-</div> 
+  ```plaintext
+  Allow any-user to manage all-resources in compartment oracle-ai-demo
+  ```
 
-#### a) Table Description and Initial Content
+  💡 `Nota`: Esta política otorga permisos completos a todos los usuarios autenticados sobre todos los recursos en el tenancy, por lo que debe utilizarse únicamente en entornos controlados, personales y no compartidos. Se recomienda eliminarla una vez finalizadas las pruebas para evitar acciones accidentales o un consumo innecesario de recursos que puedan agotar tu crédito trial.
+
+  #### c) Generate API Key
+
+  - Ingrese a ➡️ `Identity` ➡️ `profile`
+  - Seleccione su usuario.
+  - Ingrese a ➡️ `Tokens and keys` ➡️ `Add API Key` ➡️ `Generate API Key pair` ➡️ `[Download private key]`
+    - Seleccione `[Add]`
+    - Seleccione `[Copy]`
+    
+    - Cree el archivo `config` con el contenido copiado:
+    ```plaintext
+    [DEFAULT]
+    user=ocid1.user.oc1..***********
+    fingerprint=**:**:**:**:**:**:**:**:**:**:**:**:**:**:**:**
+    tenancy=ocid1.tenancy.oc1..***********
+    region=us-chicago-1
+    key_file=/home/opc/.oci/key.pem
+    ```
+
+  - Copie el archivo [config](setup-tf/config) y  [key.pem](setup-tf/key.pem) descargado en:
+    ```plaintext
+    .\setup-tf\.oci\config
+    .\setup-tf\.oci\key.pem
+    ```
+
+    Debera de quedar de la siguiente manera:
+
+    ![config files](img/vw-setup-tf-config.png)
+
+  #### d) Create Stack in OCI Resource Manager
+  
+  - Ingrese a ➡️ `Resource Manager` ➡️ `Stacks` ➡️ `Create Stack`.
+  - Cree un `Stack` para el proyecto:
+
+    - Stack infomation:
+
+      - Choose the origin of the Terraform configuration: `My configuration`
+      - Stack configuration: `Folder` ➡️ `Browse`
+      - Seleccionar la carpeta: [setup-tf](setup-tf)
+      - Selecionar `Cargar`
+      - Name: `setup-tf-oracle-ai`
+      - Description: `setup-tf-oracle-ai`
+      - Create in compartment: `oracle-ai-demo`
+      - `[Next]`
+
+    - Configure `Variables`:
+
+      ![config files](img/vm-stack.png)
+
+      Complete los siguientes campos clave:
+
+      - `_oci_autonomous_database`: Configuración de la base de datos.
+      - `_oci_bucket_name`: Configuración del bucket.
+      - `_oci_instance`: Configuración de la instancia.
+      - `_oci_vcn`: Configuración de Red virtual (VCN).
+      - `autonomous_database_admin_password`: Contraseña del usuario `ADMIN`.  
+      - `autonomous_database_developer_password`: Contraseña del usuario `ADW23AI`.
+      - `autonomous_database_wallet_password`: Contraseña del wallet.
+      - `compartment_ocid`: OCID del Compartment.
+      - `region`: Nombre de la Región (ejemplo: `us-chicago-1`).
+      - `tenancy_ocid`: OCID del Tenancy.
+
+      ⚠️ `Nota`: Las contraseñas deben tener entre 12–30 caracteres, incluir mayúsculas, minúsculas, números, y no contener `"admin"` ni comillas dobles (`"`).
+
+    - Review:
+
+      - Run apply on the created stack?: `Run apply`
+      - `[Create]`
+
+
+  ### 5. Data Model Documentation
+
+  Este modelo de datos está diseñado para una plataforma de análisis documental asistida por inteligencia artificial. Su objetivo es permitir a usuarios gestionar archivos, módulos funcionales, agentes de IA y análisis vectorial sobre fragmentos de documentos. Ofrece mecanismos de control de acceso, soporte para múltiples módulos AI y registro de metadatos enriquecidos.
+
+  <p align="center">
+    <img src="img/data-model.svg">
+  </p>
+
+  <div align="center" style="text-align:center;">
+    Modelo: <a href="https://raw.githubusercontent.com/jganggini/oracle-ai/187534d131828be7e586b4ee0dff4b816d218fde/oracle-ai-data-platform/img/data-model.svg">Mermaidchart</a>
+  </div> 
+
+  #### a) Table Description and Initial Content
 
   #### a.1) `USER_GROUP`
 
@@ -615,7 +710,7 @@ Este modelo de datos está diseñado para una plataforma de análisis documental
   - Índice: `docs_hnsw_idx` (similaridad coseno con precisión 95%)
   - Trigger y secuencia de auto-incremento activados
 
-#### b) Key Relationships
+  #### b) Key Relationships
 
   | Relación                         | Tipo     | Descripción                                        |
   |----------------------------------|----------|----------------------------------------------------|
@@ -626,11 +721,11 @@ Este modelo de datos está diseñado para una plataforma de análisis documental
   | `MODULES` ⟶ `FILES`             | 1:N      | Un módulo genera múltiples archivos.               |
   | `FILES` ⟶ `DOCS`                | 1:N      | Un archivo puede tener múltiples fragmentos.       |
 
-#### c) Additional Considerations
+  #### c) Additional Considerations
 
-- Las relaciones `*_USER` (`AGENT_USER`, `FILE_USER`) permiten control granular de permisos, incluyendo el campo `OWNER`.
-- `user_modules` permite flexibilidad al almacenar asignaciones como JSON en vez de una relación tradicional.
-- `DOCS.embedding` es un campo tipo `VECTOR`, lo que indica que este modelo soporta búsquedas semánticas o recuperación basada en similitud.
+  - Las relaciones `*_USER` (`AGENT_USER`, `FILE_USER`) permiten control granular de permisos, incluyendo el campo `OWNER`.
+  - `user_modules` permite flexibilidad al almacenar asignaciones como JSON en vez de una relación tradicional.
+  - `DOCS.embedding` es un campo tipo `VECTOR`, lo que indica que este modelo soporta búsquedas semánticas o recuperación basada en similitud.
 
 ## 📚 Development References with Python and Oracle
 

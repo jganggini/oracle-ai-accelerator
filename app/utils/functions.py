@@ -43,7 +43,8 @@ class FunctionService:
     
     @staticmethod
     def get_valid_url_path(file_name: str) -> str:
-        config = oci.config.from_file(profile_name=os.getenv('CON_OCI_PROFILE_NAME', 'DEFAULT'))
+        os.chdir(os.path.normpath(os.path.abspath(os.path.join(os.getcwd(), "..", "app"))))
+        config = oci.config.from_file()
         region = config["region"]
         
         return (
