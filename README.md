@@ -410,7 +410,7 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
   conda activate
   cd oracle-ai-data-platform
   cd setup
-  python setup.py
+  python setup.py --windows
   ```
 
   #### i) Manual Execution (app.py)
