@@ -67,3 +67,7 @@
     INSERT INTO agent_models (agent_model_id, agent_model_name, agent_model_type, agent_model_provider)
     VALUES (10, 'xai.grok-3-mini', 'llm', 'meta');
     --
+
+    INSERT INTO agent_models (agent_model_id, agent_model_name, agent_model_type, agent_model_provider)
+    VALUES (11, 'xai.grok-4', 'llm', 'meta');
+    --
