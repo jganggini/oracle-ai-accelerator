@@ -39,7 +39,7 @@ class GenerativeAIService:
             service_endpoint = os.getenv("CON_GEN_AI_SERVICE_ENDPOINT"),
             compartment_id   = os.getenv("CON_COMPARTMENT_ID"),
             provider         = str(df_agents["AGENT_MODEL_PROVIDER"].values[0]),
-            is_stream        = True,  # streaming de tokens si lo deseas
+            is_stream        = False,
             auth_type        = os.getenv("CON_GEN_AI_AUTH_TYPE"),
             model_kwargs     = {
                 "temperature" : float(df_agents["AGENT_TEMPERATURE"].values[0]),

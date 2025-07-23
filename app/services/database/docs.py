@@ -50,5 +50,10 @@ class DocService:
             model_id         = os.getenv('CON_GEN_AI_EMB_MODEL_ID'),
             service_endpoint = os.getenv('CON_GEN_AI_SERVICE_ENDPOINT'),
             compartment_id   = os.getenv('CON_COMPARTMENT_ID')
-        )        
-        return OracleVS(self.conn, embeddings, "docs")
+        )
+        
+        return OracleVS(
+            client             = self.conn,
+            embedding_function = embeddings,
+            table_name         = 'docs'
+        )

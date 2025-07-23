@@ -293,6 +293,7 @@ class AgentService:
     def update_agent(
             self,
             agent_id,
+            agent_model_id,
             agent_name,
             agent_description,
             agent_max_out_tokens,
@@ -324,6 +325,7 @@ class AgentService:
         with self.conn.cursor() as cur:
             cur.execute(f"""
                 UPDATE AGENTS SET 
+                    AGENT_MODEL_ID          = :agent_model_id,
                     AGENT_NAME              = :agent_name,
                     AGENT_DESCRIPTION       = :agent_description,
                     AGENT_MAX_OUT_TOKENS    = :agent_max_out_tokens,
@@ -335,6 +337,7 @@ class AgentService:
                     AGENT_STATE             = :state
                 WHERE AGENT_ID = :agent_id
             """, {
+                "agent_model_id": agent_model_id,
                 "agent_name": agent_name,
                 "agent_description": agent_description,
                 "agent_max_out_tokens": agent_max_out_tokens,

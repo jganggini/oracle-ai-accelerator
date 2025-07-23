@@ -225,6 +225,7 @@ if login:
                             else:
                                 msg = db_agent_service.update_agent(
                                     agent_data["AGENT_ID"],
+                                    selected_model_id,
                                     name,
                                     desc,
                                     max_tokens,
