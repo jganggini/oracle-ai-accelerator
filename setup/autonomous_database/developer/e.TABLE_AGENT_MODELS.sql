@@ -57,13 +57,13 @@
     --
     
     INSERT INTO agent_models (agent_model_id, agent_model_name, agent_model_type, agent_model_provider)
-    VALUES (8, 'xai.grok-3', 'llm', 'xai');
+    VALUES (8, 'xai.grok-3', 'llm', 'meta');
     --
 
     INSERT INTO agent_models (agent_model_id, agent_model_name, agent_model_type, agent_model_provider)
-    VALUES (9, 'xai.grok-3-fast', 'llm', 'xai');
+    VALUES (9, 'xai.grok-3-fast', 'llm', 'meta');
     --
 
     INSERT INTO agent_models (agent_model_id, agent_model_name, agent_model_type, agent_model_provider)
-    VALUES (10, 'xai.grok-3-mini', 'llm', 'xai');
+    VALUES (10, 'xai.grok-3-mini', 'llm', 'meta');
     --
