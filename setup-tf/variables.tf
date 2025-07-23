@@ -38,7 +38,7 @@ variable "region" {
 ############################################
 
 variable "_oci_bucket_name" {
-  description = "🪣 Bucket [variables.tf]"
+  description = "🪣 Bucket [variables.tf][⚠️ No changes required]"
   
   default = {
     name: "buk-oracle-ai",     # Nombre del bucket en Object Storage donde se almacenarán archivos.
@@ -51,7 +51,7 @@ variable "_oci_bucket_name" {
 ############################################
 
 variable "_oci_autonomous_database" {
-  description = "🗂️ Autonomous Database [variables.tf]"
+  description = "🗂️ Autonomous Database [variables.tf][⚠️ No changes required]"
 
   default = {
     db_name: "adb23ai"
@@ -149,7 +149,7 @@ EOT
 ############################################
 
 variable "_oci_vcn" {
-  description = "🌐 VCN [variables.tf]"
+  description = "🌐 VCN [variables.tf][⚠️ No changes required]"
 
   default = {
     display_name: "vcn-oracle-ai"   # Nombre del VCN
@@ -163,7 +163,7 @@ variable "_oci_vcn" {
 ############################################
 
 variable "_oci_instance" {
-  description = "🖥️ Instance [variables.tf]"
+  description = "🖥️ Instance [variables.tf][⚠️ No changes required]"
   
   default = {
     display_name: "oracle-linux-9-app"
