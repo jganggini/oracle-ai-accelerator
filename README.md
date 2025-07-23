@@ -495,12 +495,15 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
 
       ![config files](img/vm-stack.png)
 
+      Estos campos no se modifican desde el archivo [variables.tf](setup-tf/variables.tf):
+
+      - `_oci_autonomous_database`: Configuración de la base de datos. [⚠️ No changes required]
+      - `_oci_bucket_name`: Configuración del bucket. [⚠️ No changes required]
+      - `_oci_instance`: Configuración de la instancia. [⚠️ No changes required]
+      - `_oci_vcn`: Configuración de Red virtual (VCN). [⚠️ No changes required]
+      
       Complete los siguientes campos clave:
 
-      - `_oci_autonomous_database`: Configuración de la base de datos.
-      - `_oci_bucket_name`: Configuración del bucket.
-      - `_oci_instance`: Configuración de la instancia.
-      - `_oci_vcn`: Configuración de Red virtual (VCN).
       - `autonomous_database_admin_password`: Contraseña del usuario `ADMIN`.  
       - `autonomous_database_developer_password`: Contraseña del usuario `ADW23AI`.
       - `autonomous_database_wallet_password`: Contraseña del wallet.
@@ -508,7 +511,7 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
       - `region`: Nombre de la Región (ejemplo: `us-chicago-1`).
       - `tenancy_ocid`: OCID del Tenancy.
 
-      ⚠️ `Nota`: Las contraseñas deben tener entre 12–30 caracteres, incluir mayúsculas, minúsculas, números, y no contener `"admin"` ni comillas dobles (`"`).
+      💡 `Nota`: Las contraseñas deben tener entre 12–30 caracteres, incluir mayúsculas, minúsculas, números, y no contener `"admin"` ni comillas dobles (`"`).
 
     - Review:
 
