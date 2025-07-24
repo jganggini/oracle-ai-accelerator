@@ -491,27 +491,47 @@ Oracle AI Accelerator es una solución integral que permite gestionar y analizar
       - Create in compartment: `oracle-ai-demo`
       - `[Next]`
 
-    - Configure `Variables`:
+    - 🛠️ Configuración de `variables` del Stack:
+
+      Al crear el stack en Oracle Cloud, se presentará un formulario con varios campos que corresponden a configuraciones del entorno. Es importante saber **cuáles deben completarse manualmente y cuáles no**
 
       ![config files](img/vm-stack.png)
 
-      Estos campos no se modifican desde el archivo [variables.tf](setup-tf/variables.tf):
+      ### ⚠️ Campos que NO deben modificarse en la consola
 
-      - `_oci_autonomous_database`: Configuración de la base de datos. [⚠️ No changes required]
-      - `_oci_bucket_name`: Configuración del bucket. [⚠️ No changes required]
-      - `_oci_instance`: Configuración de la instancia. [⚠️ No changes required]
-      - `_oci_vcn`: Configuración de Red virtual (VCN). [⚠️ No changes required]
-      
-      Complete los siguientes campos clave:
+      Los siguientes campos están **configurados automáticamente** desde el archivo [`variables.tf`](setup-tf/variables.tf).
+      **No deben ser editados manualmente desde la consola web.**
 
-      - `autonomous_database_admin_password`: Contraseña del usuario `ADMIN`.  
-      - `autonomous_database_developer_password`: Contraseña del usuario `ADW23AI`.
-      - `autonomous_database_wallet_password`: Contraseña del wallet.
-      - `compartment_ocid`: OCID del Compartment.
-      - `region`: Nombre de la Región (ejemplo: `us-chicago-1`).
-      - `tenancy_ocid`: OCID del Tenancy.
+      | Campo                        | Descripción                                                 |
+      |------------------------------|-------------------------------------------------------------|
+      | `_oci_autonomous_database`   | Configuración completa de la base de datos autónoma         |
+      | `_oci_bucket_name`           | Nombre del bucket en Object Storage                         |
+      | `_oci_instance`              | Configuración de la instancia de cómputo (shape, RAM, etc.) |
+      | `_oci_vcn`                   | Configuración de red virtual (VCN y puertos permitidos)     |
 
-      💡 `Nota`: Las contraseñas deben tener entre 12–30 caracteres, incluir mayúsculas, minúsculas, números, y no contener `"admin"` ni comillas dobles (`"`).
+      **Estos valores ya están definidos por defecto en `variables.tf` y solo deben modificarse desde el código si es necesario.**
+
+      ### ✅ Campos que SÍ deben completarse manualmente
+
+      Estos campos **sí requieren ser completados** durante la creación del stack:
+
+      | Campo                                    | Descripción                                                                 |
+      |------------------------------------------|-----------------------------------------------------------------------------|
+      | `autonomous_database_admin_password`     | Contraseña del usuario `ADMIN` de la base de datos (12-30 caracteres, sin `"` ni "admin") |
+      | `autonomous_database_developer_password` | Contraseña del usuario `ADW23AI` (mismas restricciones que el admin)       |
+      | `autonomous_database_wallet_password`    | Contraseña para el wallet de la base de datos                              |
+      | `compartment_ocid`                       | OCID del Compartment donde se desplegarán los recursos                     |
+      | `region`                                 | Región donde se desplegará la infraestructura (ej. `us-chicago-1`)         |
+      | `tenancy_ocid`                           | OCID del Tenancy                                                           |
+
+      ## 📌 Recomendación
+
+      Para evitar errores de configuración:
+
+      - Modifica únicamente los valores solicitados en esta guía.
+      - Si necesitas cambiar configuraciones avanzadas (como shape de instancia o puertos), hazlo **directamente en `variables.tf`** antes de crear el stack.
+      - Si el campo tiene un nombre que comienza con guión bajo (`_oci_*`), **no lo toques en la consola**.
+      - Las contraseñas deben tener entre 12–30 caracteres, incluir mayúsculas, minúsculas, números, y no contener `"admin"` ni comillas dobles (`"`).
 
     - Review:
 
