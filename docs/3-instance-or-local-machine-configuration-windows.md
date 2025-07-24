@@ -7,7 +7,7 @@
   
   <a style="font-size:large;" href="/src/">👨🏽‍💻 Explore the Code »</a>
   <br/>
-  <a href="https://www.youtube.com/watch?v=6L1YmTRZNxM&list=PLMUWTQHw13gbk738EGtr0fWwi40B81qEw">🎬 View Demo</a>
+  <a href="https://youtube.com/playlist?list=PLMUWTQHw13gbqqVHaCid3gUBIlvfVKaBu&si=BphBR3Hq2y_EGmnF">🎬 View Demo</a>
   ·
   <a href="https://github.com/jganggini/oci-functions/issues">💣 Report Bug</a>
   ·
