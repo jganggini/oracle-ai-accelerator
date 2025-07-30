@@ -69,6 +69,7 @@ data "template_file" "user_data" {
       autonomous_database_wallet_password    = var.autonomous_database_wallet_password
       namespace                              = data.oci_objectstorage_namespace.ns.namespace
       bucket_name                            = oci_objectstorage_bucket.bucket.name
+      region                                 = var.region
     })
   }
 }
