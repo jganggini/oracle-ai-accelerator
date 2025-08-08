@@ -22,7 +22,7 @@
 
 Despliegue automatizado del proyecto en Oracle Cloud (OCI) usando Resource Manager sobre Linux. Incluye instalación de dependencias, configuración del entorno Conda, descarga del wallet y ejecución automática de la app Streamlit mediante `user_data.sh`.
 
-#### a) Create Compartment
+#### Paso 1: Crear el compartment
 
 - Ingrese a ➡️ `Compartments` ➡️ `Create Compartment`.
 - Cree un `compartment` para el proyecto.
@@ -31,9 +31,13 @@ Despliegue automatizado del proyecto en Oracle Cloud (OCI) usando Resource Manag
   - Parent Compartment: `Root Compartment`
   - `[Create]`
 
-#### b) Configuring Policies in Identity
+#### Paso 2: Crear las políticas para asignar permisos
 
 Si estás realizando pruebas o laboratorios en una cuenta trial de Oracle Cloud, puedes usar temporalmente la siguiente política para facilitar el acceso sin restricciones:
+
+- Ingrese a ➡️ `Identity & Security` ➡️ `Policies`
+- Seleccione `Create Policy` y asigne cualquier nombre y cualquier descripción.
+- Si hace clic en el botón `Show manual editor` se abrirá un pequeño panel donde puede pegar la siguiente política.
 
 ```plaintext
 Allow any-user to manage all-resources in compartment oracle-ai-demo
@@ -41,15 +45,29 @@ Allow any-user to manage all-resources in compartment oracle-ai-demo
 
 💡 `Nota`: Esta política otorga permisos completos a todos los usuarios autenticados sobre todos los recursos en el tenancy, por lo que debe utilizarse únicamente en entornos controlados, personales y no compartidos. Se recomienda eliminarla una vez finalizadas las pruebas para evitar acciones accidentales o un consumo innecesario de recursos que puedan agotar tu crédito trial.
 
-#### c) Generate API Key
+#### Paso 3: Descargar el repositorio
 
-- Ingrese a ➡️ `Identity` ➡️ `profile`
+Clone el Repositorio usando git
+```bash
+  git clone https://github.com/jganggini/oracle-ai-accelerator.git
+```
+
+o descarguelo abriendo [esta url](https://github.com/jganggini/oracle-ai-accelerator) y haciendo clic en `Download ZIP`.
+
+![download_repo](./images/download_repo.png)
+
+#### Paso 4: Generar la key
+
+- Ingrese a ➡️ `Identity & Security` ➡️ `profile`
 - Seleccione su usuario.
 - Ingrese a ➡️ `Tokens and keys` ➡️ `Add API Key` ➡️ `Generate API Key pair` ➡️ `[Download private key]`
   - Seleccione `[Add]`
   - Seleccione `[Copy]`
   
-  - Cree el archivo `config` con el contenido copiado:
+  - Copie el texto de configuración `config` sin la última línea
+
+> 🚨 La última línea corresponde a la ruta en la instancia virtual, entonces la última línea debe mantenerse con la ruta /home/opc/.oci/key.pem
+
   ```plaintext
   [DEFAULT]
   user=ocid1.user.oc1..***********
@@ -59,13 +77,18 @@ Allow any-user to manage all-resources in compartment oracle-ai-demo
   key_file=/home/opc/.oci/key.pem
   ```
 
-- Copie el archivo [config](setup-tf/config) y  [key.pem](setup-tf/key.pem) descargado en:
+En el respositorio descargado encontrará una carpeta setup-tf.
+
+- Copie el texto de configuración [config](setup-tf/config) en
   ```plaintext
   .\setup-tf\.oci\config
+  ```
+- Sobreescriba el archivo key.pem en la siguiente ruta por el archivo descargado `.pem`.
+  ```plaintext
   .\setup-tf\.oci\key.pem
   ```
 
-  Debera de quedar de la siguiente manera:
+  El folder debería quedar de la siguiente manera:
 
   ![config files](../img/vw-setup-tf-config.png)
 
@@ -132,6 +155,20 @@ Allow any-user to manage all-resources in compartment oracle-ai-demo
     - Run apply on the created stack?: `Run apply`
     - `[Create]`
 
+
+#### e) Ingreso a la app
+
+Si el stack fue creado correctamente, los últimos logs mostrarán una url
+
+![logs](./images/logs.png)
+
+Esta url muestra una app a la que puede acceder usando las siguientes credenciales.
+
+```plaintext
+user: admin
+password: admin
+```
+![app](./images/app_start.png)
 
 
 ---
