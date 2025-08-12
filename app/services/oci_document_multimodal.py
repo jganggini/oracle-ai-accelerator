@@ -45,7 +45,8 @@ class DocumentMultimodalService:
             user_id,
             agent_id,
             file_id,
-            username
+            username,
+            trg_type
         ):
         """
         Sends a document to the OCI Document Understanding service for processing.
@@ -79,10 +80,13 @@ class DocumentMultimodalService:
         data = DocumentMultimodalService.get_extraction(user_id, agent_id, output_directory)
 
         # Construct paths for processed objects
-        processed_object_md = f"{object_name.rsplit('.', 1)[0]}_trg.md"
+        processed_object = f"{object_name.rsplit('.', 1)[0]}_trg.{trg_type.lower()}"
         
-        #
-        bucket_service.upload_file(processed_object_md, data)
+        # If the target file type is JSON, clean markdown formatting if present
+        data = data.replace("```json", "").replace("```", "").strip() if trg_type.upper() == "JSON" and isinstance(data, str) else data
+        
+        # Codificar a UTF-8 para evitar errores con caracteres Unicode
+        bucket_service.upload_file(processed_object, data.encode('utf-8'))
         
         # Process file extraction
         msg = file_service.update_extraction(file_id, data)
@@ -92,7 +96,7 @@ class DocumentMultimodalService:
         msg = doc_service.vector_store(file_id)
         component.get_toast(msg, ":material/database:")
         
-        mg = f"[AI Document Multimodal] Module executed successfully."
+        mg = f"[AI Document Multimodal][{processed_object}] Module executed successfully."
         return mg, data
 
     def single_page(object_name, file_extension, output_directory, msg: bool = False):
@@ -151,6 +155,61 @@ class DocumentMultimodalService:
         if msg:
             component.get_toast("The file was processed successfully.", ":material/description:")
             
+    @staticmethod
+    def get_extraction(user_id, agent_id, output_directory):
+        # Filter modules by user and conditions
+        df_agents = df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=True)[lambda df: (df["AGENT_ID"].isin([agent_id]))]
+        
+        # Initialize the LLM model with configuration from the selected agent
+        llm = ChatOCIGenAI(
+            model_id         = str(df_agents["AGENT_MODEL_NAME"].values[0]),
+            service_endpoint = os.getenv("CON_GEN_AI_SERVICE_ENDPOINT"),
+            compartment_id   = os.getenv("CON_COMPARTMENT_ID"),
+            provider         = str(df_agents["AGENT_MODEL_PROVIDER"].values[0]),
+            is_stream        = False,
+            auth_type        = os.getenv("CON_GEN_AI_AUTH_TYPE"),
+            model_kwargs = {
+                "max_tokens"        : int(df_agents["AGENT_MAX_OUT_TOKENS"].values[0]),
+                "temperature"       : float(df_agents["AGENT_TEMPERATURE"].values[0]),
+                "top_p"             : float(df_agents["AGENT_TOP_P"].values[0]),
+                "top_k"             : int(df_agents["AGENT_TOP_K"].values[0]),
+                "frequency_penalty" : float(df_agents["AGENT_FREQUENCY_PENALTY"].values[0]),
+                "presence_penalty"  : float(df_agents["AGENT_PRESENCE_PENALTY"].values[0])
+            }
+        )
+
+        #
+        prompt_template = ChatPromptTemplate.from_messages(
+            [
+                ("system", str(df_agents["AGENT_PROMPT_SYSTEM"].values[0])),
+                ("user",
+                    [
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": "data:image/jpeg;base64,{input_imagen}"},
+                            "detail": "high",
+                        }
+                    ]
+                ),
+            ]
+        )
+        
+        #
+        chain = prompt_template | llm | StrOutputParser()
+
+        #
+        base64_images = utl_function_service.encode_images_to_base64(output_directory)
+
+        result = chain.batch(
+            [{"input_imagen": input_imagen} for input_imagen in base64_images],
+            max_concurrency=2
+        )
+
+        # Combine Markdown content from all pages
+        markdown_output = "".join(result)
+        
+        return markdown_output
+
 
     def doble_page(object_name, output_directory, msg: bool = False):
         """
@@ -230,57 +289,4 @@ class DocumentMultimodalService:
 
         return data
 
-    @staticmethod
-    def get_extraction(user_id, agent_id, output_directory):
-        # Filter modules by user and conditions
-        df_agents = df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=True)[lambda df: (df["AGENT_ID"].isin([agent_id]))]
-        
-        # Initialize the LLM model with configuration from the selected agent
-        llm = ChatOCIGenAI(
-            model_id         = str(df_agents["AGENT_MODEL_NAME"].values[0]),
-            service_endpoint = os.getenv("CON_GEN_AI_SERVICE_ENDPOINT"),
-            compartment_id   = os.getenv("CON_COMPARTMENT_ID"),
-            provider         = str(df_agents["AGENT_MODEL_PROVIDER"].values[0]),
-            is_stream        = False,
-            auth_type        = os.getenv("CON_GEN_AI_AUTH_TYPE"),
-            model_kwargs = {
-                "max_tokens"        : int(df_agents["AGENT_MAX_OUT_TOKENS"].values[0]),
-                "temperature"       : float(df_agents["AGENT_TEMPERATURE"].values[0]),
-                "top_p"             : float(df_agents["AGENT_TOP_P"].values[0]),
-                "top_k"             : int(df_agents["AGENT_TOP_K"].values[0]),
-                "frequency_penalty" : float(df_agents["AGENT_FREQUENCY_PENALTY"].values[0]),
-                "presence_penalty"  : float(df_agents["AGENT_PRESENCE_PENALTY"].values[0])
-            }
-        )
-
-        #
-        prompt_template = ChatPromptTemplate.from_messages(
-            [
-                ("system", str(df_agents["AGENT_PROMPT_SYSTEM"].values[0])),
-                ("user",
-                    [
-                        {
-                            "type": "image_url",
-                            "image_url": {"url": "data:image/jpeg;base64,{input_imagen}"},
-                            "detail": "high",
-                        }
-                    ]
-                ),
-            ]
-        )
-        
-        #
-        chain = prompt_template | llm | StrOutputParser()
-
-        #
-        base64_images = utl_function_service.encode_images_to_base64(output_directory)
-
-        result = chain.batch(
-            [{"input_imagen": input_imagen} for input_imagen in base64_images],
-            max_concurrency=2
-        )
-
-        # Combine Markdown content from all pages
-        markdown_output = "".join(result)
-        
-        return markdown_output
+ 

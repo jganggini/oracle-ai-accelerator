@@ -71,6 +71,8 @@ class BucketService:
             Response object or error message.
         """
         try:
+            response = None
+            
             name_from_path = utl_function_service.get_name_from_path(object_name)
             
             # Delete the file from the specified bucket
@@ -88,6 +90,9 @@ class BucketService:
                 component.get_error(f"[Error] Deleting Object:\n{response}")
                 return True
         except Exception as e:
+            if e.status == 404:
+                component.get_error(f"[Warning] Deleting Object:\nThe object '{object_name}' does not exist in bucket.", ":material/warning:")
+                return True
             component.get_error(f"[Error] Deleting Object:\n{e}")
             return False
 

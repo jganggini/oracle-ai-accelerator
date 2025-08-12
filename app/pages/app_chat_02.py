@@ -22,6 +22,8 @@ component.get_footer()
 float_init()
 
 if login:
+    st.set_page_config(layout="centered")
+    
     # Header and description for the application
     st.header(":material/plagiarism: Select AI RAG")
     st.caption("Select AI with RAG in Oracle Autonomous Database integrates large language models with data retrieval, enabling context-aware text generation and enhancing SQL workflows with accurate, AI-driven insights.")

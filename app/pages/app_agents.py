@@ -10,6 +10,11 @@ db_module_service = database.ModuleService()
 db_agent_service = database.AgentService()
 db_user_service = database.UserService()
 
+st.set_page_config(
+    page_title="Oracle AI Accelerator: Agents",
+    page_icon="🅾️",
+)
+
 login = component.get_login()
 component.get_footer()
 
@@ -22,6 +27,8 @@ if "show_form_agents" not in st.session_state:
     st.session_state["selected_agent"] = None
 
 if login:
+    st.set_page_config(layout="wide")
+    
     st.header(":material/smart_toy: Agents")
     st.caption("Manage agents for model.")
 
@@ -39,40 +46,51 @@ if login:
                 st.info("No agents found.")
             else:
                 df_view = df_agents.copy()
-                df_view["Edit"] = False
-                df_view["Share"] = False
-                df_view["Delete"] = False
-
-                df_display = df_view[["AGENT_ID", "AGENT_NAME", "AGENT_DESCRIPTION", "AGENT_USERS", "AGENT_DATE", "USER_ID_OWNER", "USER_ID", "OWNER", "USER_EMAIL", "USER_USERNAME", "Edit", "Share","Delete"]]
+                df_view["Select"] = False
                 
                 edited_df = st.data_editor(
-                    df_display,
-                    key="data-agent-list",
-                    column_config={                        
-                        "USER_EMAIL": None,
-                        "OWNER": None,
-                        "USER_ID_OWNER": None,
-                        "USER_ID": None,
-                        "AGENT_ID": st.column_config.Column("ID", disabled=True),
-                        "AGENT_NAME": st.column_config.Column("Name", disabled=True),
-                        "AGENT_DESCRIPTION": st.column_config.Column("Description", disabled=True),
-                        "USER_USERNAME": st.column_config.Column("Owner", disabled=True),
-                        "AGENT_USERS": st.column_config.Column("Share", disabled=True),
-                        "AGENT_DATE": st.column_config.Column("Change", disabled=True),
-                        "Edit": st.column_config.CheckboxColumn("Edit"),
-                        "Share": st.column_config.CheckboxColumn("Share"),
-                        "Delete": st.column_config.CheckboxColumn("Delete")
-                    },
+                    df_view,
                     use_container_width=True,
-                    hide_index=True
+                    hide_index=True,
+                    num_rows="fixed",
+                    key="data-agent-list",
+                    column_config={
+                        "AGENT_MODEL_ID"    : None,
+                        "AGENT_MODEL_NAME"  : None,
+                        "AGENT_MODEL_TYPE"  : None,
+                        "AGENT_MODEL_PROVIDER" : None,
+                        "USER_EMAIL"        : None,
+                        "OWNER"             : None,
+                        "USER_ID_OWNER"     : None,
+                        "USER_ID"           : None,
+                        "AGENT_MAX_OUT_TOKENS" : None,
+                        "AGENT_TEMPERATURE" : None,
+                        "AGENT_TOP_P"       : None,
+                        "AGENT_TOP_K"       : None,
+                        "AGENT_FREQUENCY_PENALTY" : None,
+                        "AGENT_PRESENCE_PENALTY"  : None,
+                        "AGENT_PROMPT_SYSTEM"     : None,
+                        "AGENT_PROMPT_MESSAGE"    : None,
+                        "AGENT_STATE"             : None,
+                        "AGENT_STATE"       : None,
+                        "USER_GROUP_ID"     : None,
+                        "AGENT_ID"          : st.column_config.Column("ID", disabled=True),
+                        "AGENT_NAME"        : st.column_config.Column("Name", disabled=True),
+                        "AGENT_DESCRIPTION" : st.column_config.Column("Description", disabled=True),
+                        "AGENT_TYPE"        : st.column_config.Column("Type", disabled=True),
+                        "USER_USERNAME"     : st.column_config.Column("Owner", disabled=True),
+                        "AGENT_USERS"       : st.column_config.Column("Share", disabled=True),
+                        "AGENT_DATE"        : st.column_config.Column("Change", disabled=True),
+                        "Select"            : st.column_config.CheckboxColumn("Select", help="Select Record", default=False)
+                    }
                 )
+                
+                btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([0.1, 0.1, 0.1, 0.7])
 
-                btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([2, 2.2, 2.2, 3.8])
-
-                if btn_col1.button("Edit", type="secondary", use_container_width=True, icon=":material/edit:"):
-                    rows = edited_df[edited_df["Edit"]]
+                if btn_col1.button(key="Edit", help="Edit", label="", type="secondary", use_container_width=True, icon=":material/edit:"):
+                    rows = edited_df[edited_df["Select"]]
                     if rows.empty:
-                        st.warning("Please select at least one agent to edit.")
+                        st.warning("Please select at least one agent to edit.", icon=":material/add_alert:")
                     else:
                         agent_id = rows.iloc[0]["AGENT_ID"]
                         data = df_view[df_view["AGENT_ID"] == agent_id].iloc[0].to_dict()
@@ -83,8 +101,8 @@ if login:
                         })
                         st.rerun()
 
-                if btn_col2.button("Share", type="secondary", use_container_width=True, icon=":material/share:"):
-                    rows = edited_df[edited_df["Share"] == True]
+                if btn_col2.button(key="Share", help="Share", label="", type="secondary", use_container_width=True, icon=":material/share:"):
+                    rows = edited_df[edited_df["Select"] == True]
                     
                     if rows.empty:
                         st.warning("Please select at least one agent to share.", icon=":material/add_alert:")
@@ -106,9 +124,9 @@ if login:
                             })
                             st.rerun()
 
-                if btn_col3.button("Delete", type="secondary", use_container_width=True, icon=":material/delete:"):
+                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", use_container_width=True, icon=":material/delete:"):
                     try:
-                        rows_to_edit = edited_df[edited_df["Delete"] == True]
+                        rows_to_edit = edited_df[edited_df["Select"] == True]
                         if rows_to_edit.empty:
                             st.warning("Please select at least one agent to delete.", icon=":material/add_alert:")
                         else:
@@ -162,25 +180,14 @@ if login:
                     "AGENT_PROMPT_SYSTEM": "",
                     "AGENT_PROMPT_MESSAGE": ""
                 } if mode == "create" else st.session_state["selected_agent"]
+                
+                col1, col2 = st.columns([0.3, 0.7])
 
-                name = st.text_input("Name", value=agent_data["AGENT_NAME"], disabled=(mode == "edit"))
-                desc = st.text_input("Description", value=agent_data["AGENT_DESCRIPTION"])
-
-                agent_type = st.selectbox("Agent Type", ["Chat", "Extraction"], index=0 if agent_data["AGENT_TYPE"] == "Chat" else 1)
-                filtered_models = df_models if agent_type == "Chat" else df_models[df_models["AGENT_MODEL_TYPE"] == "vlm"]
-
-                model_ids = filtered_models["AGENT_MODEL_ID"].tolist()
-                model_index = model_ids.index(agent_data["AGENT_MODEL_ID"]) if agent_data["AGENT_MODEL_ID"] in model_ids else 0
-
-                selected_model_id = st.selectbox(
-                    "Which model would you like to use?",
-                    options=model_ids,
-                    index=model_index,
-                    format_func=lambda mid: f"{mid}: {filtered_models.loc[filtered_models['AGENT_MODEL_ID'] == mid, 'AGENT_MODEL_NAME'].values[0]}"
-                )
-
-                col1, col2 = st.columns([0.4, 0.6])
                 with col1:
+                    name = st.text_input("Name", value=agent_data["AGENT_NAME"], disabled=(mode == "edit"))
+
+                    desc = st.text_area("Description", value=agent_data["AGENT_DESCRIPTION"], height=110)
+                    
                     st.caption("Parameters")
                     max_tokens = st.number_input("Max Tokens", 1, 4000, int(agent_data["AGENT_MAX_OUT_TOKENS"]))
                     temp = st.number_input("Temperature", 0.0, 1.0, float(agent_data["AGENT_TEMPERATURE"]), step=0.1)
@@ -189,12 +196,32 @@ if login:
                     freq_penalty = st.number_input("Frequency Penalty", -2.0, 2.0, float(agent_data["AGENT_FREQUENCY_PENALTY"]), step=0.1)
                     pres_penalty = st.number_input("Presence Penalty", -2.0, 2.0, float(agent_data["AGENT_PRESENCE_PENALTY"]), step=0.1)
 
+
                 with col2:
+                    
+                    col3, col4 = st.columns(2)
+
+                    with col3:
+                        agent_type = st.selectbox("Agent Type", ["Chat", "Extraction"], index=0 if agent_data["AGENT_TYPE"] == "Chat" else 1)
+
+                    with col4:
+                        filtered_models = df_models if agent_type == "Chat" else df_models[df_models["AGENT_MODEL_TYPE"] == "vlm"]
+
+                        model_ids = filtered_models["AGENT_MODEL_ID"].tolist()
+                        model_index = model_ids.index(agent_data["AGENT_MODEL_ID"]) if agent_data["AGENT_MODEL_ID"] in model_ids else 0
+                        
+                        selected_model_id = st.selectbox(
+                            "Which model would you like to use?",
+                            options=model_ids,
+                            index=model_index,
+                            format_func=lambda mid: f"{mid}: {filtered_models.loc[filtered_models['AGENT_MODEL_ID'] == mid, 'AGENT_MODEL_NAME'].values[0]}"
+                        )
+
                     if agent_type == "Chat":
                         prompt_sys = st.text_area("Agent Prompt System", value=agent_data["AGENT_PROMPT_SYSTEM"], height=110, max_chars=4000)
-                        prompt_msg = st.text_area("Agent Prompt Message", value=agent_data["AGENT_PROMPT_MESSAGE"], height=341, max_chars=4000, help="{context}")
+                        prompt_msg = st.text_area("Agent Prompt Message", value=agent_data["AGENT_PROMPT_MESSAGE"], height=527, max_chars=4000, help="{context}")
                     else:
-                        prompt_sys = st.text_area("Agent Prompt System", value=agent_data["AGENT_PROMPT_SYSTEM"], height=496, max_chars=4000)
+                        prompt_sys = st.text_area("Agent Prompt System", value=agent_data["AGENT_PROMPT_SYSTEM"], height=652, max_chars=4000)
                         prompt_msg = ""
 
                 btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
@@ -234,6 +261,7 @@ if login:
                                     top_k,
                                     freq_penalty,
                                     pres_penalty,
+                                    prompt_sys,
                                     reverse_map_agent_state.get(agent_data.get("Status", "Active"), 1)
                                 )
                                 component.get_success(msg, ":material/update:")

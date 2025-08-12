@@ -23,6 +23,8 @@ if "show_form" not in st.session_state:
     st.session_state["selected_group"] = None
 
 if login:
+    st.set_page_config(layout="centered")
+    
     st.header(":material/group: User Groups")
     st.caption("Manage user groups.")
 

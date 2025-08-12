@@ -23,6 +23,8 @@ component.get_footer()
 float_init()
 
 if login:
+    st.set_page_config(layout="centered")
+    
     # Header and description for the application
     st.header(":material/database_search: Select AI")
     st.caption("This application leverages Retrieval-Augmented Generation (RAG) with Oracle 23ai and Deepseek-R1 to retrieve relevant information from a vector database and generate accurate responses using LLMs.")

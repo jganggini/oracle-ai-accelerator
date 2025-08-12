@@ -23,6 +23,8 @@ reverse_map_user_state = {v: k for k, v in map_user_state.items()}
 
 # Check if session is authenticated
 if login:
+    st.set_page_config(layout="centered")
+    
     st.header(":material/settings_account_box: Users")
 
     # Load data from database

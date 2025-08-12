@@ -19,6 +19,8 @@ login = component.get_login()
 component.get_footer()
 
 if login:
+    st.set_page_config(layout="centered")
+    
     st.header(":material/upload_file: Profile")
     st.caption("Manage profile.")
 

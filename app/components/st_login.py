@@ -38,9 +38,8 @@ def get_menu(modules, user):
     with st.sidebar:
         st.image("images/st_pages.gif")
         
-        with st.expander("Capabilities"):
-            st.text("Enter a new era of productivity with generative AI capabilities built for business. Innovate with your choice of open source or proprietary large language models (LLMs). Leverage AI embedded as you need it across the full stack—apps, infrastructure, and more.")    
-        
+        st.subheader(":red[Oracle AI] Accelerator", divider="red")
+
         st.write(f"Hi, **:blue-background[{user}]**")
 
         # Always shown links
@@ -68,10 +67,11 @@ def get_menu(modules, user):
         
         
         st.page_link("pages/app_profile.py", label="Profile", icon=":material/manage_accounts:")
-        
 
         # Sign out button
         if st.button(":material/exit_to_app: Sign out", type="secondary"):
+            st.set_page_config(layout="centered")
+            st.set_page_config(initial_sidebar_state="collapsed")
             st.cache_data.clear()
             st.cache_resource.clear()
             st.session_state.clear()

@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 from datetime import datetime
 import asyncio
+import requests
+from PIL import Image
+from io import BytesIO
 
 import components as component
 import services.database as database
@@ -41,7 +44,7 @@ reverse_map_state = {v: k for k, v in map_state.items()}
 
 st.set_page_config(
     page_title="Oracle AI Accelerator",
-    page_icon="🅾️"
+    page_icon="🅾️",
 )
 
 component.get_login()
@@ -57,6 +60,8 @@ if "show_form_app" not in st.session_state:
 if "username" in st.session_state and "user_id" in st.session_state:
     st.header(":material/book_ribbon: Knowledge")
     st.caption("Manage Knowledge")
+    st.set_page_config(layout="wide")
+    st.set_page_config(initial_sidebar_state="expanded")
         
     username = st.session_state["username"]
     user_id = st.session_state["user_id"]
@@ -80,52 +85,50 @@ if "username" in st.session_state and "user_id" in st.session_state:
             else:
                 df_view = df_files.copy()
                 df_view["Status"] = df_view["FILE_STATE"].map(map_state)
-                df_view["View"] = False
-                df_view["Share"] = False
-                df_view["Delete"] = False                
+                df_view["Select"] = False          
 
                 edited_df = st.data_editor(
                     df_view,
                     use_container_width=True,
                     hide_index=True,
                     num_rows="fixed",
+                    key="data-files-list",
                     column_config={
-                        "USER_ID" : None,
-                        "MODULE_ID"      : None,
-                        "FILE_STATE"     : None,
-                        "FILE_SRC_SIZE"  : None,
-                        "FILE_SRC_STRATEGY": None,
-                        "MODULE_VECTOR_STORE": None,
-                        "FILE_TRG_OBJ_NAME": None,
-                        "FILE_TRG_TOT_PAGES": None,
-                        "FILE_TRG_TOT_CHARACTERS": None,
-                        "FILE_TRG_TOT_TIME": None,
-                        "FILE_TRG_LANGUAGE": None,
-                        "FILE_TRG_PII": None,
-                        "FILE_TRG_EXTRACTION": None,
-                        "OWNER": None,
-                        "FILE_DESCRIPTION": None,
-                        "USER_EMAIL": None,
-                        "USER_GROUP_ID": None,
-                        "USER_ID_OWNER": None,
-                        "FILE_ID": st.column_config.Column("ID", disabled=True),
-                        "MODULE_NAME": st.column_config.Column("Module", disabled=True),
-                        "FILE_SRC_FILE_NAME": st.column_config.LinkColumn("File", display_text=r".*/(.+)$", disabled=True),
-                        "USER_USERNAME": st.column_config.Column("Owner", disabled=True),
-                        "FILE_USERS": st.column_config.Column("Share", disabled=True),
-                        "FILE_DATE": st.column_config.Column("Change", disabled=True),
-                        "FILE_VERSION": st.column_config.Column("Ver.", disabled=True),
-                        "Status": st.column_config.Column("Status", disabled=True),
-                        "Share": st.column_config.CheckboxColumn("Share", help="Check to share file", default=False),
-                        "View": st.column_config.CheckboxColumn("View", help="Check to view file details", default=False),
-                        "Delete": st.column_config.CheckboxColumn("Delete", help="Check to delete this file", default=False)
+                        "USER_ID"             : None,
+                        "MODULE_ID"           : None,
+                        "FILE_STATE"          : None,
+                        "FILE_SRC_SIZE"       : None,
+                        "FILE_SRC_STRATEGY"   : None,
+                        "MODULE_VECTOR_STORE" : None,
+                        "FILE_TRG_OBJ_NAME"   : None,
+                        "FILE_TRG_TOT_PAGES"  : None,
+                        "FILE_TRG_TOT_CHARACTERS" : None,
+                        "FILE_TRG_TOT_TIME"   : None,
+                        "FILE_TRG_LANGUAGE"   : None,
+                        "FILE_TRG_PII"        : None,
+                        "FILE_TRG_EXTRACTION" : None,
+                        "OWNER"               : None,
+                        "FILE_DESCRIPTION"    : None,
+                        "USER_EMAIL"          : None,
+                        "USER_GROUP_ID"       : None,
+                        "USER_ID_OWNER"       : None,
+                        "FILE_ID"             : st.column_config.Column("ID", disabled=True),
+                        "MODULE_NAME"         : st.column_config.Column("Module", disabled=True),
+                        "FILE_SRC_FILE_NAME"  : st.column_config.LinkColumn("Source File", display_text=r".*/(.+)$", disabled=True),
+                        "FILE_TRG_OBJ_NAME"   : st.column_config.LinkColumn("Target File", display_text=r".*/(.+)$", disabled=True),
+                        "USER_USERNAME"       : st.column_config.Column("Owner", disabled=True),
+                        "FILE_USERS"          : st.column_config.Column("Share", disabled=True),
+                        "FILE_DATE"           : st.column_config.Column("Change", disabled=True),
+                        "FILE_VERSION"        : st.column_config.Column("Ver.", disabled=True),
+                        "Status"              : st.column_config.Column("Status", disabled=True),
+                        "Select"              : st.column_config.CheckboxColumn("Select", help="Select Record", default=False)
                     }
                 )
 
-                btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([2, 2.2, 2.2, 3.8])
+                btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([0.1, 0.1, 0.1, 0.7])
                 
-                if btn_col1.button("View", type="secondary", use_container_width=True, icon=":material/table_eye:"):
-                    rows_to_edit = edited_df[edited_df["View"] == True]
+                if btn_col1.button(key="View", help="View", label="", type="secondary", use_container_width=True, icon=":material/table_eye:"):
+                    rows_to_edit = edited_df[edited_df["Select"] == True]
                     if rows_to_edit.empty:
                         st.warning("Please select at least one file to view.", icon=":material/add_alert:")
                     else:
@@ -139,8 +142,8 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             })
                             st.rerun()
 
-                if btn_col2.button("Share", type="secondary", use_container_width=True, icon=":material/share:"):
-                    rows = edited_df[edited_df["Share"] == True]
+                if btn_col2.button(key="Share", help="Share", label="", type="secondary", use_container_width=True, icon=":material/share:"):
+                    rows = edited_df[edited_df["Select"] == True]
 
                     if rows.empty:
                         st.warning("Please select at least one file to share.", icon=":material/add_alert:")
@@ -177,9 +180,9 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             st.rerun()
 
                 
-                if btn_col3.button("Delete", type="secondary", use_container_width=True, icon=":material/delete:"):
+                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", use_container_width=True, icon=":material/delete:"):
                     try:
-                        rows_to_edit = edited_df[edited_df["Delete"] == True]
+                        rows_to_edit = edited_df[edited_df["Select"] == True]
                         if rows_to_edit.empty:
                             st.warning("Please select at least one file to delete.", icon=":material/add_alert:")
                         else:
@@ -286,7 +289,15 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         elif selected_uploaded == "Record":
                             uploaded_record = st.audio_input("Record a voice message")
 
-                    elif selected_module_id != 6:
+                    elif selected_module_id == 5:
+                        uploaded_files = st.file_uploader(
+                            "Choose a File",
+                            type=selected_src_types,
+                            help="Limit 200MB",
+                            accept_multiple_files=True
+                        )
+                    
+                    elif selected_module_id not in [5, 6]:
                         uploaded_files = st.file_uploader(
                             "Choose a File",
                             type=selected_src_types,
@@ -383,7 +394,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             st.session_state.transcription_state = "idle"  # "idle", "starting", "running", "stopped"
 
                         # Botones de control
-                        btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([2, 2, 2, 4])
+                        st.columns([0.1, 0.1, 0.1, 0.7])
 
                         # Botón Start
                         start_disabled = st.session_state.transcription_state == "stopped" or st.session_state.transcription_state == "idle"
@@ -422,8 +433,6 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                 service.start_realtime_session(display_transcription_final, display_transcription_partial, language)
                             )
 
-
-
                     file_description = st.text_area("File Description")                    
 
                     # ← CAMBIO: Preparar lista de items a procesar: uno(s) archivo(s) o la grabación
@@ -433,8 +442,8 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         if selected_uploaded == "File":
                             files_to_process = uploaded_files if isinstance(uploaded_files, list) else [uploaded_files]
                         elif selected_uploaded == "Record":
-                            files_to_process = [uploaded_record] if uploaded_record else []
-
+                            files_to_process = [uploaded_record] if uploaded_record else []  
+                                        
                     elif selected_module_id == 6:
                         # Leer archivo JSON como entrada
                         if json_path.exists() and json_path.stat().st_size > 0:
@@ -462,7 +471,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                     # ← CAMBIO: iteramos sobre cada archivo/grabación
                     for uploaded_file in files_to_process:
 
-                        # Get file extension
+                        # Module: [6] Get file extension
                         if selected_module_id == 6:
                             file_extension = "json"
                         elif selected_uploaded == "Record":
@@ -471,23 +480,6 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             file_extension = uploaded_file.name.rsplit(".", 1)[-1].lower()
                         else:
                             file_extension = ""
-                        
-                        # Module: [5] Multi-Modal RAG
-                        if selected_module_id == 5:
-                            if file_extension == "pdf":
-                                # Validar número de páginas
-                                pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
-                                if len(pdf_document) > 2:
-                                    component.get_error("Only PDF documents with 2 pages or less are allowed.")
-                                    pdf_document.close()
-                                    uploaded_file = None
-                                else:
-                                    pdf_document.close()
-                
-                            file_src_strategy = st.radio(
-                                "What strategy do you prefer to implement?",
-                                options=["Single", "Double"] if file_extension == "pdf" else ["Single"]
-                            )                    
                         
                         # Module: [2] Select IA
                         if (file_extension == "csv") and (selected_module_id == 1):
@@ -650,7 +642,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                             file_trg_language       = language_map[selected_language_file]
                                         case 5:
                                             object_name = bucket_file_name
-                                            strategy    = file_src_strategy
+                                            strategy    = "Single"
                                             agent_id    = selected_agent_id
                                             msg_module, data = document_multimodal.create(
                                                 object_name,
@@ -658,7 +650,8 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                                 user_id,
                                                 agent_id,
                                                 file_id,
-                                                username
+                                                username,
+                                                trg_type
                                             )
                                             file_trg_obj_name       = file_trg_obj_name
                                             file_trg_tot_pages      = 1
@@ -748,9 +741,10 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                     db_module_service.get_modules_files_cache(user_id, force_update=True)
                                     db_file_service.get_all_files_cache(user_id, force_update=True)
 
-                                    component.get_success(msg_module)
-                                    st.session_state["show_form_app"] = False
-                                    st.rerun()
+                                component.get_success(msg_module)
+
+                            st.session_state["show_form_app"] = False
+                            st.rerun()
 
                         except Exception as e:
                             component.get_error(f"[Error] Uploading File:\n{e}")
@@ -786,8 +780,25 @@ if "username" in st.session_state and "user_id" in st.session_state:
                 st.text_input("Input", value=data["FILE_SRC_FILE_NAME"], disabled=True)
                 st.text_input("Output", value=data["FILE_TRG_OBJ_NAME"], disabled=True)
                 st.text_input("Description", value=data["FILE_DESCRIPTION"], disabled=True)
-                st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=500)
-                
+
+                # Mostrar texto + imagen en columnas solo si el módulo es 5
+                if data["MODULE_ID"] == 5:
+                    col_image, col_text = st.columns([0.4, 0.6])
+
+                    with col_image:
+                        try:
+                            response = requests.get(data["FILE_SRC_FILE_NAME"], timeout=10)
+                            if response.status_code == 200:
+                                st.image(Image.open(BytesIO(response.content)))
+                        except Exception as e:
+                            st.error(f"Error cargando imagen: {e}")
+                    with col_text:
+                        st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=840)
+                    
+
+                else:
+                    st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=500)
+
                 btn_col1, btn_col2 = st.columns([2.2, 8])
 
                 if btn_col1.button("Cancel", use_container_width=True):

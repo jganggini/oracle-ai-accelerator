@@ -302,6 +302,7 @@ class AgentService:
             agent_top_k,
             agent_frequency_penalty,
             agent_presence_penalty,
+            agent_prompt_system,
             state
         ):
         """
@@ -334,6 +335,7 @@ class AgentService:
                     AGENT_TOP_K             = :agent_top_k,
                     AGENT_FREQUENCY_PENALTY = :agent_frequency_penalty,
                     AGENT_PRESENCE_PENALTY  = :agent_presence_penalty,
+                    AGENT_PROMPT_SYSTEM     = :agent_prompt_system,
                     AGENT_STATE             = :state
                 WHERE AGENT_ID = :agent_id
             """, {
@@ -346,6 +348,7 @@ class AgentService:
                 "agent_top_k": agent_top_k,
                 "agent_frequency_penalty": agent_frequency_penalty,
                 "agent_presence_penalty": agent_presence_penalty,
+                "agent_prompt_system": agent_prompt_system,
                 "state": state,
                 "agent_id": agent_id
             })

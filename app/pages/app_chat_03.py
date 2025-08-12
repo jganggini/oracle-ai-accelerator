@@ -30,6 +30,8 @@ component.get_footer()
 float_init()
 
 if login:
+    st.set_page_config(layout="centered")
+    
     # Header y descripción
     st.header(":material/network_intelligence: Vector Database")
     st.caption("AI Vector Search enables semantic and value-based searches on business data, enhancing LLM performance and RAG use cases securely and efficiently.")
@@ -213,7 +215,12 @@ if login:
                 st.markdown("\n\n")
 
         # Manejo del input del usuario
-        chat_human_prompt_input = st.chat_input("Type your message here...", disabled=(not st.session_state["chat-objects"]))
+        chat_human_prompt_input = st.chat_input(
+            "Type your message here...",
+            disabled=(not st.session_state["chat-objects"]),
+            accept_file=True,
+            file_type=["jpg", "jpeg", "png"]
+            )
 
         if not st.session_state["chat-objects"]:
             st.info("Please select at least one object to start the chat.")
