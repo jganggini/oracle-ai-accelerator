@@ -30,7 +30,11 @@ component.get_footer()
 float_init()
 
 if login:
-    st.set_page_config(layout="centered")
+    st.set_page_config(
+        page_title="Oracle AI Accelerator",
+        page_icon="🅾️",
+        layout="centered"
+    )
     
     # Header y descripción
     st.header(":material/network_intelligence: Vector Database")
@@ -217,9 +221,7 @@ if login:
         # Manejo del input del usuario
         chat_human_prompt_input = st.chat_input(
             "Type your message here...",
-            disabled=(not st.session_state["chat-objects"]),
-            accept_file=True,
-            file_type=["jpg", "jpeg", "png"]
+            disabled=(not st.session_state["chat-objects"])
             )
 
         if not st.session_state["chat-objects"]:
@@ -320,7 +322,7 @@ if login:
         with action_buttons_container:
             float_parent("margin-left:0.15rem; bottom:7rem; padding-top:1rem;")
         
-        cols_dimensions = [0.08, 0.08, 0.08, 0.08, 0.76]
+        cols_dimensions = [0.04, 0.04, 0.04, 0.04, 0.84]
         col1, col2, col3, col4, col5 = action_buttons_container.columns(cols_dimensions)
         
         with col1:
