@@ -45,6 +45,8 @@ def get_menu(modules, user):
         # Always shown links
         st.page_link("app.py", label="Knowledge", icon=":material/book_ribbon:")
         st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
+        st.page_link("pages/app_prompts.py", label="Prompts", icon=":material/abc:")
+
 
         # AI Demos Section
         ai_demos = [

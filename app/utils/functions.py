@@ -10,6 +10,7 @@ import streamlit as st
 from graphviz import Digraph
 from typing import List, Tuple
 from dotenv import load_dotenv
+import pyperclip
 
 # Para ChatMessages
 from langchain.schema import HumanMessage, AIMessage
@@ -299,4 +300,6 @@ class FunctionService:
 
         return text
     
-    
+    @staticmethod
+    def copy_to_clipboard(text):
+        pyperclip.copy(text)

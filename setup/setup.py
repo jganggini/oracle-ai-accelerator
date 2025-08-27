@@ -307,6 +307,9 @@ def main():
     exec('developer', 'o.SP_VECTOR_STORE.sql',
         '[OK][O] CREATE PROCEDURE VECTOS STORRE.......................[ CREATE_VIEW ]')
     
+    exec('developer', 'p.PROMPTS.sql',
+        '[OK][P] CREATE TABLE PROMPTS................................[ CREATE_TABLE ]')
+
     # Copiar .streamlit (Windows: C:\Users\<usuario>\.streamlit, mac: /Users/<usuario>/.streamlit)
     source_streamlit = os.path.join(file_path, ".streamlit")
     dest_streamlit = os.path.join(os.path.expanduser("~"), ".streamlit")

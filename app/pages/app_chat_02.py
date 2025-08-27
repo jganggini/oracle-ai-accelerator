@@ -13,6 +13,8 @@ import utils as utils
 # Crear una instancia del servicio
 select_ai_rag_service = service.SelectAIRAGService()
 db_select_ai_rag_service = database.SelectAIRAGService()
+db_prompt_service = database.PromptService()
+db_file_service  = database.FileService()
 utl_function_service = utils.FunctionService()
 
 login = component.get_login()
@@ -28,12 +30,16 @@ if login:
     st.header(":material/plagiarism: Select AI RAG")
     st.caption("Select AI with RAG in Oracle Autonomous Database integrates large language models with data retrieval, enabling context-aware text generation and enhancing SQL workflows with accurate, AI-driven insights.")
 
+    st.session_state["rag-model-prompt"] = ""
+    st.session_state["object_content"] = ""
     username     = st.session_state["username"]
     language     = st.session_state["language"]
     user_id      = st.session_state["user_id"]
     profile_name = select_ai_rag_service.get_profile(user_id)
     index_name   = select_ai_rag_service.get_index_name(user_id)
     df_files     = db_select_ai_rag_service.get_files(index_name)
+    df_prompts = db_prompt_service.get_all_prompts_cache(user_id, force_update=True)
+    df_object_files = db_file_service.get_all_files_cache(user_id)[lambda df: df["MODULE_VECTOR_STORE"] == 1]
 
     if df_files is not None and not df_files.empty:
         with st.expander("See Files"):
@@ -51,6 +57,34 @@ if login:
                         
             st.markdown("**Json Data**")
             st.json(json_tables, expanded=1)
+
+        if df_prompts is not None and not df_prompts.empty:
+            selected_prompt_id = st.selectbox(
+                "Select Prompt",
+                options=df_prompts["PROMPT_ID"].tolist(),
+                format_func=lambda prompt_id: df_prompts.loc[df_prompts["PROMPT_ID"] == prompt_id, "PROMPT_NAME"].values[0],
+                placeholder="Select a prompt..."
+            )
+            if selected_prompt_id:
+                rag_model_prompt = df_prompts.loc[df_prompts["PROMPT_ID"] == selected_prompt_id, "PROMPT_CONTENT"].values[0]
+                st.session_state["rag-model-prompt"] = rag_model_prompt
+
+
+        with st.expander("Set context"):
+            if df_object_files is not None and not df_object_files.empty:
+                selected_object_ids = st.multiselect(
+                    "Select Objects",
+                    options=df_object_files["FILE_ID"].tolist(),
+                    format_func=lambda file_id: df_object_files.loc[df_object_files["FILE_ID"] == file_id, "FILE_SRC_FILE_NAME"].values[0].rsplit("/", 1)[-1],
+                    default=st.session_state["chat-objects"],
+                    placeholder="Select an object..."
+                )
+            if selected_object_ids:
+                df_selected = df_object_files[df_object_files["FILE_ID"].isin(selected_object_ids)].copy()
+                if not df_selected.empty:
+                    for file_trg_extraction in df_selected["FILE_TRG_EXTRACTION"].tolist():
+                        st.session_state["object_content"] += file_trg_extraction + "\n"
+
 
         # Display chat messages from history on app rerun
         for message in st.session_state["chat-select-ai-rag"]:
@@ -72,7 +106,7 @@ if login:
             st.session_state["chat-select-ai-rag"].append({"role": "human", "content": prompt})
 
             # Create placeholders for progressive updates
-            assistant_message = st.chat_message("ai", avatar="images/llm_aix.svg")
+            assistant_message = st.chat_message("ai", avatar="images/llm_meta.svg")
             placeholder = assistant_message.empty()
 
             try:
@@ -83,7 +117,7 @@ if login:
                     profile_name = select_ai_rag_service.get_profile(user_id)
                     action       = 'narrate'
                     narrate = db_select_ai_rag_service.get_chat(
-                        prompt,
+                        st.session_state["rag-model-prompt"] + st.session_state["object_content"] + prompt,
                         profile_name,
                         action,
                         language
@@ -135,6 +169,8 @@ if login:
             if st.button("Clear", icon=":material/delete:"):
                 st.session_state["chat-select-ai-rag"] = []
                 st.rerun()
-    
+        
+
+
     else:
         st.info("Upload file for this module.", icon=":material/info:")

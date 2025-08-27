@@ -394,7 +394,9 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             st.session_state.transcription_state = "idle"  # "idle", "starting", "running", "stopped"
 
                         # Botones de control
-                        st.columns([0.1, 0.1, 0.1, 0.7])
+                        # st.columns([0.1, 0.1, 0.1, 0.7])
+
+                        btn_col1, btn_col2, btn_col3, btn_col4= st.columns([2, 2, 2, 2])
 
                         # Botón Start
                         start_disabled = st.session_state.transcription_state == "stopped" or st.session_state.transcription_state == "idle"
@@ -421,6 +423,11 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             render_transcriptions()
                             status_caption.markdown(":material/cached: **:gray[Transcription Reset...]**")
                             st.rerun()
+
+                        # Botón Copy
+                        if btn_col4.button("Copy", type="secondary", use_container_width=True, icon=":material/content_copy:"):
+                            utl_function_service.copy_to_clipboard("\n".join([item["transcription"] for item in uploaded_transcription]))
+
 
                         # Lógica de ejecución cuando se inicia transcripción
                         if st.session_state.transcription_state == "running":
@@ -804,6 +811,10 @@ if "username" in st.session_state and "user_id" in st.session_state:
                 if btn_col1.button("Cancel", use_container_width=True):
                     st.session_state["show_form_app"] = False
                     st.rerun()
+                
+                if btn_col2.button("Copy", type="primary", use_container_width=False):
+                    utl_function_service.copy_to_clipboard(data["FILE_TRG_EXTRACTION"])
+
 
             elif mode == "share":
                 file_id = data["FILE_ID"]
