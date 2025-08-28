@@ -1,6 +1,7 @@
 # Ignore setup tf edits
 setup-tf/
-.env
+app/.env
+
 #Ignore new files in the wallet
 app/wallet
 launch.json
@@ -224,3 +225,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 .DS_Store
+
+#custom media
+custom_media*
