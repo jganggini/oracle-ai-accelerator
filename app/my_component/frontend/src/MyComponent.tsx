@@ -13,7 +13,16 @@ function floatTo16BitPCM(float32Array: Float32Array): Uint8Array {
   return new Uint8Array(buffer)
 }
 
-function MyComponent({ disabled }: ComponentProps) {
+
+interface MyComponentProps extends ComponentProps {
+  args: {
+    disabled?: boolean
+    language?: string
+  }
+}
+
+function MyComponent({ args }: MyComponentProps) {
+  const { disabled, language } = args
   const [isRecording, setIsRecording] = useState(false)
   const [hasRecorded, setHasRecorded] = useState(false)
   const wsRef = useRef<WebSocket | null>(null)
@@ -21,40 +30,31 @@ function MyComponent({ disabled }: ComponentProps) {
   const audioContextRef = useRef<AudioContext | null>(null)
   const processorRef = useRef<ScriptProcessorNode | null>(null)
 
-  // useEffect(() => {
-  //   Streamlit.setFrameHeight()
-  //   return () => stopRecording()
-  // }, [])
-
-    // Cerrar socket al desmontar el componente
-    useEffect(() => {
-      Streamlit.setFrameHeight();
-      return () => {
-        stopRecording();
-        if (wsRef.current) {
-          wsRef.current.close();
-          wsRef.current = null;
-        }
-      };
-    }, []);
-  
+  useEffect(() => {
+    Streamlit.setFrameHeight();
+    return () => {
+      stopRecording();
+      if (wsRef.current) {
+        wsRef.current.close();
+        wsRef.current = null;
+      }
+    };
+  }, []);
 
   const startRecording = useCallback(async () => {
     try {
-      // Cerrar socket viejo si existe
       if (wsRef.current && wsRef.current.readyState !== WebSocket.CLOSED) {
         wsRef.current.close();
         wsRef.current = null;
       }
 
-      // const ws = new WebSocket("ws://localhost:8000/ws/audio")
       const ws = new WebSocket(`${window.location.origin.replace("http", "ws")}/ws/audio`)
       wsRef.current = ws
 
       ws.onopen = () => {
-        console.log("WebSocket abierto");
+        console.log("WebSocket abierto con idioma:", language);
         Streamlit.setComponentValue({ type: "start" });
-        ws.send(JSON.stringify({ type: "start" }))
+        ws.send(JSON.stringify({ type: "start", language: language || "esa" }))
       }
 
       ws.onmessage = (event) => {
@@ -68,23 +68,12 @@ function MyComponent({ disabled }: ComponentProps) {
       audioContextRef.current = audioContext
 
       const source = audioContext.createMediaStreamSource(stream)
-      // const processor = audioContext.createScriptProcessor(4096, 1, 1)
-
-      // processor.onaudioprocess = (e) => {
-      //   const input = e.inputBuffer.getChannelData(0)
-      //   const pcm16 = floatTo16BitPCM(input)
-      //   const b64 = btoa(String.fromCharCode(...pcm16))
-      //   ws.send(JSON.stringify({ type: "chunk", data: b64 }))
-      // }
-
       const processor = audioContext.createScriptProcessor(2048, 1, 1);
 
       processor.onaudioprocess = (event) => {
-        //console.log("Processing audio chunk...");
         if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
           const input = event.inputBuffer.getChannelData(0);
           const pcm16 = floatTo16BitPCM(input);
-          // Enviar como binario en vez de JSON/base64
           wsRef.current.send(pcm16.buffer);
         }
       };
@@ -98,7 +87,7 @@ function MyComponent({ disabled }: ComponentProps) {
     } catch (err) {
       console.error("Error starting recording:", err)
     }
-  }, [])
+  }, [language]) //  si cambia el idioma, lo reenvía al iniciar
 
   const stopRecording = useCallback(() => {
     try {
@@ -106,10 +95,6 @@ function MyComponent({ disabled }: ComponentProps) {
         wsRef.current.send(JSON.stringify({ type: "stop" }));
         Streamlit.setComponentValue({ type: "stop" });
       }
-
-      // wsRef.current?.send(JSON.stringify({ type: "stop" }))
-      // wsRef.current?.close()
-      // wsRef.current = null
 
       processorRef.current?.disconnect()
       processorRef.current = null
@@ -139,9 +124,8 @@ function MyComponent({ disabled }: ComponentProps) {
     }
   }, []);
   
-
   const buttonStyle = (active: boolean) => ({
-    backgroundColor: active ? "#e53935" : "#1e1e1e", // rojo si activo, negro si no
+    backgroundColor: active ? "#e53935" : "#1e1e1e",
     color: "white",
     padding: "10px 28px",
     border: "none",
@@ -154,7 +138,6 @@ function MyComponent({ disabled }: ComponentProps) {
 
   return (
     <div style={{ display: "flex", gap: "10px" }}>
-      {/* Start */}
       <button
         onClick={startRecording}
         disabled={disabled || isRecording}
@@ -162,8 +145,6 @@ function MyComponent({ disabled }: ComponentProps) {
       >
         🎤 Start
       </button>
-
-      {/* Stop */}
       <button
         onClick={stopRecording}
         disabled={disabled || !isRecording}
@@ -171,8 +152,6 @@ function MyComponent({ disabled }: ComponentProps) {
       >
         ⏹️ Stop
       </button>
-
-      {/* Reset */}
       <button
         onClick={resetRecording}
         disabled={disabled || isRecording || !hasRecorded}
@@ -183,5 +162,5 @@ function MyComponent({ disabled }: ComponentProps) {
     </div>
   )
 }
-export default withStreamlitConnection(MyComponent)
 
+export default withStreamlitConnection(MyComponent)

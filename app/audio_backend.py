@@ -60,16 +60,18 @@ async def websocket_endpoint(ws: WebSocket):
                 msg_type = data.get("type")
                 print("[BACKEND] JSON decodificado:", data)
 
-
                 if msg_type == "start" and session_task is None:
                     # Iniciar sesión OCI
                     print("[BACKEND] Iniciando sesión OCI...")
+                    language = data.get("language", "esa")
+                    print(language)
+
                     await ws.send_json({"type": "start"})
                     session_task = asyncio.create_task(
                         oci_realtime.start_realtime_session(
                             on_final,
                             on_partial,
-                            language="esa"  
+                            language=language  
                         )
                     )
                     
