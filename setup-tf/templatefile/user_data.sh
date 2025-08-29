@@ -17,6 +17,7 @@ systemctl enable firewalld
 # Step 4: Open required ports in the firewall (Streamlit and VNC)
 firewall-cmd --add-port=8501/tcp --permanent
 firewall-cmd --add-port=5901/tcp --permanent
+firewall-cmd --add-port=8000/tcp --permanent
 firewall-cmd --reload
 
 # Step 5: Download and install Miniconda for the opc user
@@ -34,7 +35,7 @@ sudo -u opc -i bash -c 'source ~/.bashrc && conda tos accept --override-channels
 sudo -u opc -i bash -c 'source ~/.bashrc && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r'
 
 # Step 8: Clone the project repository
-git clone https://github.com/jganggini/oracle-ai-accelerator.git /home/opc/oracle-ai-accelerator
+git clone -b linux_realtime_speech_feature --single-branch https://github.com/jganggini/oracle-ai-accelerator.git /home/opc/oracle-ai-accelerator
 chown -R opc:opc /home/opc/oracle-ai-accelerator
 
 # Step 9: Configure OCI CLI with credentials
@@ -87,4 +88,5 @@ cd /home/opc/oracle-ai-accelerator/app
 source /home/opc/miniconda3/etc/profile.d/conda.sh
 echo "Using Python from: $(conda run -n ORACLE-AI which python)"
 nohup conda run -n ORACLE-AI streamlit run app.py --server.port 8501 --logger.level=INFO > /home/opc/streamlit.log 2>&1 &
+nohup conda run -n ORACLE-AI uvicorn audio_backend:app --host 0.0.0.0 --port 8000 --log-level info > /home/opc/audio_backend.log 2>&1 &
 EOF
