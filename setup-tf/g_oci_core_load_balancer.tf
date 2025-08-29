@@ -1,4 +1,39 @@
 ############################################
+# Reserved Public IP
+############################################
+resource "oci_core_public_ip" "reserved_ip" {
+	compartment_id = var.compartment_ocid
+	lifetime       = "RESERVED"
+}
+
+
+############################################
+# Generate TLS Key and Self-Signed Certificate
+############################################
+resource "tls_private_key" "selfsigned_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
+}
+
+resource "tls_self_signed_cert" "selfsigned_cert" {
+  private_key_pem = tls_private_key.selfsigned_key.private_key_pem
+
+  subject {
+    common_name  = oci_core_public_ip.reserved_ip.ip_address 
+    organization = "ACME, Example, Inc."
+  }
+
+  validity_period_hours = 8760 # 1 year
+  is_ca_certificate     = false
+
+  allowed_uses = [
+    "key_encipherment",
+    "digital_signature",
+    "server_auth",
+  ]
+}
+
+############################################
 # Create Flexible Load Balancer
 ############################################
 resource "oci_load_balancer_load_balancer" "flexible_lb" {
@@ -13,8 +48,8 @@ resource "oci_load_balancer_load_balancer" "flexible_lb" {
 
   subnet_ids = [oci_core_subnet.subnet.id]
 
-reserved_ips {
-    id = var.lb_reserved_ip_id
+  reserved_ips {
+    id = oci_core_public_ip.reserved_ip.id 
   }
 }
 
@@ -51,22 +86,20 @@ resource "oci_load_balancer_backend_set" "audio_backend_set" {
 }
 
 ############################################
-# TLS Certificate for HTTPS
+# TLS Certificate for HTTPS (Self-Signed)
 ############################################
 resource "oci_load_balancer_certificate" "lb_certificate" {
   load_balancer_id = oci_load_balancer_load_balancer.flexible_lb.id
-  certificate_name = "app-autosigned-cert"
+  certificate_name = var._load_balancer.certificate_name
 
-	private_key        = file("${path.module}/templatefile/key_ca.pem")
-	public_certificate = file("${path.module}/templatefile/cert.pem")
-
+  private_key        = tls_private_key.selfsigned_key.private_key_pem
+  public_certificate = tls_self_signed_cert.selfsigned_cert.cert_pem
 }
 
 
 ############################################
-# HTTPS Listener with Rule Set
+# HTTPS Path Route Set
 ############################################
-# Path Route Set
 resource "oci_load_balancer_path_route_set" "https_path_routes" {
   load_balancer_id = oci_load_balancer_load_balancer.flexible_lb.id
   name             = "https_path_routes"
@@ -88,7 +121,9 @@ resource "oci_load_balancer_path_route_set" "https_path_routes" {
   }
 }
 
-
+############################################
+# HTTPS Listener
+############################################
 resource "oci_load_balancer_listener" "https_listener" {
   load_balancer_id         = oci_load_balancer_load_balancer.flexible_lb.id
   name                     = "https-listener"
@@ -104,14 +139,12 @@ resource "oci_load_balancer_listener" "https_listener" {
   path_route_set_name = oci_load_balancer_path_route_set.https_path_routes.name
 }
 
-
-
 ############################################
 # Backends: Streamlit (Port 8501)
 ############################################
 resource "oci_load_balancer_backend" "backend_streamlit" {
   load_balancer_id = oci_load_balancer_load_balancer.flexible_lb.id
-  backendset_name = oci_load_balancer_backend_set.backend_set_streamlit.name
+  backendset_name  = oci_load_balancer_backend_set.backend_set_streamlit.name
   ip_address       = oci_core_instance.linux_instance.private_ip
   port             = 8501
   weight           = 1
@@ -122,7 +155,7 @@ resource "oci_load_balancer_backend" "backend_streamlit" {
 ############################################
 resource "oci_load_balancer_backend" "backend_audio" {
   load_balancer_id = oci_load_balancer_load_balancer.flexible_lb.id
-  backendset_name = oci_load_balancer_backend_set.audio_backend_set.name
+  backendset_name  = oci_load_balancer_backend_set.audio_backend_set.name
   ip_address       = oci_core_instance.linux_instance.private_ip
   port             = 8000
   weight           = 1

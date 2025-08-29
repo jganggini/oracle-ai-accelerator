@@ -183,19 +183,9 @@ variable "_load_balancer" {
   description = "🌐 Load Balancer [variables.tf][⚠️ No changes required]"
 
   default = {
-    display_name: "lb-oracle-ai"   # Nombre del Load Balancer
-    min_mbps: 10                   # Min ancho de banda
-    max_mbps: 100                  # Max ancho de banda
-  }
-}
-
-variable "lb_reserved_ip_id" {
-
-  description = "🌐IP Pública reservada para asignarla al Load Balancer"
-  type        = string
-  
-  validation {
-    condition     = length(var.lb_reserved_ip_id) > 0
-    error_message = "El ID de la IP [reserved IP OCID] no puede estar vacía."
+    display_name: "lb-oracle-ai"        # Nombre del Load Balancer
+    min_mbps: 10                        # Min ancho de banda
+    max_mbps: 100                       # Max ancho de banda
+    certificate_name: "cert-oracle-ai"  # Nombre del Autosigned Cert
   }
 }
