@@ -10,9 +10,9 @@ from .oci_document_multimodal import DocumentMultimodalService
 from .oci_generative_ai_chat import GenerativeAIService
 from .open_anonymizer_engine import AnalyzerEngineService
 
-IS_LINUX = (platform.system() == "Linux")
+IS_WINDOWS = platform.system() == "Windows"
 
-if not IS_LINUX:
+if IS_WINDOWS:
     from .oci_speech_realtime import start_realtime_session, stop_realtime_session
 
 __all__ = [
@@ -27,5 +27,5 @@ __all__ = [
     "AnalyzerEngineService",
 ]
 
-if not IS_LINUX:
+if IS_WINDOWS:
     __all__ += ["start_realtime_session", "stop_realtime_session"]
