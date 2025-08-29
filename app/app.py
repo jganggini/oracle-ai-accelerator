@@ -21,14 +21,6 @@ import services.database as database
 import services as service
 import utils as utils
 
-is_linux   =  platform.system()  == "Linux"
-is_windows =  platform.system()  == "Windows"
-
-if is_linux:
-    import services.oci_speech_realtime_linux as oci_realtime
-elif is_windows:
-    import services.oci_speech_realtime as oci_realtime
-
 # Create service instances
 db_module_service             = database.ModuleService()
 db_agent_service              = database.AgentService()
@@ -86,7 +78,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
     st.caption("Manage Knowledge")
     st.set_page_config(layout="wide")
     st.set_page_config(initial_sidebar_state="expanded")
-        
+
     username = st.session_state["username"]
     user_id = st.session_state["user_id"]
     user_group_id = st.session_state["user_group_id"]
@@ -329,7 +321,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             accept_multiple_files=False
                         )
 
-                    
+                    uploaded_transcription = []
                     if selected_module_id == 6:
              
                         # Inicializar estado
@@ -421,44 +413,6 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                 st.session_state.transcription_state = "running"
                                 print("start")
                                 status_caption.markdown(":material/mic: **:green[Starting Transcription...]**")
-                        # Transcripción final → guardar y actualizar vista
-                        def display_transcription_final(transcription):
-                            print(f"Received final results: {transcription}")
-                            transcription_id = len(uploaded_transcription) + 1
-                            timestamp = datetime.now().isoformat()
-
-                            new_record = {
-                                "id": transcription_id,
-                                "transcription": transcription,
-                                "timestamp": timestamp
-                            }
-
-                            uploaded_transcription.append(new_record)
-
-                            with open(json_path, "w", encoding="utf-8") as f:
-                                json.dump(uploaded_transcription, f, ensure_ascii=False)
-
-                            render_transcriptions()  # Redibuja sin parcial
-
-                        # Transcripción parcial → solo renderiza
-                        def display_transcription_partial(transcription):
-                            print(f"Received partial results: {transcription}")
-                            render_transcriptions(partial_text=transcription)
-
-                        # Estado inicial de los botones
-                        if "transcription_state" not in st.session_state:
-                            st.session_state.transcription_state = "idle"  # "idle", "starting", "running", "stopped"
-
-                        # Botones de control
-                        # st.columns([0.1, 0.1, 0.1, 0.7])
-
-                        btn_col1, btn_col2, btn_col3, btn_col4= st.columns([2, 2, 2, 2])
-
-                        # Botón Start
-                        start_disabled = st.session_state.transcription_state == "stopped" or st.session_state.transcription_state == "idle"
-                        if btn_col1.button("Start", type="primary", use_container_width=True, icon=":material/mic:", disabled=(not start_disabled)):
-                            st.session_state.transcription_state = "running"
-                            st.rerun()
 
                             elif event_type == "stop":
                                 st.session_state.transcription_state = "stopped"
@@ -486,44 +440,6 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                 clear_rt_state(json_path)
                                 render_transcriptions()
                                 status_caption.markdown(":material/cached: **:gray[Transcription Reset...]**")
-                                
-       
-                        # Botón Stop
-                        stop_disabled = st.session_state.transcription_state != "running"
-                        if btn_col2.button("Stop", type="secondary", use_container_width=True, icon=":material/stop_circle:", disabled=stop_disabled):
-                            st.session_state.transcription_state = "stopped"
-                            service.stop_realtime_session()
-                            status_caption.markdown(":material/stop_circle: **:red[Transcription Stopped...]**")
-                            st.rerun()
-
-                        # Botón Reset
-                        reset_disabled = bool(uploaded_transcription) and st.session_state.transcription_state != "running"
-                        if btn_col3.button("Reset", type="secondary", use_container_width=True, icon=":material/cached:", disabled=(not reset_disabled)):
-                            st.session_state.transcription_state = "idle"
-                            service.stop_realtime_session()
-                            uploaded_transcription.clear()
-                            with open(json_path, "w", encoding="utf-8") as f:
-                                json.dump([], f)
-                            render_transcriptions()
-                            status_caption.markdown(":material/cached: **:gray[Transcription Reset...]**")
-                            st.rerun()
-
-                        # Botón Copy
-                        if btn_col4.button("Copy", type="secondary", use_container_width=True, icon=":material/content_copy:"):
-                            utl_function_service.copy_to_clipboard("\n".join([item["transcription"] for item in uploaded_transcription]))
-
-
-                        # Lógica de ejecución cuando se inicia transcripción
-                        if st.session_state.transcription_state == "running":
-                            status_caption.markdown(":material/mic: **:green[Starting Transcription...]**")
-
-                            loop = asyncio.new_event_loop()
-                            asyncio.set_event_loop(loop)
-                            language = language_map[selected_language_file]
-                            loop.run_until_complete(
-                                service.start_realtime_session(display_transcription_final, display_transcription_partial, language)
-                            )
-
                     file_description = st.text_area("File Description")                    
 
                     # ← CAMBIO: Preparar lista de items a procesar: uno(s) archivo(s) o la grabación
