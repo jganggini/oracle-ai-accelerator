@@ -1,0 +1,26 @@
+import os
+from dotenv import load_dotenv
+# TODO: Check internationalization with https://pypi.org/project/python-gettext/
+
+load_dotenv()
+
+RAG_MODULE_NAME_DEFAULT = "Select AI RAG"
+RAG_MODULE_NAME = os.environ.get("RAG_MODULE_NAME", RAG_MODULE_NAME_DEFAULT)
+
+SELECT_AI_MODULE_NAME_DEFAULT = "Select AI"
+SELECT_AI_MODULE_NAME = os.environ.get("SELECT_AI_MODULE_NAME", SELECT_AI_MODULE_NAME_DEFAULT)
+
+VECTOR_DATABASE_MODULE_NAME_DEFAULT = "Vector Database"
+VECTOR_DATABASE_MODULE_NAME = os.environ.get("VECTOR_DATABASE_MODULE_NAME", VECTOR_DATABASE_MODULE_NAME_DEFAULT)
+
+LOGIN_LOGO_PATH_DEFAULT = "st_login.gif"
+LOGIN_LOGO_PATH = os.environ.get("LOGIN_LOGO_PATH", LOGIN_LOGO_PATH_DEFAULT)
+
+PAGES_LOGO_PATH_DEFAULT = "st_pages.gif"
+PAGES_LOGO_PATH = os.environ.get("PAGES_LOGO_PATH", PAGES_LOGO_PATH_DEFAULT)
+
+MODULES_MAPPING = {
+    "Select AI": SELECT_AI_MODULE_NAME,
+    "Select AI RAG": RAG_MODULE_NAME,
+    "Vector Database": VECTOR_DATABASE_MODULE_NAME
+}

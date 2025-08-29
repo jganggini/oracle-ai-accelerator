@@ -9,6 +9,10 @@ import components as component
 import services.database as database
 import services as service
 import utils as utils
+import os
+import gettext
+from config.settings import RAG_MODULE_NAME as rag_module_name
+
 
 # Crear una instancia del servicio
 select_ai_rag_service = service.SelectAIRAGService()
@@ -27,7 +31,7 @@ if login:
     st.set_page_config(layout="centered")
     
     # Header and description for the application
-    st.header(":material/plagiarism: Select AI RAG")
+    st.header(f":material/plagiarism: {rag_module_name}")
     st.caption("Select AI with RAG in Oracle Autonomous Database integrates large language models with data retrieval, enabling context-aware text generation and enhancing SQL workflows with accurate, AI-driven insights.")
 
     st.session_state["rag-model-prompt"] = ""

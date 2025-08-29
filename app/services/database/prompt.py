@@ -88,4 +88,24 @@ class PromptService:
         self.conn.commit()
 
         return f"Prompt '{prompt_name}' has been created successfully.", prompt_id
-    
+
+    def delete_prompt_user_by_user(self, prompt_id, user_id, prompt_name):
+        """
+        Deletes a user's association with a prompt.
+
+        Args:
+            prompt_id (int): The ID of the prompt.
+            user_id (int): The ID of the user.
+            prompt_name (str): The name of the prompt.
+
+        Returns:
+            str: Success message.
+        """
+        with self.conn.cursor() as cur:
+            cur.execute(f"""
+                DELETE FROM PROMPT_USER
+                WHERE PROMPT_ID = {prompt_id} AND USER_ID = {user_id}
+            """)
+        self.conn.commit()
+
+        return f"User '{prompt_name}' has been removed from prompt ID {prompt_id}."

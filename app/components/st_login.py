@@ -4,6 +4,11 @@ import streamlit as st
 import time
 
 import services.database as database
+from config.settings import (
+    MODULES_MAPPING as modules_mapping,
+    LOGIN_LOGO_PATH as login_logo_path, 
+    PAGES_LOGO_PATH as pages_logo_path
+)
 
 # Create an instance of the UserService
 db_user_service = database.UserService()
@@ -36,7 +41,7 @@ def get_menu(modules, user):
     module_list = parse_modules(modules)  # Parse the module list correctly
     
     with st.sidebar:
-        st.image("images/st_pages.gif")
+        st.image(f"images/{pages_logo_path}")
         
         st.subheader(":red[Oracle AI] Accelerator", divider="red")
 
@@ -46,7 +51,6 @@ def get_menu(modules, user):
         st.page_link("app.py", label="Knowledge", icon=":material/book_ribbon:")
         st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
         st.page_link("pages/app_prompts.py", label="Prompts", icon=":material/abc:")
-
 
         # AI Demos Section
         ai_demos = [
@@ -59,8 +63,9 @@ def get_menu(modules, user):
         if available_demos:
             st.subheader("Chats")
             for label, page, icon in available_demos:
-                st.page_link(page, label=label, icon=icon)
-        
+                page_name = modules_mapping.get(label, label)
+                st.page_link(page, label=page_name, icon=icon)
+
         # Settings Section
         st.subheader("Settings")
         if "Administrator" in module_list:
@@ -92,7 +97,7 @@ def get_login():
             st.subheader(":red[Oracle AI] Accelerator")
             col1, col2 = st.columns(2)
             with col1:
-                st.image("images/st_login.gif")
+                st.image(f"images/{login_logo_path}")
                 st.markdown(
                     ":gray-badge[:material/smart_toy: Agents] "
                     ":gray-badge[:material/database: Autonomous 23ai] "
