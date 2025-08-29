@@ -424,7 +424,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                             elif event_type == "stop":
                                 st.session_state.transcription_state = "stopped"
-                                service.stop_realtime_session()
+                                #service.stop_realtime_session()
                                 status_caption.markdown(":material/stop_circle: **:red[Transcription Stopped...]**")
 
                             if event_type == "partial":
@@ -689,7 +689,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                             file_trg_language       = language_map[selected_language_file]
                                             
                                             # Real-Time Transcription
-                                            service.stop_realtime_session()
+                                            #service.stop_realtime_session()
                                             clear_rt_state(json_path)
                                         
                                             render_transcriptions()

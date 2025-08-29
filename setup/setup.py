@@ -27,7 +27,15 @@ is_windows = "--windows" in sys.argv or platform.system() == "Windows"
 req_file = "requirements.txt"
 if is_linux:
     req_filtered = "requirements.filtered.txt"
-    skip_pkgs = ["oci-ai-speech-realtime", "PyAudio", "websockets"]
+    skip_pkgs = ["PyAudio"]
+    with open("requirements.txt", "r") as src, open(req_filtered, "w") as dst:
+        for line in src:
+            if not any(pkg in line for pkg in skip_pkgs):
+                dst.write(line)
+    req_file = req_filtered
+elif is_windows:
+    req_filtered = "requirements.filtered.txt"
+    skip_pkgs = ["fastapi", "uvicorn[standard]"]
     with open("requirements.txt", "r") as src, open(req_filtered, "w") as dst:
         for line in src:
             if not any(pkg in line for pkg in skip_pkgs):
@@ -163,10 +171,10 @@ def exec(user, file_name, message):
         cursor = connection.cursor()
         for statement in statements:
             # Omitir si se cumple: Linux + contiene "6" + archivo específico
-            if is_linux and file_name == 'd.TABLE_MODULES.sql' and 'AI Speech to Text Real-Time' in statement:
-                print(f'  > [SKIPPED on Linux - Module:6]:\n')
-                print(f'    {statement}\n')
-                continue
+            # if is_linux and file_name == 'd.TABLE_MODULES.sql' and 'AI Speech to Text Real-Time' in statement:
+            #     print(f'  > [SKIPPED on Linux - Module:6]:\n')
+            #     print(f'    {statement}\n')
+            #     continue
 
             # Eliminar el último carácter si es un ';'
             if statement.endswith(';'):
@@ -315,6 +323,4 @@ def main():
     
 if __name__ == '__main__':
     main()
-
-# CMD> conda deactivate
-# CMD> conda remove --name ORACLE-AI --all -y
+    

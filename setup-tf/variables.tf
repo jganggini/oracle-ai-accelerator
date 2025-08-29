@@ -154,7 +154,7 @@ variable "_oci_vcn" {
   default = {
     display_name: "vcn-oracle-ai"   # Nombre del VCN
     cidr_block: "10.0.0.0/24"       # Rango de direcciones IP para el VCN
-    ingress_tcp_ports : [22, 8501]  # Puertos TCP permitidos: SSH (22) y Streamlit (8501)
+    ingress_tcp_ports : [22, 8501, 8000, 443]  # Puertos TCP permitidos: SSH (22) y Streamlit (8501)
   }
 }
 
@@ -172,5 +172,30 @@ variable "_oci_instance" {
       ocpus = 4                        # Número de OCPUs asignadas
       memory_in_gbs = 64               # Memoria asignada en GB
     }
+  }
+}
+
+############################################
+# Load Balancer
+############################################
+
+variable "_load_balancer" {
+  description = "🌐 Load Balancer [variables.tf][⚠️ No changes required]"
+
+  default = {
+    display_name: "lb-oracle-ai"   # Nombre del Load Balancer
+    min_mbps: 10                   # Min ancho de banda
+    max_mbps: 100                  # Max ancho de banda
+  }
+}
+
+variable "lb_reserved_ip_id" {
+
+  description = "🌐IP Pública reservada para asignarla al Load Balancer"
+  type        = string
+  
+  validation {
+    condition     = length(var.lb_reserved_ip_id) > 0
+    error_message = "El ID de la IP [reserved IP OCID] no puede estar vacía."
   }
 }
