@@ -420,6 +420,17 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         language_to_transcription_code = language_map.get(st.session_state.selected_language, "esa")
                         component_value = my_component(key="rt_recorder_v1", language=language_to_transcription_code)
 
+                        col1, col2 = st.columns([0.15, 1])  # proporciones
+                        with col1:
+                            st.text("Click to copy text")
+                        with col2:
+                            copy_button(
+                                data["FILE_TRG_EXTRACTION"],
+                                copied_label="Copied!",
+                                icon="📋",
+                                key="copy_btn"
+                            )
+
                         if component_value:
                             event_type = component_value.get("type")
                             text = component_value.get("text", "")
@@ -822,7 +833,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=840)
                         col1, col2 = st.columns([0.15, 1])  # proporciones
                         with col1:
-                            st.text("Copy extracted text")
+                            st.text("Click to copy text")
                         with col2:
                             copy_button(
                                 data["FILE_TRG_EXTRACTION"],
