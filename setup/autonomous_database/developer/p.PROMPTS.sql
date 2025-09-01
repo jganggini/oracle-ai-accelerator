@@ -16,3 +16,4 @@
     BEGIN
         :NEW.prompt_id := prompt_id_seq.NEXTVAL;
     END;
+    /
