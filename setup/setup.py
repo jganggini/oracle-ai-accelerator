@@ -19,6 +19,8 @@ app_path  = os.path.join(base_path, 'app')
 env_path  = os.path.join(app_path, '.env')
 wall_path = os.path.join(app_path, 'wallet')
 
+req_file = "requirements.txt"
+
 # Verificar si el archivo .env existe
 if not os.path.exists(env_path):
     print(f'El archivo .env no existe en: {env_path}')
