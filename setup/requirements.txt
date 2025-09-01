@@ -33,5 +33,5 @@ websockets>=11.0.3
 
 fastapi==0.116.1
 uvicorn[standard]==0.35.0
-streamlit-clipboard
+st-copy
 
