@@ -20,3 +20,4 @@
     BEGIN
         :NEW.prompt_user_id := prompt_user_id_seq.NEXTVAL;
     END;
+    /

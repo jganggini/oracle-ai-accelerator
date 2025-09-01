@@ -93,7 +93,7 @@ if login:
         # Display chat messages from history on app rerun
         for message in st.session_state["chat-select-ai-rag"]:
             if message["role"] == "ai":
-                with st.chat_message(message["role"], avatar="images/llm_aix.svg"):
+                with st.chat_message(message["role"], avatar="images/llm_meta.svg"):
                     # Render each section of the stored response
                     annotated_text(annotation("Narrate", message["narrate_time"], background="#484c54", color="#ffffff"))
                     st.markdown(message["narrate"])

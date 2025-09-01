@@ -34,18 +34,18 @@ class PromptService:
             pd.DataFrame: List of prompts assigned to user_id with model details.
         """
         query = f"""
-            SELECT 
+            SELECT
                 P.PROMPT_ID,
                 P.PROMPT_NAME,
-                P.PROMPT_CONTENT                            
-            FROM 
-                PROMPTS P
-            LEFT JOIN
-                PROMPT_USER PU
+                P.PROMPT_CONTENT,
+                PU.USER_ID
+            FROM PROMPTS P
+            INNER JOIN PROMPT_USER PU
                 ON PU.PROMPT_ID = P.PROMPT_ID
-                AND PU.USER_ID = {user_id}
+            WHERE PU.USER_ID = {user_id}
         """
-        return pd.read_sql(query, con=_self.conn)
+        df = pd.read_sql(query, con=_self.conn)
+        return df
     
     def insert_prompt(self, prompt_name, prompt_content, user_id):
         """"
@@ -108,4 +108,4 @@ class PromptService:
             """)
         self.conn.commit()
 
-        return f"User '{prompt_name}' has been removed from prompt ID {prompt_id}."
+        return f"User with id '{user_id}' has been removed from prompt ID {prompt_id}."

@@ -12,6 +12,9 @@ import components as component
 import services.database as database
 import services as service
 import utils as utils
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 # Initialize services
 db_module_service = database.ModuleService()
@@ -57,46 +60,9 @@ if login:
                     key="data-prompt-list"
                 )
 
-                btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([0.1, 0.1, 0.1, 0.7])
+                btn_col1, _, _, _ = st.columns([0.1, 0.1, 0.1, 0.7])
 
-                if btn_col1.button(key="Edit", help="Edit", label="", type="secondary", use_container_width=True, icon=":material/edit:"):
-                    rows = edited_df[edited_df["Select"]]
-                    if rows.empty:
-                        st.warning("Please select at least one prompt to edit.", icon=":material/add_alert:")
-                    else:
-                        prompt_id = rows.iloc[0]["PROMPT_ID"]
-                        data = df_view[df_view["PROMPT_ID"] == prompt_id].iloc[0].to_dict()
-                        st.session_state.update({
-                            "show_form_prompts": True,
-                            "form_mode_prompts": "edit",
-                            "selected_prompt": data
-                        })
-                        st.rerun()
-
-                if btn_col2.button(key="Share", help="Share", label="", type="secondary", use_container_width=True, icon=":material/share:"):
-                    rows = edited_df[edited_df["Select"] == True]
-                    
-                    if rows.empty:
-                        st.warning("Please select at least one prompt to share.", icon=":material/add_alert:")
-                    else:
-                        for _, selected_row in rows.iterrows():
-                            # Validar si el usuario es el propietario del archivo
-                            if selected_row["USER_ID"] != selected_row["USER_ID_OWNER"]:
-                                owner_email = selected_row.get("USER_EMAIL", "unknown@email.com")
-                                st.warning(f"Only the agent owner can manage sharing. Please contact: **{owner_email}**", icon=":material/error:")
-                                continue
-
-                            # Abrir formulario de compartición
-                            prompt_id = rows.iloc[0]["PROMPT_ID"]
-                            data = df_view[df_view["PROMPT_ID"] == prompt_id].iloc[0].to_dict()
-                            st.session_state.update({
-                                "show_form_prompts": True,
-                                "form_mode_prompts": "share",
-                                "selected_prompt": data
-                            })
-                            st.rerun()
-
-                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", use_container_width=True, icon=":material/delete:"):
+                if btn_col1.button(key="Delete", help="Delete", label="", type="secondary", use_container_width=True, icon=":material/delete:"):
                     try:
                         rows_to_edit = edited_df[edited_df["Select"] == True]
                         if rows_to_edit.empty:
@@ -106,26 +72,22 @@ if login:
 
                             for _, row in rows_to_edit.iterrows():
                                 prompt_id = row["PROMPT_ID"]
-                                agent_name = row["AGENT_NAME"].rsplit("/", 1)[-1]
+                                prompt_name = row["PROMPT_NAME"].rsplit("/", 1)[-1]
                                 shared_users = row.get("AGENT_USERS", 0)
 
-                                if row["OWNER"] == 1:
-                                    if shared_users > 0:
-                                        st.warning(
-                                            f"Agent '{agent_name}' cannot be deleted because it has been shared with {shared_users} user(s).",
-                                            icon=":material/block:"
-                                        )
-                                else:
-                                    # Solo remover acceso
-                                    msg = db_prompt_service.delete_prompt_user_by_user(prompt_id, user_id, agent_name)
-                                    component.get_success(msg, icon=":material/remove_circle:")
+                                # Solo remover acceso
+                                msg = db_prompt_service.delete_prompt_user_by_user(prompt_id, user_id, prompt_name)
+                                component.get_success(msg, icon=":material/remove_circle:")
 
                             db_prompt_service.get_all_prompts_cache(user_id, force_update=True)
 
                     except Exception as e:
+                        logging.error(f"Error deleting prompt: {e}")
                         component.get_error(f"[Error] Deleting File:\n{e}")
                     finally:
+                        st.session_state["show_form_prompts"] = False
                         component.get_processing(False)
+                        st.rerun()
 
 
     btn_col1, btn_col2 = st.columns([2, 8])
