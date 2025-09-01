@@ -1,25 +1,24 @@
-import streamlit as st
-import streamlit.components.v1 as components
-import fitz
-import json
-from pathlib import Path
-from datetime import datetime
 import asyncio
-import threading
-import requests
 import base64
-import numpy as np
+import json
 import platform
-
-from my_component import my_component
-
-from PIL import Image
+import threading
+from datetime import datetime
 from io import BytesIO
+from pathlib import Path
 
 import components as component
-import services.database as database
+import fitz
+import numpy as np
+import requests
 import services as service
+import services.database as database
+import streamlit as st
+import streamlit.components.v1 as components
 import utils as utils
+from my_component import my_component
+from PIL import Image
+from st_copy import copy_button
 
 is_linux   =  platform.system()  == "Linux"
 is_windows =  platform.system()  == "Windows"
@@ -808,20 +807,35 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             st.error(f"Error cargando imagen: {e}")
                     with col_text:
                         st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=840)
+                        col1, col2 = st.columns([0.15, 1])  # proporciones
+                        with col1:
+                            st.text("Copy extracted text")
+                        with col2:
+                            copy_button(
+                                data["FILE_TRG_EXTRACTION"],
+                                copied_label="Copied!",
+                                icon="📋",
+                                key="copy_btn"
+                            )
                     
-
                 else:
                     st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=500)
+                    col1, col2 = st.columns([0.15, 1])  # proporciones
+                    with col1:
+                        st.text("Copy extracted text")
+                    with col2:
+                        copy_button(
+                        data["FILE_TRG_EXTRACTION"],
+                        tooltip="Copy this text",
+                        copied_label="Copied!",
+                        icon="st",
+                    )
 
                 btn_col1, btn_col2 = st.columns([2.2, 8])
 
                 if btn_col1.button("Cancel", use_container_width=True):
                     st.session_state["show_form_app"] = False
                     st.rerun()
-                
-                if btn_col2.button("Copy", type="primary", use_container_width=False):
-                    utl_function_service.copy_to_clipboard(data["FILE_TRG_EXTRACTION"])
-
 
             elif mode == "share":
                 file_id = data["FILE_ID"]
