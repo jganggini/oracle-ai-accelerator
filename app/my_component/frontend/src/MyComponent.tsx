@@ -48,7 +48,13 @@ function MyComponent({ args }: MyComponentProps) {
         wsRef.current = null;
       }
 
-      const ws = new WebSocket(`${window.location.origin.replace("http", "ws")}/ws/audio`)
+      // const ws = new WebSocket(`${window.location.origin.replace("http", "ws")}/ws/audio`)
+      const backendUrl =
+        window.location.hostname === "localhost"
+          ? "ws://localhost:8000/ws/audio"
+          : `${window.location.origin.replace("http", "ws")}/ws/audio`;
+
+      const ws = new WebSocket(backendUrl);
       wsRef.current = ws
 
       ws.onopen = () => {

@@ -5,13 +5,7 @@ import platform
 
 from fastapi import FastAPI, WebSocket
 
-is_linux   =  platform.system()  == "Linux"
-is_windows =  platform.system()  == "Windows"
-
-if is_linux:
-    import services.oci_speech_realtime_linux as oci_realtime
-elif is_windows:
-    import services.oci_speech_realtime as oci_realtime
+import services.oci_speech_realtime_linux as oci_realtime
 
 app = FastAPI()
 
@@ -45,7 +39,7 @@ async def websocket_endpoint(ws: WebSocket):
             if isinstance(msg, dict) and msg.get("bytes") is not None:
                 audio_bytes = msg.get("bytes")
                 #print(f"[BACKEND] Chunk binario recibido, {len(audio_bytes)} bytes")
-                # envia al wrapper OCI (asegúrate que acepta bytes PCM16)
+                # envia al wrapper OCI
                 await oci_realtime.send_chunk_from_browser(audio_bytes)
                 continue
             

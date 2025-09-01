@@ -23,13 +23,7 @@ import utils as utils
 
 import time
 
-is_linux   =  platform.system()  == "Linux"
-is_windows =  platform.system()  == "Windows"
-
-if is_linux:
-    import services.oci_speech_realtime_linux as oci_realtime
-elif is_windows:
-    import services.oci_speech_realtime as oci_realtime
+import services.oci_speech_realtime_linux as oci_realtime
 
 # Create service instances
 db_module_service             = database.ModuleService()
