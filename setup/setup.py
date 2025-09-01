@@ -317,6 +317,9 @@ def main():
     
     exec('developer', 'p.PROMPTS.sql',
         '[OK][P] CREATE TABLE PROMPTS................................[ CREATE_TABLE ]')
+    
+    exec('developer', 'q.PROMPTS_USER.sql',
+        '[OK][Q] INSERT PROMPTS......................................[ INSERT_DATA ]')
 
     # Copiar .streamlit (Windows: C:\Users\<usuario>\.streamlit, mac: /Users/<usuario>/.streamlit)
     source_streamlit = os.path.join(file_path, ".streamlit")
