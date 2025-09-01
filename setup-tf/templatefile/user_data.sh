@@ -35,7 +35,7 @@ sudo -u opc -i bash -c 'source ~/.bashrc && conda tos accept --override-channels
 sudo -u opc -i bash -c 'source ~/.bashrc && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r'
 
 # Step 8: Clone the project repository
-git clone -b fiscalia_fixes_and_improvements --single-branch https://github.com/jganggini/oracle-ai-accelerator.git /home/opc/oracle-ai-accelerator
+git clone -b release/fiscalia --single-branch https://github.com/jganggini/oracle-ai-accelerator.git /home/opc/oracle-ai-accelerator
 chown -R opc:opc /home/opc/oracle-ai-accelerator
 
 # Step 9: Configure OCI CLI with credentials
