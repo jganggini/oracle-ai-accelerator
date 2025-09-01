@@ -1,5 +1,6 @@
 node_modules
 *.pem
+files
 
 # Ignore setup tf edits
 setup-tf/
@@ -20,7 +21,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+# build/
 develop-eggs/
 dist/
 downloads/

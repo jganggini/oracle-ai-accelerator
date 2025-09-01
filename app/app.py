@@ -21,13 +21,9 @@ import services.database as database
 import services as service
 import utils as utils
 
-is_linux   =  platform.system()  == "Linux"
-is_windows =  platform.system()  == "Windows"
+import time
 
-if is_linux:
-    import services.oci_speech_realtime_linux as oci_realtime
-elif is_windows:
-    import services.oci_speech_realtime as oci_realtime
+import services.oci_speech_realtime_linux as oci_realtime
 
 # Create service instances
 db_module_service             = database.ModuleService()
@@ -71,6 +67,9 @@ if "show_form_app" not in st.session_state:
     st.session_state["form_mode_app"] = "create"
     st.session_state["selected_file"] = None
 
+if "last_partial_ts" not in st.session_state:
+    st.session_state.last_partial_ts = 0.0
+
 
 def clear_rt_state(json_path):
     st.session_state.uploaded_transcription.clear()
@@ -78,7 +77,10 @@ def clear_rt_state(json_path):
     st.session_state.transcription_state = "idle"
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump([], f)
-    render_transcriptions()
+    
+    if "transcription_ui_shown" not in st.session_state:
+        st.session_state.transcription_ui_shown = True
+        render_transcriptions()
 
 
 if "username" in st.session_state and "user_id" in st.session_state:
@@ -282,6 +284,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         options=list(language_map.keys()),
                         index=list(language_map.keys()).index(language)
                     )
+                    st.session_state.selected_language = selected_language_file
 
                     selected_pii = False
                     if selected_module_id == 4:
@@ -340,29 +343,24 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         if "transcription_state" not in st.session_state:
                             st.session_state.transcription_state = "idle"
 
+
                         # Contenedores UI
-                        title_ph = st.empty()
-                        transcription_container = st.empty()
+                        st.markdown(":speech_balloon: :red[Real-Time] ***Customer Voice Transcription***")
+
+                        transcription_container = st.container()
+
                         status_caption = st.empty()
+                        status_caption.markdown("")
 
                         # Path del JSON para persistencia
                         output_dir = Path(f"files/{username}/module-ai-speech-to-realtime")
                         output_dir.mkdir(parents=True, exist_ok=True)
                         json_path = output_dir / "transcription.json"
 
-                        # Cargar contenido existente
-                        if json_path.exists() and json_path.stat().st_size > 0:
-                            with open(json_path, "r", encoding="utf-8") as f:
-                                try:
-                                    st.session_state.uploaded_transcription = json.load(f)
-                                except:
-                                    st.session_state.uploaded_transcription = []
-                        
-                        
-                        title_ph.markdown(":speech_balloon: :red[Real-Time] ***Customer Voice Transcription***")
-                        
                         def render_transcriptions():
                             transcription_html = ""
+
+                            # Renderizar transcripciones finales
                             for item in st.session_state.uploaded_transcription:
                                 transcription_html += f"""
                                     <div style="background-color:#21232B; padding:10px; border-radius:5px; margin-bottom:10px;">
@@ -375,6 +373,8 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                         </div>
                                     </div>
                                 """
+
+                            # Renderizar parcial actual
                             if st.session_state.partial_text:
                                 transcription_html += f"""
                                     <div style="background-color:#2A2A2A; padding:10px; border-radius:5px;
@@ -390,7 +390,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                 """
 
                             with transcription_container:
-                                st.components.v1.html(
+                                st.markdown(
                                     f"""
                                     <div id="scrollable-transcription"
                                         style="height:550px; overflow-y:auto; background-color:#1e1e1e;
@@ -402,16 +402,24 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                         if (div) div.scrollTop = div.scrollHeight;
                                     </script>
                                     """,
-                                    height=570
+                                    unsafe_allow_html=True
                                 )
 
-                        # Render inicial
-                        render_transcriptions()
+                        # Cargar contenido existente
+                        if json_path.exists() and json_path.stat().st_size > 0:
+                            with open(json_path, "r", encoding="utf-8") as f:
+                                try:
+                                    st.session_state.uploaded_transcription = json.load(f)
+                                except:
+                                    st.session_state.uploaded_transcription = []
 
-                        # -----------------------------
-                        # Componente React (conectado al backend WS)
-                        # -----------------------------
-                        component_value = my_component(key="rt_recorder_v1")
+                        if "transcription_ui_shown" not in st.session_state:
+                            st.session_state.transcription_ui_shown = True
+                            render_transcriptions()
+
+                        #component_value = my_component(key="rt_recorder_v1")
+                        language_to_transcription_code = language_map.get(st.session_state.selected_language, "esa")
+                        component_value = my_component(key="rt_recorder_v1", language=language_to_transcription_code)
 
                         if component_value:
                             event_type = component_value.get("type")
@@ -419,17 +427,21 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                             if event_type == "start":
                                 st.session_state.transcription_state = "running"
-                                print("start")
+                                render_transcriptions()
                                 status_caption.markdown(":material/mic: **:green[Starting Transcription...]**")
 
                             elif event_type == "stop":
                                 st.session_state.transcription_state = "stopped"
-                                #service.stop_realtime_session()
                                 status_caption.markdown(":material/stop_circle: **:red[Transcription Stopped...]**")
-
-                            if event_type == "partial":
-                                st.session_state.partial_text = text
                                 render_transcriptions()
+
+                            elif event_type == "partial":
+                                # throttle (máx ~6-7 fps)
+                                now = time.time()
+                                if now - st.session_state.last_partial_ts >= 0.15:
+                                    st.session_state.partial_text = text
+                                    st.session_state.last_partial_ts = now
+                                    render_transcriptions()
 
                             elif event_type == "final":
                                 new_record = {
@@ -444,10 +456,11 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                 render_transcriptions()
 
                             elif event_type == "reset":
-                                #print("reset")
                                 clear_rt_state(json_path)
                                 render_transcriptions()
                                 status_caption.markdown(":material/cached: **:gray[Transcription Reset...]**")
+                            
+
                     file_description = st.text_area("File Description")                    
 
                     # ← CAMBIO: Preparar lista de items a procesar: uno(s) archivo(s) o la grabación

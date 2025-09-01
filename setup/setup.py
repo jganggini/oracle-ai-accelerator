@@ -19,29 +19,6 @@ app_path  = os.path.join(base_path, 'app')
 env_path  = os.path.join(app_path, '.env')
 wall_path = os.path.join(app_path, 'wallet')
 
-# Detectar plataforma por argumento o sistema
-is_linux = "--linux" in sys.argv or platform.system() == "Linux"
-is_windows = "--windows" in sys.argv or platform.system() == "Windows"
-
-# Generar archivo filtrado si es Linux
-req_file = "requirements.txt"
-if is_linux:
-    req_filtered = "requirements.filtered.txt"
-    skip_pkgs = ["PyAudio"]
-    with open("requirements.txt", "r") as src, open(req_filtered, "w") as dst:
-        for line in src:
-            if not any(pkg in line for pkg in skip_pkgs):
-                dst.write(line)
-    req_file = req_filtered
-elif is_windows:
-    req_filtered = "requirements.filtered.txt"
-    skip_pkgs = ["fastapi", "uvicorn[standard]"]
-    with open("requirements.txt", "r") as src, open(req_filtered, "w") as dst:
-        for line in src:
-            if not any(pkg in line for pkg in skip_pkgs):
-                dst.write(line)
-    req_file = req_filtered
-
 # Verificar si el archivo .env existe
 if not os.path.exists(env_path):
     print(f'El archivo .env no existe en: {env_path}')

@@ -114,7 +114,7 @@ resource "oci_load_balancer_path_route_set" "https_path_routes" {
 
   path_routes {
     path             = "/health"
-    backend_set_name = oci_load_balancer_backend_set.backend_set_streamlit.name
+    backend_set_name = oci_load_balancer_backend_set.audio_backend_set.name
     path_match_type {
       match_type = "EXACT_MATCH"
     }
