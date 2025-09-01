@@ -12,6 +12,7 @@ import components as component
 import services.database as database
 import services as service
 import utils as utils
+from config.settings import VECTOR_DATABASE_MODULE_NAME as vector_module_name
 
 # Initialize the service
 db_doc_service = database.DocService()
@@ -37,7 +38,7 @@ if login:
     )
     
     # Header y descripción
-    st.header(":material/network_intelligence: Vector Database")
+    st.header(f":material/network_intelligence: {vector_module_name}")
     st.caption("AI Vector Search enables semantic and value-based searches on business data, enhancing LLM performance and RAG use cases securely and efficiently.")
 
     username     = st.session_state["username"]

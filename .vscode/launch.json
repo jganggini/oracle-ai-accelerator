@@ -14,7 +14,7 @@
         "8501"
       ],
       "console": "integratedTerminal",
-      "python": "D:\\anaconda3\\envs\\oracle-ai\\python.exe",
+      "python": "/opt/homebrew/Caskroom/miniconda/base/envs/ORACLE-AI/bin/python",
       "envFile": "${workspaceFolder}/app/.env"  // ← aquí al path de tu .env
     }
   ]

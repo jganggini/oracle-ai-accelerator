@@ -10,7 +10,7 @@ import components as component
 import services.database as database
 import services as service
 import utils as utils
-
+from config.settings import SELECT_AI_MODULE_NAME as select_ai_module_name
 # Crear una instancia del servicio
 select_ai_service = service.SelectAIService()
 db_select_ai_service = database.SelectAIService()
@@ -26,7 +26,7 @@ if login:
     st.set_page_config(layout="centered")
     
     # Header and description for the application
-    st.header(":material/database_search: Select AI")
+    st.header(f":material/database_search: {select_ai_module_name}")
     st.caption("This application leverages Retrieval-Augmented Generation (RAG) with Oracle 23ai and Deepseek-R1 to retrieve relevant information from a vector database and generate accurate responses using LLMs.")
   
     username     = st.session_state["username"]
