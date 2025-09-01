@@ -8,7 +8,6 @@ from typing import List, Tuple
 
 import oci
 import pandas as pd
-import pyperclip
 import streamlit as st
 from dotenv import load_dotenv
 from graphviz import Digraph
@@ -300,6 +299,3 @@ class FunctionService:
 
         return text
     
-    @staticmethod
-    def copy_to_clipboard(text):
-        pyperclip.copy(text)
