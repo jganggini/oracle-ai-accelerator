@@ -21,6 +21,14 @@ import services.database as database
 import services as service
 import utils as utils
 
+is_linux   =  platform.system()  == "Linux"
+is_windows =  platform.system()  == "Windows"
+
+if is_linux:
+    import services.oci_speech_realtime_linux as oci_realtime
+elif is_windows:
+    import services.oci_speech_realtime as oci_realtime
+
 # Create service instances
 db_module_service             = database.ModuleService()
 db_agent_service              = database.AgentService()
