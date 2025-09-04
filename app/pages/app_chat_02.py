@@ -75,19 +75,44 @@ if login:
 
 
         with st.expander("Set context"):
-            if df_object_files is not None and not df_object_files.empty:
-                selected_object_ids = st.multiselect(
-                    "Select Objects",
-                    options=df_object_files["FILE_ID"].tolist(),
-                    format_func=lambda file_id: df_object_files.loc[df_object_files["FILE_ID"] == file_id, "FILE_SRC_FILE_NAME"].values[0].rsplit("/", 1)[-1],
-                    default=st.session_state["chat-objects"],
-                    placeholder="Select an object..."
-                )
+
+            # Inicializamos la lista de IDs seleccionados
+            df_files = df_object_files if df_object_files is not None else pd.DataFrame()
+            options_list = df_files["FILE_ID"].tolist() if not df_files.empty else []
+
+            selected_object_ids = st.multiselect(
+                "Select Objects",
+                options=options_list,
+                format_func=lambda file_id: df_files.loc[df_files["FILE_ID"] == file_id, "FILE_SRC_FILE_NAME"].values[0].rsplit("/", 1)[-1]
+                            if not df_files.empty else "",
+                default=st.session_state.get("chat-objects", []),
+                placeholder="Select an object..."
+            )
+
             if selected_object_ids:
-                df_selected = df_object_files[df_object_files["FILE_ID"].isin(selected_object_ids)].copy()
+                df_selected = df_files[df_files["FILE_ID"].isin(selected_object_ids)].copy()
                 if not df_selected.empty:
                     for file_trg_extraction in df_selected["FILE_TRG_EXTRACTION"].tolist():
                         st.session_state["object_content"] += file_trg_extraction + "\n"
+
+
+
+
+
+            # selected_object_ids = [] 
+            # if df_object_files is not None and not df_object_files.empty:
+            #     selected_object_ids = st.multiselect(
+            #         "Select Objects",
+            #         options=df_object_files["FILE_ID"].tolist(),
+            #         format_func=lambda file_id: df_object_files.loc[df_object_files["FILE_ID"] == file_id, "FILE_SRC_FILE_NAME"].values[0].rsplit("/", 1)[-1],
+            #         default=st.session_state["chat-objects"],
+            #         placeholder="Select an object..."
+            #     )
+            # if selected_object_ids:
+            #     df_selected = df_object_files[df_object_files["FILE_ID"].isin(selected_object_ids)].copy()
+            #     if not df_selected.empty:
+            #         for file_trg_extraction in df_selected["FILE_TRG_EXTRACTION"].tolist():
+            #             st.session_state["object_content"] += file_trg_extraction + "\n"
 
 
         # Display chat messages from history on app rerun

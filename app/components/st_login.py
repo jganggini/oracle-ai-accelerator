@@ -7,7 +7,8 @@ import services.database as database
 from config.settings import (
     MODULES_MAPPING as modules_mapping,
     LOGIN_LOGO_PATH as login_logo_path, 
-    PAGES_LOGO_PATH as pages_logo_path
+    PAGES_LOGO_PATH as pages_logo_path,
+    KWNOLEDGE_MODULE_NAME as knowledge_module_name
 )
 
 # Create an instance of the UserService
@@ -48,7 +49,7 @@ def get_menu(modules, user):
         st.write(f"Hi, **:blue-background[{user}]**")
 
         # Always shown links
-        st.page_link("app.py", label="Knowledge", icon=":material/book_ribbon:")
+        st.page_link("app.py", label=knowledge_module_name, icon=":material/book_ribbon:")
         st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
         st.page_link("pages/app_prompts.py", label="Prompts", icon=":material/abc:")
 
