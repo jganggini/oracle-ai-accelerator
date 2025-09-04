@@ -1,37 +1,10 @@
 ############################################
 # Reserved Public IP
 ############################################
-resource "oci_core_public_ip" "reserved_ip" {
-	compartment_id = var.compartment_ocid
-	lifetime       = "RESERVED"
+data "oci_core_public_ip" "reserved_ip" {
+  id = var.reserved_ip_id
 }
 
-
-############################################
-# Generate TLS Key and Self-Signed Certificate
-############################################
-resource "tls_private_key" "selfsigned_key" {
-  algorithm = "RSA"
-  rsa_bits  = 2048
-}
-
-resource "tls_self_signed_cert" "selfsigned_cert" {
-  private_key_pem = tls_private_key.selfsigned_key.private_key_pem
-
-  subject {
-    common_name  = oci_core_public_ip.reserved_ip.ip_address 
-    organization = "ACME, Example, Inc."
-  }
-
-  validity_period_hours = 8760 # 1 year
-  is_ca_certificate     = false
-
-  allowed_uses = [
-    "key_encipherment",
-    "digital_signature",
-    "server_auth",
-  ]
-}
 
 ############################################
 # Create Flexible Load Balancer
@@ -49,7 +22,7 @@ resource "oci_load_balancer_load_balancer" "flexible_lb" {
   subnet_ids = [oci_core_subnet.subnet.id]
 
   reserved_ips {
-    id = oci_core_public_ip.reserved_ip.id 
+    id = data.oci_core_public_ip.reserved_ip.id 
   }
 }
 
@@ -92,8 +65,8 @@ resource "oci_load_balancer_certificate" "lb_certificate" {
   load_balancer_id = oci_load_balancer_load_balancer.flexible_lb.id
   certificate_name = var._load_balancer.certificate_name
 
-  private_key        = tls_private_key.selfsigned_key.private_key_pem
-  public_certificate = tls_self_signed_cert.selfsigned_cert.cert_pem
+  private_key        = file("${path.module}/certs/privkey.pem")
+  public_certificate = file("${path.module}/certs/cert.pem")
 }
 
 
