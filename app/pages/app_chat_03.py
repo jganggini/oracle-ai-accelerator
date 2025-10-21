@@ -137,7 +137,7 @@ if login:
 
         # Si se selecciona un archivo nuevo, mostrarlo y habilitar el botón "Upload"
         if uploaded_file:
-            st.image(uploaded_file, use_container_width=True)
+            st.image(uploaded_file, width="stretch")
             if st.button("Upload"):
                 st.session_state["chat-image"] = uploaded_file.read()
                 st.success("File uploaded successfully!")
@@ -145,7 +145,7 @@ if login:
 
         # Si ya hay un archivo en la sesión, mostrarlo y habilitar el botón "Delete"
         elif "chat-image" in st.session_state and st.session_state["chat-image"]:
-            st.image(st.session_state["chat-image"], use_container_width=True)
+            st.image(st.session_state["chat-image"], width="stretch")
             if st.button("Delete"):
                 st.session_state["chat-image"] = None
                 st.success("Image deleted successfully!")
@@ -207,7 +207,7 @@ if login:
                 if chat_human_prompt_image_message != "":
                     # Convertir la cadena a bytes (si se guardó en str)
                     image_bytes = base64.b64decode(chat_human_prompt_image_message)
-                    st.image(image_bytes, use_container_width=True)
+                    st.image(image_bytes, width="stretch")
 
             with st.chat_message("ai", avatar="images/llm_meta.svg"):
                 st.markdown(chat_ai_answer_message)
@@ -239,7 +239,7 @@ if login:
                 with col1:
                     st.empty()                
                 with col2:
-                    st.image(chat_human_prompt_image_input, use_container_width=True)                
+                    st.image(chat_human_prompt_image_input, width="stretch")                
 
             # Convertir la lista de (human, ai) a ChatMessages
             messages_for_langchain = utl_function_service.build_langchain_messages_from_qa(chat_history)

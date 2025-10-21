@@ -2,7 +2,6 @@ import time
 import json
 from datetime import datetime
 import streamlit as st
-from graphviz import Digraph
 from annotated_text import annotated_text, annotation
 from streamlit_float import *
 
@@ -46,17 +45,6 @@ if login:
                 "comments"    : "COMMENTS"
             }
             json_tables = utl_function_service.get_tables_json(df_tables, group_by_columns, fields)
-
-            # Generar el gráfico
-            dot_tables = utl_function_service.get_tables_dot(json_tables)
-
-            # Guardar y renderizar el gráfico
-            dot_name = f"images/{username}/sel_ai_tables"
-            dot_tables.render(dot_name, format="png", cleanup=True)
-
-            # Visualizar el gráfico en Streamlit
-            st.markdown("**Tables**")
-            st.image(f"{dot_name}.png")
             
             st.markdown("**Json Data**")
             st.json(json_tables, expanded=1)
@@ -164,13 +152,11 @@ if login:
         
 
         # Chat Buttons
-        action_buttons_container = st.container()
+        action_buttons_container = st.container(width=100)
         with action_buttons_container:
             float_parent("margin-left:0.15rem; bottom:7rem; padding-top:1rem;")
-
-        # We set the space between the icons thanks to a share of 100
-        cols_dimensions = [0.08, 0.08, 0.76]
         
+        cols_dimensions = [0.08, 0.08, 1.5]
         col1, col2, col3 = action_buttons_container.columns(cols_dimensions)
 
         with col1:

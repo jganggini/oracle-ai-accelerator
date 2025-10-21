@@ -50,7 +50,7 @@ if login:
                 
                 edited_df = st.data_editor(
                     df_view,
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                     num_rows="fixed",
                     key="data-agent-list",
@@ -87,7 +87,7 @@ if login:
                 
                 btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([0.1, 0.1, 0.1, 0.7])
 
-                if btn_col1.button(key="Edit", help="Edit", label="", type="secondary", use_container_width=True, icon=":material/edit:"):
+                if btn_col1.button(key="Edit", help="Edit", label="", type="secondary", width="stretch", icon=":material/edit:"):
                     rows = edited_df[edited_df["Select"]]
                     if rows.empty:
                         st.warning("Please select at least one agent to edit.", icon=":material/add_alert:")
@@ -101,7 +101,7 @@ if login:
                         })
                         st.rerun()
 
-                if btn_col2.button(key="Share", help="Share", label="", type="secondary", use_container_width=True, icon=":material/share:"):
+                if btn_col2.button(key="Share", help="Share", label="", type="secondary", width="stretch", icon=":material/share:"):
                     rows = edited_df[edited_df["Select"] == True]
                     
                     if rows.empty:
@@ -124,7 +124,7 @@ if login:
                             })
                             st.rerun()
 
-                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", use_container_width=True, icon=":material/delete:"):
+                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", width="stretch", icon=":material/delete:"):
                     try:
                         rows_to_edit = edited_df[edited_df["Select"] == True]
                         if rows_to_edit.empty:
@@ -226,7 +226,7 @@ if login:
 
                 btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
 
-                if btn_col1.button("Save", type="primary", use_container_width=True):
+                if btn_col1.button("Save", type="primary", width="stretch"):
                     if agent_type == "Chat" and "{context}" not in prompt_msg:
                         component.get_error("For 'Chat' agents, 'Agent Prompt Message' must contain '{context}'.")
                     else:
@@ -275,7 +275,7 @@ if login:
                         finally:
                             component.get_processing(False)
 
-                if btn_col2.button("Cancel", use_container_width=True):
+                if btn_col2.button("Cancel", width="stretch"):
                     st.session_state["show_form_agents"] = False
                     st.rerun()
 
@@ -316,7 +316,7 @@ if login:
 
                 btn_col1, btn_col2, _ = st.columns([2, 2.2, 5.8])
 
-                if btn_col1.button("Save", type="primary", use_container_width=True, disabled=df_users.empty):
+                if btn_col1.button("Save", type="primary", width="stretch", disabled=df_users.empty):
                     try:
                         if set(old_users) != set(new_users):
                             component.get_processing(True)
@@ -333,7 +333,7 @@ if login:
                     finally:
                         component.get_processing(False)
 
-                if btn_col2.button("Cancel", use_container_width=True):
+                if btn_col2.button("Cancel", width="stretch"):
                     st.session_state["show_form_agents"] = False
                     st.rerun()
 
@@ -342,7 +342,7 @@ if login:
     if not st.session_state["show_form_agents"]:
         btn_col1, btn_col2 = st.columns([2, 8])
         
-        if btn_col1.button("Create", type="primary", use_container_width=True):
+        if btn_col1.button("Create", type="primary", width="stretch"):
             st.session_state["show_form_agents"] = True
             st.session_state["form_mode_agents"] = "create"
             st.session_state["selected_agent"] = None

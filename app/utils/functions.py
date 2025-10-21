@@ -116,28 +116,6 @@ class FunctionService:
         return data
     
     @staticmethod
-    def get_tables_dot(data):
-        dot = Digraph()
-
-        # Configuración de colores
-        dot.attr(bgcolor="#101414")
-        dot.attr("node", fontcolor="white", fontsize="11")
-        dot.attr("edge", color="#403c44")
-
-        for table_name, columns in data.items():
-            # Crear tabla usando HTML-like labels con estilos personalizados
-            table_html = f"<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0' BGCOLOR='#101414' COLOR='#403c44'>"
-            table_html += f"<TR><TD COLSPAN='2' BGCOLOR='#403c44' ALIGN='CENTER'><FONT FACE='Arial' COLOR='white'><B>{table_name}</B></FONT></TD></TR>"
-            table_html += "".join(
-                [f"<TR><TD><FONT FACE='Arial' COLOR='white'>{col['column_name']}</FONT></TD><TD><FONT FACE='Arial' COLOR='white'>{col['data_type']}</FONT></TD></TR>" for col in columns]
-            )
-            table_html += "</TABLE>>"
-
-            dot.node(table_name, label=table_html, shape="plaintext")
-
-        return dot
-    
-    @staticmethod
     def track_time(control):
         """
         Tracks the total time elapsed between start and stop events for each user session.

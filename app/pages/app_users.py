@@ -74,7 +74,7 @@ if login:
 
                 btn_col1, btn_col2, btn_col3 = st.columns([2, 2, 6])
 
-                if btn_col1.button("Edit", type="secondary", use_container_width=True, icon=":material/edit:"):
+                if btn_col1.button("Edit", type="secondary", width="stretch", icon=":material/edit:"):
                     rows_to_edit = edited_df[edited_df["Edit"] == True]
                     if rows_to_edit.empty:
                         st.warning("Please select at least one user to edit.", icon=":material/add_alert:")
@@ -89,7 +89,7 @@ if login:
                             })
                             st.rerun()
 
-                if btn_col2.button("Delete", type="secondary", use_container_width=True, icon=":material/delete:"):
+                if btn_col2.button("Delete", type="secondary", width="stretch", icon=":material/delete:"):
                     try:
                         rows_to_edit = edited_df[edited_df["Delete"] == True]
                         if rows_to_edit.empty:
@@ -199,7 +199,7 @@ if login:
 
             btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
 
-            if btn_col1.button("Save", type="primary", use_container_width=True):
+            if btn_col1.button("Save", type="primary", width="stretch"):
                 try:
                     component.get_processing(True)
                     sel_ai_password = utl_function_service.get_password()
@@ -331,7 +331,7 @@ if login:
                 finally:
                     component.get_processing(False)
 
-            if btn_col2.button("Cancel", use_container_width=True):
+            if btn_col2.button("Cancel", width="stretch"):
                 st.session_state["show_form_users"] = False
                 st.rerun()
 
@@ -342,13 +342,13 @@ if login:
     if not st.session_state["show_form_users"]:
         btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
 
-        if btn_col1.button("Create", type="primary", use_container_width=True):
+        if btn_col1.button("Create", type="primary", width="stretch"):
             st.session_state["show_form_users"] = True
             st.session_state["form_mode_users"] = "create"
             st.session_state["selected_user"] = None
             st.rerun()
         
-        if btn_col2.button("Bulk", type="secondary", use_container_width=True):
+        if btn_col2.button("Bulk", type="secondary", width="stretch"):
             st.session_state["show_form_users"] = True
             st.session_state["form_mode_users"] = "bulk"
             st.session_state["selected_user"] = None

@@ -59,7 +59,7 @@ if login:
                     },
                     disabled=["USER_GROUP_ID", "USER_GROUP_NAME", "USER_GROUP_DESCRIPTION", "USER_COUNT", "Status"],
                     hide_index=True,
-                    use_container_width=True,
+                    width="stretch",
                 )
 
                 if st.button("Edit", type="primary"):
@@ -105,7 +105,7 @@ if login:
 
             btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
 
-            if btn_col1.button("Save", type="primary", use_container_width=True):
+            if btn_col1.button("Save", type="primary", width="stretch"):
                 if warning_msg:
                     st.stop()
 
@@ -132,7 +132,7 @@ if login:
                 finally:
                     component.get_processing(False)
 
-            if btn_col2.button("Cancel", use_container_width=True):
+            if btn_col2.button("Cancel", width="stretch"):
                 st.session_state["show_form"] = False
                 st.rerun()
 

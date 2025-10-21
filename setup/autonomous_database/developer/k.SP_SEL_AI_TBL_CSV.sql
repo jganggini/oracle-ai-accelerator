@@ -1,6 +1,6 @@
     CREATE OR REPLACE PROCEDURE SP_SEL_AI_TBL_CSV (
         p_object_uri IN VARCHAR2,  /* Full URI of the file (e.g., s3://bucket/employees.csv) */
-        p_table_name IN VARCHAR2   /* Table name with schema (e.g., ADW23AI.EMPLOYEES) */
+        p_table_name IN VARCHAR2   /* Table name with schema (e.g., ORA26AI.EMPLOYEES) */
     )
     AS
         l_file_name  VARCHAR2(4000);
@@ -56,10 +56,14 @@
             IF i > 1 THEN
                 l_create_stmt := l_create_stmt || ', ';
             END IF;
-            /* Each column with its detected 'data_type' */
-            l_create_stmt := l_create_stmt 
-                || '"' || l_cols(i).column_name || '" ' 
-                || l_cols(i).data_type;
+            /* Define NUMBER as NUMBER; all other types as wide VARCHAR2 to avoid ORA-12899 */
+            IF INSTR(UPPER(l_cols(i).data_type), 'NUMBER') = 1 THEN
+                l_create_stmt := l_create_stmt 
+                    || '"' || l_cols(i).column_name || '" NUMBER';
+            ELSE
+                l_create_stmt := l_create_stmt 
+                    || '"' || l_cols(i).column_name || '" VARCHAR2(4000)';
+            END IF;
         END LOOP;
 
         l_create_stmt := l_create_stmt || ')';
@@ -69,6 +73,7 @@
         DECLARE
             l_col_list    CLOB := '';
             l_select_cols CLOB := '';
+            l_expr        CLOB := '';
         BEGIN
             /* Dynamically build the column lists and selection */
             FOR i IN 1 .. l_cols.COUNT LOOP
@@ -78,9 +83,20 @@
                 END IF;
                 /* Column name in the table */
                 l_col_list := l_col_list || '"' || l_cols(i).column_name || '"';
-                /* Parsed name (COL001, COL002, ...) */
-                l_select_cols := l_select_cols 
-                                || 'COL' || LPAD(l_cols(i).column_position, 3, '0');
+                /* Build parsed expression per detected data type */
+                l_expr := 'COL' || LPAD(l_cols(i).column_position, 3, '0');
+
+                /* If NUMBER detected, strip thousand separators (comma) and cast safely */
+                IF INSTR(UPPER(l_cols(i).data_type), 'NUMBER') = 1 THEN
+                    /*
+                      Use two-arg REPLACE to remove commas (CHR(44)) and avoid quoting issues.
+                      Convert empty strings to NULL using LENGTH check before TO_NUMBER.
+                    */
+                    l_expr := 'CASE WHEN LENGTH(TRIM(REPLACE(' || l_expr || ', CHR(44)))) = 0 '
+                              || 'THEN NULL ELSE TO_NUMBER(TRIM(REPLACE(' || l_expr || ', CHR(44)))) END';
+                END IF;
+
+                l_select_cols := l_select_cols || l_expr;
             END LOOP;
 
             l_insert_stmt :=

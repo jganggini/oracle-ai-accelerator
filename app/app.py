@@ -88,7 +88,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                 edited_df = st.data_editor(
                     df_view,
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                     num_rows="fixed",
                     key="data-files-list",
@@ -126,7 +126,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                 btn_col1, btn_col2, btn_col3, btn_col4 = st.columns([0.1, 0.1, 0.1, 0.7])
                 
-                if btn_col1.button(key="View", help="View", label="", type="secondary", use_container_width=True, icon=":material/table_eye:"):
+                if btn_col1.button(key="View", help="View", label="", type="secondary", width="stretch", icon=":material/table_eye:"):
                     rows_to_edit = edited_df[edited_df["Select"] == True]
                     if rows_to_edit.empty:
                         st.warning("Please select at least one file to view.", icon=":material/add_alert:")
@@ -141,7 +141,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             })
                             st.rerun()
 
-                if btn_col2.button(key="Share", help="Share", label="", type="secondary", use_container_width=True, icon=":material/share:"):
+                if btn_col2.button(key="Share", help="Share", label="", type="secondary", width="stretch", icon=":material/share:"):
                     rows = edited_df[edited_df["Select"] == True]
 
                     if rows.empty:
@@ -179,7 +179,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             st.rerun()
 
                 
-                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", use_container_width=True, icon=":material/delete:"):
+                if btn_col3.button(key="Delete", help="Delete", label="", type="secondary", width="stretch", icon=":material/delete:"):
                     try:
                         rows_to_edit = edited_df[edited_df["Select"] == True]
                         if rows_to_edit.empty:
@@ -397,13 +397,13 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                         # Botón Start
                         start_disabled = st.session_state.transcription_state == "stopped" or st.session_state.transcription_state == "idle"
-                        if btn_col1.button("Start", type="primary", use_container_width=True, icon=":material/mic:", disabled=(not start_disabled)):
+                        if btn_col1.button("Start", type="primary", width="stretch", icon=":material/mic:", disabled=(not start_disabled)):
                             st.session_state.transcription_state = "running"
                             st.rerun()
 
                         # Botón Stop
                         stop_disabled = st.session_state.transcription_state != "running"
-                        if btn_col2.button("Stop", type="secondary", use_container_width=True, icon=":material/stop_circle:", disabled=stop_disabled):
+                        if btn_col2.button("Stop", type="secondary", width="stretch", icon=":material/stop_circle:", disabled=stop_disabled):
                             st.session_state.transcription_state = "stopped"
                             service.stop_realtime_session()
                             status_caption.markdown(":material/stop_circle: **:red[Transcription Stopped...]**")
@@ -411,7 +411,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                         # Botón Reset
                         reset_disabled = bool(uploaded_transcription) and st.session_state.transcription_state != "running"
-                        if btn_col3.button("Reset", type="secondary", use_container_width=True, icon=":material/cached:", disabled=(not reset_disabled)):
+                        if btn_col3.button("Reset", type="secondary", width="stretch", icon=":material/cached:", disabled=(not reset_disabled)):
                             st.session_state.transcription_state = "idle"
                             service.stop_realtime_session()
                             uploaded_transcription.clear()
@@ -490,7 +490,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                 # Data Editor: Comment
                                 comment_data_editor = st.data_editor(
                                     df_comment,
-                                    use_container_width = True,
+                                    width               = 'stretch',
                                     hide_index          = True,
                                     num_rows            = "fixed",
                                     column_config       = {
@@ -526,7 +526,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                     btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
 
-                    if btn_col1.button("Save", type="primary", use_container_width=True):
+                    if btn_col1.button("Save", type="primary", width="stretch"):
                         
                         if warning_msg:
                             st.stop()
@@ -585,8 +585,8 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                     # Modules
                                     match module_id:
                                         case 1:
-                                            msg = db_file_service.update_extraction(file_id, str(bucket_file_content))
-                                            component.get_toast(msg, ":material/database:")
+                                            #msg = db_file_service.update_extraction(file_id, str(bucket_file_content))
+                                            #component.get_toast(msg, ":material/database:")
                         
                                             msg_module = select_ai_service.create(
                                                 user_id,
@@ -768,7 +768,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         finally:
                             component.get_processing(False)
 
-                    if btn_col2.button("Cancel", use_container_width=True):
+                    if btn_col2.button("Cancel", width="stretch"):
                         st.session_state["show_form_app"] = False
                         st.rerun()
                 else:
@@ -818,7 +818,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                 btn_col1, btn_col2 = st.columns([2.2, 8])
 
-                if btn_col1.button("Cancel", use_container_width=True):
+                if btn_col1.button("Cancel", width="stretch"):
                     st.session_state["show_form_app"] = False
                     st.rerun()
 
@@ -859,7 +859,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                 btn_col1, btn_col2, _ = st.columns([2, 2.2, 5.8])
 
-                if btn_col1.button("Save", type="primary", use_container_width=True, disabled=df_users.empty):
+                if btn_col1.button("Save", type="primary", width="stretch", disabled=df_users.empty):
                     try:
                         if set(old_users) != set(new_users):
                             component.get_processing(True)
@@ -876,7 +876,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                     finally:
                         component.get_processing(False)
 
-                if btn_col2.button("Cancel", use_container_width=True):
+                if btn_col2.button("Cancel", width="stretch"):
                     st.session_state["show_form_app"] = False
                     st.rerun()
 
@@ -884,7 +884,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
     if not st.session_state["show_form_app"]:
         btn_col1, btn_col2 = st.columns([2, 8])
 
-        if btn_col1.button("Create", type="primary", use_container_width=True):
+        if btn_col1.button("Create", type="primary", width="stretch"):
             st.session_state["show_form_app"] = True
             st.session_state["form_mode_app"] = "create"
             st.session_state["selected_file"] = None
