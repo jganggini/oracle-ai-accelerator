@@ -12,7 +12,11 @@ class UserService:
         Initializes the UserService with a shared database connection.
         """
         self.conn_instance = Connection()
-        self.conn = self.conn_instance.get_connection()
+
+    @property
+    def conn(self):
+        """Always returns a live connection (auto-reconnect if needed)."""
+        return self.conn_instance.get_connection()
     
     def get_access(
             _self,
@@ -29,7 +33,8 @@ class UserService:
         Returns:
             pd.DataFrame: A DataFrame containing user information if valid, else empty.
         """  
-        query = f"""
+        # Parametrizar para evitar inyecciones y mejorar el plan cache
+        query = """
             SELECT
                 A.USER_ID,
                 A.USER_GROUP_ID,
@@ -42,42 +47,37 @@ class UserService:
                     SELECT JSON_ARRAYAGG(T.MODULE_NAME ORDER BY T.SORT_COL)
                     FROM (
                         SELECT M.MODULE_NAME,
-                            M.MODULE_ID AS SORT_COL
+                               M.MODULE_ID AS SORT_COL
                         FROM JSON_TABLE(
-                                TO_CHAR(A.USER_MODULES),
-                                '$[*]' COLUMNS (
-                                    MODULE_ID NUMBER PATH '$'
-                                )
-                            ) JT
-                            JOIN MODULES M 
-                                ON JT.MODULE_ID = M.MODULE_ID
-                        
+                               TO_CHAR(A.USER_MODULES),
+                               '$[*]' COLUMNS (
+                                   MODULE_ID NUMBER PATH '$'
+                               )
+                        ) JT
+                        JOIN MODULES M ON JT.MODULE_ID = M.MODULE_ID
                         UNION
-                        
-                        SELECT 'Vector Database' AS MODULE_NAME,
-                            999999 AS SORT_COL  -- para forzar que vaya al final
+                        SELECT 'Vector Database' AS MODULE_NAME, 999999 AS SORT_COL
                         FROM DUAL
                         WHERE EXISTS (
-                                SELECT 1
-                                FROM JSON_TABLE(
-                                        TO_CHAR(A.USER_MODULES),
-                                        '$[*]' COLUMNS (
-                                            MODULE_ID NUMBER PATH '$'
-                                        )
-                                    ) JT2
-                                JOIN MODULES M2
-                                    ON JT2.MODULE_ID = M2.MODULE_ID
-                                WHERE M2.MODULE_VECTOR_STORE = 1
-                            )
+                            SELECT 1
+                            FROM JSON_TABLE(
+                                   TO_CHAR(A.USER_MODULES),
+                                   '$[*]' COLUMNS (
+                                       MODULE_ID NUMBER PATH '$'
+                                   )
+                            ) JT2
+                            JOIN MODULES M2 ON JT2.MODULE_ID = M2.MODULE_ID
+                            WHERE M2.MODULE_VECTOR_STORE = 1
+                        )
                     ) T
                 ) AS MODULE_NAMES,
                 A.USER_STATE,
                 A.USER_DATE
             FROM USERS A
-            WHERE A.USER_USERNAME = '{username}' 
-            AND A.USER_PASSWORD = '{password}'
+            WHERE A.USER_USERNAME = :username
+              AND A.USER_PASSWORD = :password
         """
-        return pd.read_sql(query, con=_self.conn)
+        return pd.read_sql(query, con=_self.conn, params={"username": username, "password": password})
     
     def get_all_users_cache(self, force_update=False):
         if force_update:

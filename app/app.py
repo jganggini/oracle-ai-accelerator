@@ -1,6 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
-import fitz
+# Nota: evitar importaciones pesadas al arranque; 'fitz' no se usa aquí
 import json
 from pathlib import Path
 from datetime import datetime
@@ -13,21 +13,6 @@ import components as component
 import services.database as database
 import services as service
 import utils as utils
-
-# Create service instances
-db_module_service             = database.ModuleService()
-db_agent_service              = database.AgentService()
-bucket_service                = service.BucketService()
-select_ai_service             = service.SelectAIService()
-select_ai_rag_service         = service.SelectAIRAGService()
-document_undestanding_service = service.DocumentUnderstandingService()
-speech_service                = service.SpeechService()
-document_multimodal           = service.DocumentMultimodalService()
-anomaly_engine_service        = service.AnalyzerEngineService()
-db_file_service               = database.FileService()
-db_doc_service                = database.DocService()
-utl_function_service          = utils.FunctionService()
-db_user_service               = database.UserService()
 
 language_map = {
     "Spanish"    : "esa",
@@ -58,6 +43,20 @@ if "show_form_app" not in st.session_state:
     
 
 if "username" in st.session_state and "user_id" in st.session_state:
+    # Lazy init: servicios y conexiones solo después de login exitoso
+    db_module_service             = database.ModuleService()
+    db_agent_service              = database.AgentService()
+    bucket_service                = service.BucketService()
+    select_ai_service             = service.SelectAIService()
+    select_ai_rag_service         = service.SelectAIRAGService()
+    document_undestanding_service = service.DocumentUnderstandingService()
+    speech_service                = service.SpeechService()
+    document_multimodal           = service.DocumentMultimodalService()
+    anomaly_engine_service        = service.AnalyzerEngineService()
+    db_file_service               = database.FileService()
+    db_doc_service                = database.DocService()
+    utl_function_service          = utils.FunctionService()
+    db_user_service               = database.UserService()
     st.header(":material/book_ribbon: Knowledge")
     st.caption("Manage Knowledge")
     st.set_page_config(layout="wide")
@@ -680,6 +679,24 @@ if "username" in st.session_state and "user_id" in st.session_state:
                                                 json.dump([], f)
                                             render_transcriptions()
                                             status_caption.caption("")
+                                        case 7:
+                                            object_name = bucket_file_name
+                                            msg_module  = "Object retrieved successfully."
+                                            data        = bucket_service.get_object(object_name).decode("utf-8")
+
+                                            # Process file extraction
+                                            msg = db_file_service.update_extraction(file_id, data)
+                                            component.get_toast(msg, ":material/database:")
+
+                                            # Process Vector Store
+                                            msg = db_doc_service.vector_store(file_id)
+                                            component.get_toast(msg, ":material/database:")
+
+                                            file_trg_obj_name       = file_trg_obj_name
+                                            file_trg_tot_pages      = 1
+                                            file_trg_tot_characters = len(data)
+                                            file_trg_tot_time       = utl_function_service.track_time(0)
+                                            file_trg_language       = language_map[selected_language_file]
 
                                     # Update Extraction
                                     file_trg_tot_time = utl_function_service.track_time(0)
@@ -873,7 +890,6 @@ if "username" in st.session_state and "user_id" in st.session_state:
             st.session_state["selected_file"] = None
             st.rerun()
  
-# conda activate oracle-ai
-# streamlit run app.py --server.port 8501
-
-# cd app && conda activate oracle-ai && streamlit run app.py --server.port 8501
+# .venv/Scripts/Activate.ps1
+# cd .\app\
+# streamlit run .\app.py --server.port 8501
