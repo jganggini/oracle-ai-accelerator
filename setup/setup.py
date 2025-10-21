@@ -65,23 +65,18 @@ def get_private_key(key_file_path):
     return private_key
 
 # 
-def conda(command, message):
+def run_cmd(command, message, print_stdout=False):
     try:
-        if 'CHECK_CONDA' in message:
-            subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            print(message)
+        if print_stdout:
+            subprocess.run(command, shell=True, check=True)
         else:
             subprocess.run(command, shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-            print(message)
+        print(message)
     except subprocess.CalledProcessError as e:
         error_output = e.stderr.decode('utf-8') if e.stderr else str(e)
-        if 'EnvironmentLocationNotFound' in error_output:
-            print(message.replace('OK', '--'))
-            print("[Warning]:\n" + error_output.rstrip('\n'))
-        else:
-            print(f'[Error]: {error_output}')
-            print(f'[Command]: {command}')
-            sys.exit(1)
+        print(f'[Error]: {error_output}')
+        print(f'[Command]: {command}')
+        sys.exit(1)
 
 #
 def exec(user, file_name, message):
@@ -94,12 +89,12 @@ def exec(user, file_name, message):
     # Default: C:\Users\jeggg\.oci\config
     config = oci.config.from_file(profile_name=os.getenv('CON_OCI_PROFILE_NAME', 'DEFAULT'))
 
-    # ADW23ai: Admin
+    # ORA26AI: Admin
     con_adb_adm_user_name       = os.getenv('CON_ADB_ADM_USER_NAME')
     con_adb_adm_password        = os.getenv('CON_ADB_ADM_PASSWORD')
     con_adb_adm_service_name    = os.getenv('CON_ADB_ADM_SERVICE_NAME')
 
-    # ADW23ai: Developer
+    # ORA26AI: Developer
     con_adb_dev_user_name         = os.getenv('CON_ADB_DEV_USER_NAME')
     con_adb_dev_password          = os.getenv('CON_ADB_DEV_PASSWORD')
     con_adb_dev_service_name      = os.getenv('CON_ADB_DEV_SERVICE_NAME')
@@ -111,7 +106,7 @@ def exec(user, file_name, message):
     con_adb_dev_c_credential_name = os.getenv('CON_ADB_DEV_C_CREDENTIAL_NAME')
     con_adb_dev_c_model           = os.getenv('CON_ADB_DEV_C_MODEL')
 
-    # ADW23ai: Wallet
+    # ORA26AI: Wallet
     con_adb_wallet_password     = os.getenv('CON_ADB_WALLET_PASSWORD')
     # Generative AI
     con_gen_ai_region           = config['region']
@@ -199,55 +194,54 @@ def exec(user, file_name, message):
             sys.exit(1)
 
 def main():
-    print(f'\n                                                       [ SETUP ][ ANACONDA ]')
+    print(f'\n                                                           [ SETUP ][ VENV ]')
     print(f'----------------------------------------------------------------------------')
-    
-    conda(f'conda --version', 
-          f'[OK] CHECK CONDA.............................................[ CHECK_CONDA ]')
 
-    conda(f'conda run -n base pip install --force-reinstall oci oracledb --upgrade --user',
-          f'[OK] PIP INSTALL OCI & ORACLEDB IN CONDA BASE.................[ CONDA_BASE ]')
+    # Mostrar versión de Python del entorno actual (.venv)
+    run_cmd(f'"{sys.executable}" -V',
+            f'[OK] CHECK PYTHON...........................................[ CHECK_PYTHON ]',
+            print_stdout=True)
 
-    conda(f'conda run -n base pip install --force-reinstall python-dotenv --no-warn-script-location --upgrade --user', 
-          f'[OK] PIP INSTALL PYTHON-DOTENV IN CONDA BASE..................[ CONDA_BASE ]')
+    # Asegurar pip disponible y actualizado en la venv activa
+    run_cmd(f'"{sys.executable}" -m ensurepip --upgrade --default-pip',
+            f'[OK] ENSURE PIP.................................................[ VENV_PIP ]')
+
+    run_cmd(f'"{sys.executable}" -m pip install --upgrade pip',
+            f'[OK] PIP UPGRADE................................................[ VENV_PIP ]')
+
+    run_cmd(f'"{sys.executable}" -m pip install --upgrade oci oracledb',
+            f'[OK] PIP INSTALL OCI & ORACLEDB................................[ VENV_BASE ]')
+
+    run_cmd(f'"{sys.executable}" -m pip install --upgrade python-dotenv',
+            f'[OK] PIP INSTALL PYTHON-DOTENV.................................[ VENV_BASE ]')
     
     # Cargar variables del archivo .env
     from dotenv import load_dotenv
     load_dotenv(dotenv_path=env_path)
     
-    # CONFIG: CONDA
-    con_conda_env_name    = os.getenv('CON_CONDA_ENV_NAME')
-    # ADW23ai: Admin
+    # ORA26AI: Admin
     con_adb_adm_user_name = os.getenv('CON_ADB_ADM_USER_NAME')
-    # ADW23ai: Developer
+    # ORA26AI: Developer
     con_adb_dev_user_name = os.getenv('CON_ADB_DEV_USER_NAME')
 
-    conda(f'conda remove --name {con_conda_env_name} --all -y', 
-          f'[OK] CONDA REMOVE......................................[ CONDA_ENVIRONMENT ]')
-          
-    conda(f'conda create -n {con_conda_env_name} python=3.10 -y', 
-          f'[OK] CONDA CREATE ENVIRONMENT..........................[ CONDA_ENVIRONMENT ]')
-    
-    conda(f'conda run -n {con_conda_env_name} conda install -c conda-forge python-graphviz -y', 
-          f'[OK] CONDA INSTALL GRAPHVIZ................................[ CONDA_INSTALL ]')
-    
-    conda(f'conda run -n {con_conda_env_name} pip install -r {req_file}',
-      f'[OK] PIP INSTALL REQUIREMENTS..........................[ CONDA_ENVIRONMENT ]')
+    # Instalar requisitos del proyecto en la venv actual
+    run_cmd(f'"{sys.executable}" -m pip install -r {req_file}',
+            f'[OK] PIP INSTALL REQUIREMENTS..........................[ VENV_REQUIREMENTS ]')
     
     print(f'\n                                                     [ VALIDATION ][ TOOLS ]')
-    print(f'----------------------------------------------------------------------------')
+    print(f'---------------------------------------------------------------------------')
 
-    conda(f'python tool.config.py', 
-          f'[OK] CONFIG FILE..............................................[ VALID_TOOL ]')
+    run_cmd(f'"{sys.executable}" tool.config.py', 
+            f'[OK] CONFIG FILE..............................................[ VALID_TOOL ]')
     
-    conda(f'python tool.bucket.py', 
-          f'[OK] BUCKET ACCESS............................................[ VALID_TOOL ]')
+    run_cmd(f'"{sys.executable}" tool.bucket.py', 
+            f'[OK] BUCKET ACCESS............................................[ VALID_TOOL ]')
     
-    conda(f'python tool.autonomos.connection.py', 
-          f'[OK] AUTONOMOUS DATABASE CONNECTION...........................[ VALID_TOOL ]')
+    run_cmd(f'"{sys.executable}" tool.autonomos.connection.py', 
+            f'[OK] AUTONOMOUS DATABASE CONNECTION...........................[ VALID_TOOL ]')
 
     print(f'\n                                            [ SETUP ][ AUTONOMOUS DATABASE ]')
-    print(f'----------------------------------------------------------------------------')
+    print(f'-----------------------------------------------------------------------------')
 
     print(f'[USER: {con_adb_adm_user_name}]')
     
