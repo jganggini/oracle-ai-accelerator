@@ -47,15 +47,15 @@ variable "_oci_bucket_name" {
 }
 
 ############################################
-# Autonomous Database
+# Oracle 26ai
 ############################################
 
 variable "_oci_autonomous_database" {
-  description = "🗂️ Autonomous Database [variables.tf][⚠️ No changes required]"
+  description = "🗂️ Oracle 26ai [variables.tf][⚠️ No changes required]"
 
   default = {
-    db_name: "adb23ai"
-    display_name: "adb23ai"
+    db_name: "ora26ai"
+    display_name: "ora26ai"
     compute_count: 4              # Número de ECPU/OCPU asignadas (según compute_model)
     data_storage_size_in_tbs: 1   # Tamaño del almacenamiento (en terabytes)
     db_workload: "OLTP"           # Tipo de carga de trabajo: OLTP para ATP o DW para ADW
@@ -119,7 +119,7 @@ EOT
 
 variable "autonomous_database_developer_password" {
   description = <<EOT
-🔑 Contraseña del usuario ADW23AI para la base de datos autónoma. 
+🔑 Contraseña del usuario ORA26AI para la base de datos autónoma. 
 Debe tener entre 12 y 30 caracteres, incluir al menos una mayúscula, una minúscula y un número. 
 No puede contener comillas dobles (") ni la palabra "admin" (sin importar mayúsculas/minúsculas).
 EOT

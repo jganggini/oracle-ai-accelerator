@@ -19,19 +19,18 @@ firewall-cmd --add-port=8501/tcp --permanent
 firewall-cmd --add-port=5901/tcp --permanent
 firewall-cmd --reload
 
-# Step 5: Download and install Miniconda for the opc user
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /home/opc/Miniconda3.sh
-chmod +x /home/opc/Miniconda3.sh
-/home/opc/Miniconda3.sh -b -u -p /home/opc/miniconda3
+# Step 5: Crear entorno virtual Python (.venv) para el usuario opc
+dnf -y install python3.11 python3.11-devel
+python3.11 -m venv /home/opc/.venv
+chown -R opc:opc /home/opc/.venv
 
-# Step 6: Configure Conda for the opc user environment
-echo 'export PATH=/home/opc/miniconda3/bin:$PATH' >> /home/opc/.bashrc
-echo 'source /home/opc/miniconda3/etc/profile.d/conda.sh' >> /home/opc/.bashrc
+# Step 6: Configurar activación automática de .venv para el usuario opc
+echo 'if [ -d "$HOME/.venv" ]; then source "$HOME/.venv/bin/activate"; fi' >> /home/opc/.bashrc
 chown opc:opc /home/opc/.bashrc
 
-# Step 7: Pre-accept Conda Terms of Service for required channels
-sudo -u opc -i bash -c 'source ~/.bashrc && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main'
-sudo -u opc -i bash -c 'source ~/.bashrc && conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r'
+# Step 7: Actualizar pip y herramientas básicas dentro de .venv
+sudo -u opc -i bash -c 'source ~/.bashrc && python -m ensurepip --upgrade --default-pip'
+sudo -u opc -i bash -c 'source ~/.bashrc && python -m pip install --upgrade pip wheel setuptools'
 
 # Step 8: Clone the project repository
 git clone https://github.com/jganggini/oracle-ai-accelerator.git /home/opc/oracle-ai-accelerator
@@ -73,18 +72,20 @@ echo "${env}" > /home/opc/oracle-ai-accelerator/app/.env
 chmod 600 /home/opc/oracle-ai-accelerator/app/.env
 chown opc:opc /home/opc/oracle-ai-accelerator/app/.env
 
-# Step 12: Run the setup script using Conda base environment as opc user
+# Step 12: Ejecutar el setup usando el entorno virtual (.venv) como usuario opc
 sudo -u opc -i bash <<'EOF'
 cd /home/opc/oracle-ai-accelerator/setup
-source /home/opc/miniconda3/etc/profile.d/conda.sh
-conda run -n base pip install --upgrade --force-reinstall python-dotenv
-conda run -n base python setup.py --linux
+source /home/opc/.venv/bin/activate
+python --version
+python setup.py --linux
+deactivate
 EOF
 
-# Step 13: Launch the Streamlit application using the ORACLE-AI Conda environment
+# Step 13: Lanzar la aplicación Streamlit usando el entorno virtual (.venv)
 sudo -u opc -i bash <<'EOF'
 cd /home/opc/oracle-ai-accelerator/app
-source /home/opc/miniconda3/etc/profile.d/conda.sh
-echo "Using Python from: $(conda run -n ORACLE-AI which python)"
-nohup conda run -n ORACLE-AI streamlit run app.py --server.port 8501 --logger.level=INFO > /home/opc/streamlit.log 2>&1 &
+source /home/opc/.venv/bin/activate
+echo "Using Python from: $(which python)"
+nohup python -m streamlit run app.py --server.port 8501 --logger.level=INFO > /home/opc/streamlit.log 2>&1 &
+deactivate
 EOF

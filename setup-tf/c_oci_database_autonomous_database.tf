@@ -3,7 +3,7 @@
 ############################################
 
 #https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/database_autonomous_database
-resource "oci_database_autonomous_database" "adb23ai" {
+resource "oci_database_autonomous_database" "ora26ai" {
     #Required
     admin_password = var.autonomous_database_admin_password
     compartment_id = var.compartment_ocid
@@ -13,7 +13,7 @@ resource "oci_database_autonomous_database" "adb23ai" {
     compute_count            = var._oci_autonomous_database.compute_count
     compute_model            = "ECPU"
     data_storage_size_in_tbs = var._oci_autonomous_database.data_storage_size_in_tbs
-    db_version               = "23ai"
+    db_version               = "26ai"
     db_workload              = var._oci_autonomous_database.db_workload
     display_name             = var._oci_autonomous_database.display_name
     is_auto_scaling_enabled  = var._oci_autonomous_database.is_auto_scaling_enabled
@@ -26,7 +26,7 @@ resource "oci_database_autonomous_database" "adb23ai" {
 #https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/database_autonomous_database_wallet
 resource "oci_database_autonomous_database_wallet" "adb_wallet" {
   #Required
-  autonomous_database_id = oci_database_autonomous_database.adb23ai.id
+  autonomous_database_id = oci_database_autonomous_database.ora26ai.id
   password               = var.autonomous_database_wallet_password
 
   #Optional
