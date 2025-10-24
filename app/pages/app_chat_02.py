@@ -15,6 +15,8 @@ select_ai_rag_service = service.SelectAIRAGService()
 db_select_ai_rag_service = database.SelectAIRAGService()
 utl_function_service = utils.FunctionService()
 
+# Load login and footer components
+st.session_state["page"] = "app_chat_02.py"
 login = component.get_login()
 component.get_footer()
 

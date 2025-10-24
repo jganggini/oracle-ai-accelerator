@@ -69,7 +69,7 @@ class DocumentUnderstandingService:
                 processor_config = oci.ai_document.models.GeneralProcessorConfig(
                     features =[
                         oci.ai_document.models.DocumentTextExtractionFeature(generate_searchable_pdf=True),
-                        #oci.ai_document.models.DocumentTableExtractionFeature(),
+                        oci.ai_document.models.DocumentTableExtractionFeature(),
                         #oci.ai_document.models.DocumentKeyValueExtractionFeature(),
                         #oci.ai_document.models.DocumentLanguageClassificationFeature(),
                     ],

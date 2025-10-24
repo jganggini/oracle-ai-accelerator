@@ -9,6 +9,8 @@ import utils as utils
 db_user_service = database.UserService()
 utl_function_service = utils.FunctionService()
 
+# Load login and footer components
+st.session_state["page"] = "app_user_group.py"
 login = component.get_login()
 component.get_footer()
 
@@ -28,6 +30,7 @@ if login:
     st.header(":material/group: User Groups")
     st.caption("Manage user groups.")
 
+    
     df_user_group = db_user_service.get_all_user_group_cache(force_update=True)
 
     # Display group list if form is hidden

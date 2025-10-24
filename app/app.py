@@ -61,7 +61,8 @@ if "username" in st.session_state and "user_id" in st.session_state:
     st.caption("Manage Knowledge")
     st.set_page_config(layout="wide")
     st.set_page_config(initial_sidebar_state="expanded")
-        
+    
+    st.session_state["page"] = "app.py"
     username = st.session_state["username"]
     user_id = st.session_state["user_id"]
     user_group_id = st.session_state["user_group_id"]
@@ -889,7 +890,19 @@ if "username" in st.session_state and "user_id" in st.session_state:
             st.session_state["form_mode_app"] = "create"
             st.session_state["selected_file"] = None
             st.rerun()
- 
+
+# Run the application (Windows)
 # .venv/Scripts/Activate.ps1
 # cd .\app\
 # streamlit run .\app.py --server.port 8501
+
+# Show the last 200 lines of the log file (Oracle Linux)
+# tail -n 200 /home/opc/streamlit.log
+
+# Kill the process running on port 8501 (Oracle Linux)
+# sudo lsof -t -i:8501 | xargs sudo kill -9
+
+# Run the application (Oracle Linux)
+# cd /home/opc/oracle-ai-accelerator/app
+# echo "Using Python from: $(which python)"
+# nohup python -m streamlit run app.py --server.port 8501 --logger.level=INFO > /home/opc/streamlit.log 2>&1 &

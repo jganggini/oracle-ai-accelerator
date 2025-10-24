@@ -303,6 +303,7 @@ class AgentService:
             agent_frequency_penalty,
             agent_presence_penalty,
             agent_prompt_system,
+            agent_prompt_message,
             state
         ):
         """
@@ -336,6 +337,7 @@ class AgentService:
                     AGENT_FREQUENCY_PENALTY = :agent_frequency_penalty,
                     AGENT_PRESENCE_PENALTY  = :agent_presence_penalty,
                     AGENT_PROMPT_SYSTEM     = :agent_prompt_system,
+                    AGENT_PROMPT_MESSAGE    = :agent_prompt_message,
                     AGENT_STATE             = :state
                 WHERE AGENT_ID = :agent_id
             """, {
@@ -349,6 +351,7 @@ class AgentService:
                 "agent_frequency_penalty": agent_frequency_penalty,
                 "agent_presence_penalty": agent_presence_penalty,
                 "agent_prompt_system": agent_prompt_system,
+                "agent_prompt_message": agent_prompt_message,
                 "state": state,
                 "agent_id": agent_id
             })

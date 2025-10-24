@@ -176,7 +176,7 @@ class SelectAIService:
         query = f"""
             SELECT
                 DBMS_CLOUD_AI.GENERATE(
-                prompt       => '{prompt} /** Format the response in markdown. Do not underline titles. Just focus on the database tables. Answer in {language}. If you do not know the answer, answer imperatively and exactly: ''NNN.'' **/',
+                prompt       => '{prompt} /** Format the response in markdown. Do not underline titles. Queries must always be written in uppercase. Just focus on the database tables. Answer in {language}. If you do not know the answer, answer imperatively and exactly: ''NNN.'' **/',
                 profile_name => '{profile_name}',
                 action       => '{action}') AS CHAT
             FROM DUAL
@@ -232,3 +232,12 @@ class SelectAIService:
                 t.owner, t.table_name, c.column_id
         """
         return pd.read_sql(query, con=_self.conn)
+
+    def get_data(self, sql):
+        """
+        Ejecuta el SQL recibido y devuelve el DataFrame completo sin modificaciones.
+        """
+        try:
+            return pd.read_sql(sql, con=self.conn)
+        except Exception:
+            return pd.DataFrame()

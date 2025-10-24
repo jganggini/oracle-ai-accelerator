@@ -15,6 +15,8 @@ st.set_page_config(
     page_icon="🅾️",
 )
 
+# Load login and footer components
+st.session_state["page"] = "app_agents.py"
 login = component.get_login()
 component.get_footer()
 
@@ -31,12 +33,12 @@ if login:
     
     st.header(":material/smart_toy: Agents")
     st.caption("Manage agents for model.")
-
-    user_id = st.session_state["user_id"]
+    
+    user_id       = st.session_state["user_id"]
     user_group_id = st.session_state["user_group_id"]
-    df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=True)
-    df_models = db_agent_service.get_all_models()
-    df_users = db_user_service.get_all_users_cache()
+    df_agents     = db_agent_service.get_all_agents_cache(user_id, force_update=True)
+    df_models     = db_agent_service.get_all_models()
+    df_users      = db_user_service.get_all_users_cache()
 
     if not st.session_state["show_form_agents"]:
         with st.container(border=True):
@@ -202,10 +204,10 @@ if login:
                     col3, col4 = st.columns(2)
 
                     with col3:
-                        agent_type = st.selectbox("Agent Type", ["Chat", "Extraction"], index=0 if agent_data["AGENT_TYPE"] == "Chat" else 1)
+                        agent_type = st.selectbox("Agent Type", ["Chat", "Extraction", "Analytics"], index=0 if agent_data["AGENT_TYPE"] != "Extraction" else 1)
 
                     with col4:
-                        filtered_models = df_models if agent_type == "Chat" else df_models[df_models["AGENT_MODEL_TYPE"] == "vlm"]
+                        filtered_models = df_models if agent_type != "Extraction" else df_models[df_models["AGENT_MODEL_TYPE"] == "vlm"]
 
                         model_ids = filtered_models["AGENT_MODEL_ID"].tolist()
                         model_index = model_ids.index(agent_data["AGENT_MODEL_ID"]) if agent_data["AGENT_MODEL_ID"] in model_ids else 0
@@ -217,7 +219,7 @@ if login:
                             format_func=lambda mid: f"{mid}: {filtered_models.loc[filtered_models['AGENT_MODEL_ID'] == mid, 'AGENT_MODEL_NAME'].values[0]}"
                         )
 
-                    if agent_type == "Chat":
+                    if agent_type != "Extraction":
                         prompt_sys = st.text_area("Agent Prompt System", value=agent_data["AGENT_PROMPT_SYSTEM"], height=110, max_chars=4000)
                         prompt_msg = st.text_area("Agent Prompt Message", value=agent_data["AGENT_PROMPT_MESSAGE"], height=527, max_chars=4000, help="{context}")
                     else:
@@ -227,7 +229,7 @@ if login:
                 btn_col1, btn_col2, btn_col3 = st.columns([2, 2.2, 6])
 
                 if btn_col1.button("Save", type="primary", width="stretch"):
-                    if agent_type == "Chat" and "{context}" not in prompt_msg:
+                    if agent_type != "Extraction" and "{context}" not in prompt_msg:
                         component.get_error("For 'Chat' agents, 'Agent Prompt Message' must contain '{context}'.")
                     else:
                         try:
@@ -262,6 +264,7 @@ if login:
                                     freq_penalty,
                                     pres_penalty,
                                     prompt_sys,
+                                    prompt_msg,
                                     reverse_map_agent_state.get(agent_data.get("Status", "Active"), 1)
                                 )
                                 component.get_success(msg, ":material/update:")

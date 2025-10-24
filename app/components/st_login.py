@@ -1,12 +1,14 @@
 import ast
 import pandas as pd
 import streamlit as st
-import time
+import json
+from datetime import datetime
 
 import services.database as database
 
-# Create an instance of the UserService
+# Initialize the service
 db_user_service = database.UserService()
+db_agent_service = database.AgentService()
 
 def parse_modules(modules):
     """
@@ -67,6 +69,49 @@ def get_menu(modules, user):
         
         
         st.page_link("pages/app_profile.py", label="Profile", icon=":material/manage_accounts:")
+
+        st.subheader("Options")
+        
+        if st.session_state["page"] == "app_chat_01.py":
+            with st.container(border=True, key="options_select_ai_container"):
+            
+                # Widgets shared by all the pages
+                user_id = st.session_state["user_id"]
+                df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=True)
+                df_agents = df_agents[df_agents["AGENT_TYPE"] == "Analytics"]
+
+                st.selectbox(
+                    "Select an Agent",
+                    options=df_agents["AGENT_ID"],
+                    format_func=lambda agent_id: f"{agent_id}: {df_agents.loc[df_agents['AGENT_ID'] == agent_id, 'AGENT_NAME'].values[0]}",
+                    key="selected_agent_id"
+                )
+                
+                st.checkbox("Analytics Agent", False, key="analytics_agent")
+                st.checkbox("SQLExplain Agent", False, key="sql_explain_agent")
+
+                col1, col2, = st.columns(2)
+
+                with col1:
+                    if st.button(key="clear", help="Clear Chat", label="", icon=":material/delete:", disabled=(not st.session_state["chat-select-ai"]), use_container_width=True):
+                        st.session_state["chat-select-ai"] = []
+                        st.rerun()
+
+                with col2:
+                    st.download_button(
+                        key="Save",
+                        label="",
+                        help="Save Chat",
+                        icon=":material/download:",
+                        data=json.dumps([
+                            {k: v for k, v in msg.items() if k not in ("analytics_df", "analytics")}
+                            for msg in st.session_state["chat-select-ai"]
+                        ], indent=4),
+                        file_name=f"chat_history_{datetime.now().strftime('%H%M%S%f')}.json",
+                        mime="text/plain",
+                        disabled=(not st.session_state["chat-select-ai"]), 
+                        use_container_width=True
+                    )
 
         # Sign out button
         if st.button(":material/exit_to_app: Sign out", type="secondary"):
@@ -130,8 +175,9 @@ def get_login():
                     if user_state == 1:
                         # Set session state
                         st.session_state.update({
+                            'page'               : "app.py",
                             'user_id'            : int(df['USER_ID'].iloc[0]),
-                            'user_group_id'     : int(df['USER_GROUP_ID'].iloc[0]),
+                            'user_group_id'      : int(df['USER_GROUP_ID'].iloc[0]),
                             'modules'            : df['MODULE_NAMES'].iloc[0],
                             'username'           : df['USER_USERNAME'].iloc[0],
                             'user'               : f"{df['USER_NAME'].iloc[0]}, {df['USER_LAST_NAME'].iloc[0]}",

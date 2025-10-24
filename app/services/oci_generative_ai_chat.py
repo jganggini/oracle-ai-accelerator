@@ -7,10 +7,14 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.prompts.chat import ChatPromptTemplate, SystemMessagePromptTemplate
+from langchain_core.messages import SystemMessage, HumanMessage
 
 import components as component
 import services.database as database
 from dotenv import load_dotenv
+
+import time, random
+from oci.exceptions import TransientServiceError, ServiceError
 
 # Initialize the environment variables
 load_dotenv()
@@ -52,7 +56,6 @@ class GenerativeAIService:
     def get_chain(file_id, user_id, agent_id, history, input, input_imagen):
         """
         Crea una cadena RAG para un agente específico, usando un retriever "history-aware"
-
         """
         # Configuración del agente
         df_agents = db_agent_service.get_all_agents_cache(user_id)[lambda df: df["AGENT_ID"] == agent_id]
@@ -143,3 +146,28 @@ class GenerativeAIService:
 
         # 9) Devolvemos
         return result
+
+    @staticmethod
+    def get_agent(user_id, agent_id, input):
+        """
+        Crea una invocación directa al LLM de un agente sin historial ni vector store.
+        Devuelve un diccionario con la clave "answer" para mantener compatibilidad.
+        """
+        # Configuración del agente
+        df_agents = db_agent_service.get_all_agents_cache(user_id)[lambda df: df["AGENT_ID"] == agent_id]
+
+        # LLM configurado para el agente
+        llm = GenerativeAIService.get_llm(user_id, agent_id)
+
+        system_text = str(df_agents["AGENT_PROMPT_MESSAGE"].values[0])
+        system_prompt = PromptTemplate(input_variables=["system_text", "query"], template="{system_text}\n{query}")
+        chain = system_prompt | llm
+        try:
+            response = chain.invoke({"system_text": system_text, "query": input})
+            return {"answer": response.content}
+        except (TransientServiceError, ServiceError) as _:
+            # Manejo controlado para errores transitorios (p.ej., 429 throttling)
+            return {"answer": "# Service busy. Please try again later."}
+        except Exception as _:
+            # Fallback genérico controlado
+            return {"answer": "# Service busy. Please try again later."}

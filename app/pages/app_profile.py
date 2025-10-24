@@ -15,6 +15,8 @@ map_user_state = {
     0: "Delete"
 }
 
+# Load login and footer components
+st.session_state["page"] = "app_profile.py"
 login = component.get_login()
 component.get_footer()
 
@@ -24,6 +26,7 @@ if login:
     st.header(":material/upload_file: Profile")
     st.caption("Manage profile.")
 
+    
     df_modules   = db_module_service.get_all_modules()
     user_id      = st.session_state['user_id']
     df_user      = db_user_service.get_user(user_id).iloc[0]

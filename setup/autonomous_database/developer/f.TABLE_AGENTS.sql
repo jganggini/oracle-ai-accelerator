@@ -191,5 +191,77 @@ Always use all available data.
 {context}');
     --
 
+    INSERT INTO agents (
+        agent_id,
+        agent_model_id,
+        agent_name,
+        agent_description,
+        agent_type,
+        agent_temperature,
+        agent_prompt_system,
+        agent_prompt_message)
+    VALUES (
+        6,
+        7,
+        0,
+        'Analytics Agent',
+        'Display an area chart.',
+        'Analytics',
+'Given a chat history and the user''s last question, ask a standalone question if you don''t know the answer.
+If it needs to be rephrased, return the question as is.
+Always answer in the language of the question.'
+        ,
+'# Return ONLY Streamlit Chart Calls Using Existing df (Python code only)
+
+**Your task:** Output **only Python code** that calls Streamlit chart functions using an **already-available** `pandas.DataFrame` named **df**. Do **not** include any text, markdown, comments, imports, variable definitions, function definitions, control flow, data execution, or preprocessing. **Only** chart calls are allowed.
+
+## Environment assumptions
+- The **input SQL is ALWAYS UPPERCASE** and may include UPPERCASE aliases; treat the SQL text only as a hint for column names.
+- `df` already contains the SQL result. **Do not** execute or reference the SQL.
+- Do **not** reference `SQL_QUERY`, `execute_sql`, try/except, or any normalization.
+
+## What to output
+Return **exactly four tabs** and one chart per tab (the fourth shows the dataset):
+- `st.area_chart(df, x="<X_COL>", y="<Y_COL>", color="<COLOR_COL>")`
+- `st.bar_chart(df, x="<X_COL>", y="<Y_COL>", color="<COLOR_COL>")`
+- `st.scatter_chart(df, x="<X_COL>", y="<Y_COL>", color="<COLOR_COL>", size="<Y_COL>")`
+
+## Column mapping (pick exact names from `df.columns`)
+- **X (temporal/categorical):** prefer `MES`, `MONTH`, `PERIODO` (if mixed-case aliases exist, use them **exactly as-is**).
+- **Y (numeric):** prefer `NUMERO_DE_VENTAS`, `TOTAL_CAJAS_VENDIDAS`, `VENTAS`, `MONTO`, `CANTIDAD` (if mixed-case aliases exist, use them **exactly as-is**).
+- **Color (series/category):** prefer `CLIENTE`, `CUSTOMER`, `CATEGORY` (if mixed-case aliases exist, use them **exactly as-is**).
+
+> Rule of thumb: The SQL is uppercase, but always use the **exact** column names present in `df.columns` (case-sensitive).
+
+## Output format (must be executable with `exec(x)`)
+- Use only:
+  - `st.tabs(["Area Chart", "Bar Chart", "Scatter Chart"])`
+  - `st.area_chart(...)`
+  - `st.bar_chart(...)`
+  - `st.scatter_chart(...)`
+- **No** triple quotes (`\"\"\"`) or multiline strings in your output.
+- **No** markdown fences in your output.
+- If you echo any SQL inside a string, escape internal quotes like `\"`.
+
+## Expected output shape (columns may vary; keep the same structure)
+```python
+tab1, tab2, tab3 = st.tabs(["Area Chart", "Bar Chart", "Scatter Chart"])
+with tab1:
+    st.area_chart(df, x="MES", y="NUMERO_DE_VENTAS", color="CLIENTE")
+with tab2:
+    st.bar_chart(df, x="MES", y="NUMERO_DE_VENTAS", color="CLIENTE")
+with tab3:
+    st.scatter_chart(df, x="MES", y="NUMERO_DE_VENTAS", color="CLIENTE", size="NUMERO_DE_VENTAS")
+```
+
+## Acceptance checklist
+- Uses only valid Streamlit calls listed above.
+- Column names match `df.columns` **exactly** (case-sensitive); if aliases appear in SQL, use them **exactly as they appear in `df`**.
+- No extra text/markdown/comments/imports/functions/control flow.
+- Output runs directly with `exec(x)` without syntax errors.
+
+{context}');
+    --
+
     SELECT agent_id_seq.NEXTVAL FROM DUAL;
     --

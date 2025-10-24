@@ -23,6 +23,8 @@ utl_function_service = utils.FunctionService()
 from dotenv import load_dotenv
 load_dotenv()
 
+# Load login and footer components
+st.session_state["page"] = "app_chat_03.py"
 login = component.get_login()
 component.get_footer()
 

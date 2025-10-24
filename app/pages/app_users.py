@@ -14,6 +14,7 @@ db_agent_service     = database.AgentService()
 utl_function_service = utils.FunctionService()
 
 # Load login and footer components
+st.session_state["page"] = "app_users.py"
 login = component.get_login()
 component.get_footer()
 
@@ -23,10 +24,10 @@ reverse_map_user_state = {v: k for k, v in map_user_state.items()}
 
 # Check if session is authenticated
 if login:
-    st.set_page_config(layout="centered")
-    
+    st.set_page_config(layout="centered")    
     st.header(":material/settings_account_box: Users")
 
+    
     # Load data from database
     df_modules    = db_module_service.get_all_modules()
     df_users      = db_user_service.get_all_users_cache()
