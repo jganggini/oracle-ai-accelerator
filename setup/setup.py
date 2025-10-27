@@ -19,6 +19,8 @@ app_path  = os.path.join(base_path, 'app')
 env_path  = os.path.join(app_path, '.env')
 wall_path = os.path.join(app_path, 'wallet')
 
+req_file = "requirements.txt"
+
 # Verificar si el archivo .env existe
 if not os.path.exists(env_path):
     print(f'El archivo .env no existe en: {env_path}')
@@ -292,6 +294,12 @@ def main():
     exec('developer', 'o.SP_VECTOR_STORE.sql',
         '[OK][O] CREATE PROCEDURE VECTOS STORRE.......................[ CREATE_VIEW ]')
     
+    exec('developer', 'p.PROMPTS.sql',
+        '[OK][P] CREATE TABLE PROMPTS................................[ CREATE_TABLE ]')
+    
+    exec('developer', 'q.PROMPTS_USER.sql',
+        '[OK][Q] INSERT PROMPTS......................................[ INSERT_DATA ]')
+
     # Copiar .streamlit (Windows: C:\Users\<usuario>\.streamlit, mac: /Users/<usuario>/.streamlit)
     source_streamlit = os.path.join(file_path, ".streamlit")
     dest_streamlit = os.path.join(os.path.expanduser("~"), ".streamlit")

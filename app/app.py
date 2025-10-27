@@ -1,29 +1,32 @@
-import streamlit as st
-import streamlit.components.v1 as components
-import fitz
-import json
-from pathlib import Path
-from datetime import datetime
 import asyncio
-import threading
-import requests
 import base64
-import numpy as np
+import json
 import platform
-
-from my_component import my_component
-
-from PIL import Image
+import threading
+from datetime import datetime
 from io import BytesIO
+from pathlib import Path
 
 import components as component
-import services.database as database
+import fitz
+import numpy as np
+import requests
 import services as service
+import services.database as database
+import streamlit as st
+import streamlit.components.v1 as components
 import utils as utils
+from my_component import my_component
+from PIL import Image
+from st_copy import copy_button
 
 import time
 
 import services.oci_speech_realtime_linux as oci_realtime
+
+from config.settings import KWNOLEDGE_MODULE_NAME as knowledge_module_name
+from config.settings import KNOWLEDGE_MODULE_NAMES_MAPPING as knowledge_modules_names
+
 
 # Create service instances
 db_module_service             = database.ModuleService()
@@ -51,6 +54,7 @@ map_state = {
     2: "Inactive",
     0: "Delete"
 }
+
 reverse_map_state = {v: k for k, v in map_state.items()}
 
 st.set_page_config(
@@ -84,11 +88,11 @@ def clear_rt_state(json_path):
 
 
 if "username" in st.session_state and "user_id" in st.session_state:
-    st.header(":material/book_ribbon: Knowledge")
+    st.header(f":material/book_ribbon: {knowledge_module_name}")
     st.caption("Manage Knowledge")
     st.set_page_config(layout="wide")
     st.set_page_config(initial_sidebar_state="expanded")
-        
+
     username = st.session_state["username"]
     user_id = st.session_state["user_id"]
     user_group_id = st.session_state["user_group_id"]
@@ -260,12 +264,18 @@ if "username" in st.session_state and "user_id" in st.session_state:
                 df_agents = df_agents[df_agents["AGENT_TYPE"] == "Extraction"]
 
                 if not df_modules.empty:
+                    # selected_module_id = st.selectbox(
+                    #     "Which module would you like to start with?",
+                    #     options=df_modules["MODULE_ID"],
+                    #     format_func=lambda module_id: f"{module_id}: {df_modules.loc[df_modules['MODULE_ID'] == module_id, 'MODULE_NAME'].squeeze()}"
+                    # )
                     selected_module_id = st.selectbox(
                         "Which module would you like to start with?",
                         options=df_modules["MODULE_ID"],
-                        format_func=lambda module_id: f"{module_id}: {df_modules.loc[df_modules['MODULE_ID'] == module_id, 'MODULE_NAME'].squeeze()}"
+                        format_func=lambda module_id: f"{module_id}: {knowledge_modules_names.get(df_modules.loc[df_modules['MODULE_ID'] == module_id, 'MODULE_NAME'].squeeze(), df_modules.loc[df_modules['MODULE_ID'] == module_id, 'MODULE_NAME'].squeeze())}"
                     )
 
+                    
                     selected_agent_id = 0
                     if selected_module_id == 5 and not df_agents.empty:
                         selected_agent_id = st.selectbox(
@@ -332,9 +342,9 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             accept_multiple_files=False
                         )
 
-                    
+                    uploaded_transcription = []
                     if selected_module_id == 6:
-             
+
                         # Inicializar estado
                         if "uploaded_transcription" not in st.session_state:
                             st.session_state.uploaded_transcription = []
@@ -343,7 +353,7 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         if "transcription_state" not in st.session_state:
                             st.session_state.transcription_state = "idle"
 
-
+             
                         # Contenedores UI
                         st.markdown(":speech_balloon: :red[Real-Time] ***Customer Voice Transcription***")
 
@@ -420,6 +430,22 @@ if "username" in st.session_state and "user_id" in st.session_state:
                         #component_value = my_component(key="rt_recorder_v1")
                         language_to_transcription_code = language_map.get(st.session_state.selected_language, "esa")
                         component_value = my_component(key="rt_recorder_v1", language=language_to_transcription_code)
+
+
+                        #com
+                        transcription_text = ""
+                        for item in st.session_state.uploaded_transcription:
+                           transcription_text += f"{item['transcription']}\n"
+                        col1, col2 = st.columns([0.15, 1])  # proporciones
+                        with col1:
+                           st.text("Click to copy text")
+                        with col2:
+                           copy_button(
+                               transcription_text,
+                               copied_label="Copied!",
+                               icon="📋",
+                               key="copy_btn"
+                           )
 
                         if component_value:
                             event_type = component_value.get("type")
@@ -779,7 +805,10 @@ if "username" in st.session_state and "user_id" in st.session_state:
 
                     if btn_col2.button("Cancel", use_container_width=True):
                         st.session_state["show_form_app"] = False
-                        clear_rt_state(json_path)
+
+                        if selected_module_id == 6:
+                            clear_rt_state(json_path)
+
                         st.rerun()
                 else:
                     st.warning("No modules found for this user.", icon=":material/warning:")
@@ -821,10 +850,29 @@ if "username" in st.session_state and "user_id" in st.session_state:
                             st.error(f"Error cargando imagen: {e}")
                     with col_text:
                         st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=840)
+                        col1, col2 = st.columns([0.15, 1])  # proporciones
+                        with col1:
+                            st.text("Click to copy text")
+                        with col2:
+                            copy_button(
+                                data["FILE_TRG_EXTRACTION"],
+                                copied_label="Copied!",
+                                icon="📋",
+                                key="copy_btn"
+                            )
                     
-
                 else:
                     st.text_area("Text", value=data["FILE_TRG_EXTRACTION"], disabled=True, height=500)
+                    col1, col2 = st.columns([0.15, 1])  # proporciones
+                    with col1:
+                        st.text("Copy extracted text")
+                    with col2:
+                        copy_button(
+                        data["FILE_TRG_EXTRACTION"],
+                        tooltip="Copy this text",
+                        copied_label="Copied!",
+                        icon="st",
+                    )
 
                 btn_col1, btn_col2 = st.columns([2.2, 8])
 

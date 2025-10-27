@@ -1,18 +1,18 @@
-import oci
-import re
-import os
-import time
-import random
-import string
 import base64
+import os
+import random
+import re
+import string
+import time
+from typing import List, Tuple
+
+import oci
 import pandas as pd
 import streamlit as st
-from graphviz import Digraph
-from typing import List, Tuple
 from dotenv import load_dotenv
-
+from graphviz import Digraph
 # Para ChatMessages
-from langchain.schema import HumanMessage, AIMessage
+from langchain.schema import AIMessage, HumanMessage
 
 load_dotenv()
 
@@ -298,5 +298,4 @@ class FunctionService:
         text = re.sub(r"\s+", " ", text)
 
         return text
-    
     

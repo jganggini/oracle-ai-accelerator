@@ -171,6 +171,7 @@ variable "_oci_instance" {
       name = "VM.Standard.E5.Flex"     # Tipo infraestuctura
       ocpus = 4                        # Número de OCPUs asignadas
       memory_in_gbs = 64               # Memoria asignada en GB
+      volume_size = 50                 # Boot Volume Size
     }
   }
 }
@@ -187,5 +188,15 @@ variable "_load_balancer" {
     min_mbps: 10                        # Min ancho de banda
     max_mbps: 100                       # Max ancho de banda
     certificate_name: "cert-oracle-ai"  # Nombre del Autosigned Cert
+  }
+}
+
+variable "reserved_ip_id" {
+  description = "🌐 OCID de la IP Reservada que se le asignará al Load Balancer"
+  type        = string
+  
+  validation {
+    condition     = length(var.reserved_ip_id) > 0
+    error_message = "El nombre de la [IP Reservada OCID] no puede estar vacío."
   }
 }
