@@ -194,10 +194,10 @@ Always use all available data.
     INSERT INTO agents (
         agent_id,
         agent_model_id,
+        agent_temperature,
         agent_name,
         agent_description,
         agent_type,
-        agent_temperature,
         agent_prompt_system,
         agent_prompt_message)
     VALUES (
