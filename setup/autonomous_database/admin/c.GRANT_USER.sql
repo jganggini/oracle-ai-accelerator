@@ -36,5 +36,7 @@
 
     GRANT EXECUTE ON DBMS_CLOUD_AI TO u_s_e_r_n_a_m_e;
     --
+    GRANT EXECUTE ON DBMS_CLOUD_PIPELINE TO u_s_e_r_n_a_m_e;
+    --
 
     
