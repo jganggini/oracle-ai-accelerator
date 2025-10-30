@@ -44,6 +44,17 @@
             attributes  => l_json_attributes
         );
 
+        /* 5) Drop tool */
+        DBMS_CLOUD_AI_AGENT.DROP_TOOL(tool_name => p_profile_name || '_RAG_TOOL', force => TRUE);
+        
+        /* 6) Create tool */
+        DBMS_CLOUD_AI_AGENT.CREATE_TOOL(
+            tool_name  => p_profile_name || '_RAG_TOOL',
+            attributes => '{
+                "tool_type": "RAG",
+                "tool_params": {"profile_name": "' || p_profile_name || '"}}'
+        );
+
     END;
     /
     --

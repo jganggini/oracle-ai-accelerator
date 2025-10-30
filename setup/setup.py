@@ -294,13 +294,20 @@ def main():
 
     exec('developer', 'm.SP_SEL_AI_RAG_PROFILE.sql',
         '[OK][M] CREATE PROCEDURE FOR SELECT AI RAG [PROFILE]....[ CREATE_PROCEDURE ]')
+        
+    exec('developer', 'n.SP_SEL_AI_AGENT.sql',
+        '[OK][N] CREATE PROCEDURE AI AGENT [PROFILE].............[ CREATE_PROCEDURE ]')
 
-    exec('developer', 'n.VW_DOCS_FILES.sql',
-        '[OK][N] CREATE VIEW DOCS FOR VECTOS STORE....................[ CREATE_VIEW ]')
+    exec('developer', 'o.SP_SEL_AI_AGENT_CONVERSATION.sql',
+        '[OK][O] CREATE PROCEDURE FOR AI AGENT CONVERSATION......[ CREATE_PROCEDURE ]')
 
-    exec('developer', 'o.SP_VECTOR_STORE.sql',
-        '[OK][O] CREATE PROCEDURE VECTOS STORRE.......................[ CREATE_VIEW ]')
+    exec('developer', 'p.VW_DOCS_FILES.sql',
+        '[OK][P] CREATE VIEW DOCS FOR VECTOS STORE....................[ CREATE_VIEW ]')
+
+    exec('developer', 'q.SP_VECTOR_STORE.sql',
+        '[OK][Q] CREATE PROCEDURE VECTOS STORRE.......................[ CREATE_VIEW ]')
     
+
     # Copiar .streamlit (Windows: C:\Users\<usuario>\.streamlit, mac: /Users/<usuario>/.streamlit)
     source_streamlit = os.path.join(file_path, ".streamlit")
     dest_streamlit = os.path.join(os.path.expanduser("~"), ".streamlit")

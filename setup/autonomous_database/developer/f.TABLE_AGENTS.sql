@@ -198,19 +198,18 @@ Always use all available data.
         agent_description,
         agent_type,
         agent_temperature,
-        agent_prompt_system,
-        agent_prompt_message)
+        agent_top_p,
+        agent_top_k,        
+        agent_prompt_system)
     VALUES (
         6,
         7,
-        0,
         'Analytics Agent',
         'Display an area chart.',
         'Analytics',
-'Given a chat history and the user''s last question, ask a standalone question if you don''t know the answer.
-If it needs to be rephrased, return the question as is.
-Always answer in the language of the question.'
-        ,
+        0,
+        0.9,
+        10,
 '# Return ONLY Streamlit Chart Calls Using Existing df (Python code only)
 
 **Your task:** Output **only Python code** that calls Streamlit chart functions using an **already-available** `pandas.DataFrame` named **df**. Do **not** include any text, markdown, comments, imports, variable definitions, function definitions, control flow, data execution, or preprocessing. **Only** chart calls are allowed.

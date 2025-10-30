@@ -50,6 +50,18 @@
             profile_name => p_profile_name,
             attributes   => l_json_attributes
         );
+        
+        /* 5) Drop tool */
+        DBMS_CLOUD_AI_AGENT.DROP_TOOL(tool_name => p_profile_name || '_SQL_TOOL', force => TRUE);
+
+        /* 6) Create tool */
+        DBMS_CLOUD_AI_AGENT.CREATE_TOOL(
+            tool_name  => p_profile_name || '_SQL_TOOL',
+            attributes => '{
+                "tool_type": "SQL",
+                "tool_params": {"profile_name": "' || p_profile_name || '"}}'
+        );
+
     END;
     /
     --
