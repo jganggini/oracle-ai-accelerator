@@ -1,6 +1,4 @@
 import os
-import streamlit as st
-import pandas as pd
 from services.database.connection import Connection
 
 from langchain_community.embeddings.oci_generative_ai import OCIGenAIEmbeddings
@@ -13,10 +11,15 @@ class DocService:
 
     def __init__(self):
         """
-        Initializes the database connection using a shared singleton connection.
+        Keep only the singleton instance; fetch a live connection on-demand
+        to avoid using expired database connections.
         """
         self.conn_instance = Connection()
-        self.conn = self.conn_instance.get_connection()
+
+    @property
+    def conn(self):
+        """Always returns a live connection (auto-reconnect)."""
+        return self.conn_instance.get_connection()
     
     def vector_store(self, file_id):
         """
@@ -34,9 +37,10 @@ class DocService:
                     SP_VECTOR_STORE('{file_id}');
                 END;
             """
-        with self.conn.cursor() as cur:
+        conn = self.conn
+        with conn.cursor() as cur:
             cur.execute(query)
-        self.conn.commit()
+        conn.commit()
         return f"The file was created to the vector store successfully."
     
     def get_vector_store(self):
@@ -52,8 +56,9 @@ class DocService:
             compartment_id   = os.getenv('CON_COMPARTMENT_ID')
         )
         
+        conn = self.conn
         return OracleVS(
-            client             = self.conn,
+            client             = conn,
             embedding_function = embeddings,
             table_name         = 'docs'
         )
