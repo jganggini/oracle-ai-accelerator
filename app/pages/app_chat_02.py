@@ -26,10 +26,6 @@ float_init()
 if login:
     st.set_page_config(layout="centered")
     
-    # Header and description for the application
-    st.header(":material/plagiarism: Select AI RAG")
-    st.caption("Select AI with RAG in Oracle Autonomous Database integrates large language models with data retrieval, enabling context-aware text generation and enhancing SQL workflows with accurate, AI-driven insights.")
-
     username     = st.session_state["username"]
     language     = st.session_state["language"]
     user_id      = st.session_state["user_id"]
@@ -37,6 +33,11 @@ if login:
     index_name   = select_ai_rag_service.get_index_name(user_id)
     df_files     = db_select_ai_rag_service.get_files(index_name)
 
+    # Header and description for the application
+    st.header(":material/plagiarism: Select AI RAG")
+    st.markdown("_Profile Name_ :orange-badge[:material/account_circle: "+ profile_name +"]")
+    st.caption("Select AI with RAG in Oracle Autonomous Database integrates large language models with data retrieval, enabling context-aware text generation and enhancing SQL workflows with accurate, AI-driven insights.")
+    
     if df_files is not None and not df_files.empty:
         with st.expander("See Files"):
             # Configurar los parámetros

@@ -24,18 +24,19 @@ component.get_footer()
 
 if login:
     st.set_page_config(layout="centered")
-    
-    # Header and description for the application
-    st.header(":material/database_search: Select AI")
-    st.caption("Uses natural-language input with generative AI and vector-search on Oracle AI Database 26ai to query, analyze and act on your data—converting prompts to SQL or chat-style interactions and enabling custom AI agents.")
-        
+  
     username     = st.session_state["username"]
     language     = st.session_state["language"]
     user_id      = st.session_state["user_id"]
     chat_save    = st.session_state["chat-select-ai"]
     profile_name = select_ai_service.get_profile(user_id)
     df_tables    = db_select_ai_service.get_tables_cache(user_id)
-
+    
+    # Header and description for the application
+    st.header(":material/database_search: Select AI")
+    st.markdown("_Profile Name_ :orange-badge[:material/account_circle: "+ profile_name +"]")
+    st.caption("Uses natural-language input with generative AI and vector-search on Oracle AI Database 26ai to query, analyze and act on your data—converting prompts to SQL or chat-style interactions and enabling custom AI agents.")
+    
     if not df_tables.empty:
         with st.expander("See Tables"):
             # Configurar los parámetros
