@@ -32,6 +32,19 @@ chown opc:opc /home/opc/.bashrc
 sudo -u opc -i bash -c 'source ~/.bashrc && python -m ensurepip --upgrade --default-pip'
 sudo -u opc -i bash -c 'source ~/.bashrc && python -m pip install --upgrade pip wheel setuptools'
 
+# Step 7.1: Compilar e instalar PortAudio (requerido por PyAudio en Linux)
+yum install -y gcc make autoconf automake libtool alsa-lib-devel git
+if [ ! -d "/root/portaudio" ]; then
+  git clone --depth=1 https://github.com/PortAudio/portaudio.git /root/portaudio
+fi
+cd /root/portaudio
+./configure --prefix=/usr/local
+make -j"$(nproc)"
+make install
+# Asegurar que el cargador de librerías encuentre /usr/local/lib
+echo '/usr/local/lib' > /etc/ld.so.conf.d/portaudio.conf
+ldconfig
+
 # Step 8: Clone the project repository
 git clone https://github.com/jganggini/oracle-ai-accelerator.git /home/opc/oracle-ai-accelerator
 chown -R opc:opc /home/opc/oracle-ai-accelerator
