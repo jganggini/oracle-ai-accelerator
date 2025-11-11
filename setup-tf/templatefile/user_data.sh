@@ -32,7 +32,7 @@ chown opc:opc /home/opc/.bashrc
 sudo -u opc -i bash -c 'source ~/.bashrc && python -m ensurepip --upgrade --default-pip'
 sudo -u opc -i bash -c 'source ~/.bashrc && python -m pip install --upgrade pip wheel setuptools'
 
-# Step 7.1: Compilar e instalar PortAudio (requerido por PyAudio en Linux)
+# Step 7.1: Compile and install PortAudio (required by PyAudio on Linux)
 yum install -y gcc make autoconf automake libtool alsa-lib-devel git
 if [ ! -d "/root/portaudio" ]; then
   git clone --depth=1 https://github.com/PortAudio/portaudio.git /root/portaudio
