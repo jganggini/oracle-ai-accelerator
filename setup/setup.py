@@ -10,7 +10,6 @@ import os
 import sys
 import subprocess
 import shutil
-import platform
 
 # Ruta absoluta o relativa al archivo .env
 file_path = os.path.dirname(__file__)
@@ -19,20 +18,8 @@ app_path  = os.path.join(base_path, 'app')
 env_path  = os.path.join(app_path, '.env')
 wall_path = os.path.join(app_path, 'wallet')
 
-# Detectar plataforma por argumento o sistema
-is_linux = "--linux" in sys.argv or platform.system() == "Linux"
-is_windows = "--windows" in sys.argv or platform.system() == "Windows"
-
-# Generar archivo filtrado si es Linux
+# Archivo de requisitos único para todas las plataformas
 req_file = "requirements.txt"
-if is_linux:
-    req_filtered = "requirements.filtered.txt"
-    skip_pkgs = ["oci-ai-speech-realtime", "PyAudio", "websockets"]
-    with open("requirements.txt", "r") as src, open(req_filtered, "w") as dst:
-        for line in src:
-            if not any(pkg in line for pkg in skip_pkgs):
-                dst.write(line)
-    req_file = req_filtered
 
 # Verificar si el archivo .env existe
 if not os.path.exists(env_path):
@@ -157,12 +144,6 @@ def exec(user, file_name, message):
         
         cursor = connection.cursor()
         for statement in statements:
-            # Omitir si se cumple: Linux + contiene "6" + archivo específico
-            if is_linux and file_name == 'd.TABLE_MODULES.sql' and 'AI Speech to Text Real-Time' in statement:
-                print(f'  > [SKIPPED on Linux - Module:6]:\n')
-                print(f'    {statement}\n')
-                continue
-
             # Eliminar el último carácter si es un ';'
             if statement.endswith(';'):
                 statement = statement[:-1].strip()

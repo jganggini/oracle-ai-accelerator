@@ -40,8 +40,8 @@ class SelectAIService:
         
             # Create Profile
             db_select_ai_service.create_profile(
-                    profile_name,
-                    user_id
+                profile_name,
+                user_id
             )
             component.get_success("[Select AI] Profile was created successfully.", ":material/person_add:")
         except Exception as e:

@@ -159,7 +159,7 @@ class GenerativeAIService:
         # LLM configurado para el agente
         llm = GenerativeAIService.get_llm(user_id, agent_id)
 
-        system_text = str(df_agents["AGENT_PROMPT_MESSAGE"].values[0])
+        system_text = str(df_agents["AGENT_PROMPT_SYSTEM"].values[0])
         system_prompt = PromptTemplate(input_variables=["system_text", "query"], template="{system_text}\n{query}")
         chain = system_prompt | llm
         try:
