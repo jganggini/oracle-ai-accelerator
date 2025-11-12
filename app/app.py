@@ -396,7 +396,7 @@ if login:
                                 st.session_state.transcription_state = "idle"  # "idle", "starting", "running", "stopped"
 
                             # Botones de control
-                            st.columns([0.1, 0.1, 0.1, 0.7])
+                            btn_col1, btn_col2, btn_col3, _ = st.columns([0.1, 0.1, 0.1, 0.7])
 
                             # Botón Start
                             start_disabled = st.session_state.transcription_state == "stopped" or st.session_state.transcription_state == "idle"

@@ -102,3 +102,89 @@ echo "Using Python from: $(which python)"
 nohup python -m streamlit run app.py --server.port 8501 --logger.level=INFO > /home/opc/streamlit.log 2>&1 &
 deactivate
 EOF
+
+# Step 14: Install and configure Nginx as HTTPS reverse proxy for Streamlit (single block)
+sudo bash <<'EOF'
+set -eux
+dnf -y install oracle-epel-release-el9
+dnf -y install nginx
+dnf -y install certbot python3-certbot-nginx || true
+
+# Permitir a Nginx conectarse a upstreams (Streamlit) con SELinux enforcing
+setsebool -P httpd_can_network_connect 1 || true
+
+# Open HTTP/HTTPS (keep existing 8501 rule for compatibility, but traffic will go via Nginx)
+firewall-cmd --add-service=http --permanent || true
+firewall-cmd --add-service=https --permanent || true
+firewall-cmd --reload || true
+
+# Remover configuraciones por defecto que pueden colisionar con server_name "_" (si existen)
+rm -f /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/welcome.conf /etc/nginx/conf.d/example_ssl.conf 2>/dev/null || true
+
+# Nginx reverse proxy config (HTTP), proxying to local Streamlit on 127.0.0.1:8501
+cat >/etc/nginx/conf.d/streamlit.conf <<'NGINXCONF'
+server {
+    listen 80;
+    listen [::]:80;
+    server_name _;
+
+    client_max_body_size 64m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8501;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+NGINXCONF
+
+systemctl enable nginx
+systemctl restart nginx
+
+# Create a self-signed certificate and enable HTTPS
+mkdir -p /etc/ssl/private
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/ssl/private/streamlit-selfsigned.key \
+  -out /etc/ssl/certs/streamlit-selfsigned.crt \
+  -subj "/CN=localhost"
+
+cat >/etc/nginx/conf.d/streamlit-ssl.conf <<'NGINXSSL'
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name _;
+
+    ssl_certificate     /etc/ssl/certs/streamlit-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/streamlit-selfsigned.key;
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:10m;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    client_max_body_size 64m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8501;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+NGINXSSL
+
+nginx -t
+systemctl reload nginx || true
+EOF
+
+# Step 15: Mark userdata completion (sentinel)
+mkdir -p /var/local
+touch /var/local/userdata.done

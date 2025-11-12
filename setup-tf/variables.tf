@@ -154,7 +154,7 @@ variable "_oci_vcn" {
   default = {
     display_name: "vcn-oracle-ai"   # Nombre del VCN
     cidr_block: "10.0.0.0/24"       # Rango de direcciones IP para el VCN
-    ingress_tcp_ports : [22, 8501]  # Puertos TCP permitidos: SSH (22) y Streamlit (8501)
+    ingress_tcp_ports : [22, 80, 443, 8501]  # Puertos TCP permitidos: SSH (22) y Streamlit (8501)
   }
 }
 

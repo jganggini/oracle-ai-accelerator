@@ -119,20 +119,26 @@ resource "oci_core_instance" "linux_instance" {
 resource "null_resource" "wait_for_userdata" {
   depends_on = [oci_core_instance.linux_instance]
 
+  triggers = {
+    instance_id   = oci_core_instance.linux_instance.id
+  }
+
   connection {
     type        = "ssh"
     host        = oci_core_instance.linux_instance.public_ip
     user        = "opc"
     private_key = tls_private_key.instance_ssh.private_key_pem
+    timeout     = "20m"
   }
 
   provisioner "remote-exec" {
     inline = [
       "echo '[INI] Setup started...............'",
-      "while ! grep -q 'Cloud-init v.* finished at' /var/log/cloud-init-output.log; do sleep 10; done",
+      "while [ ! -f /var/local/userdata.done ]; do sleep 5; done",
       "echo ''",
       "echo ''",
       "echo 'Network URL: http://${oci_core_instance.linux_instance.public_ip}:8501'",
+      "echo 'Network URL: https://${oci_core_instance.linux_instance.public_ip}'",
       "echo ''",
       "echo ''",
       "echo '[END] Setup completed.............'",
