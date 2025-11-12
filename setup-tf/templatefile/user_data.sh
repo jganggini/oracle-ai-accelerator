@@ -90,7 +90,7 @@ sudo -u opc -i bash <<'EOF'
 cd /home/opc/oracle-ai-accelerator/setup
 source /home/opc/.venv/bin/activate
 python --version
-python setup.py --linux
+python setup.py
 deactivate
 EOF
 
