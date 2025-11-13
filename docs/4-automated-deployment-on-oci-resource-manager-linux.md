@@ -92,7 +92,29 @@ En el respositorio descargado encontrará una carpeta setup-tf.
 
   ![config files](../img/vw-setup-tf-config.png)
 
-#### d) Create Stack in OCI Resource Manager
+#### Paso 5: Generar los certificados autofirmados
+
+Para que nuestro sitio web tenga una url en https, es necesario generar un certificado, por el momento, ese certificado será generado de forma local. El comando openssl pedirá algunos datos básicos 
+
+![openssl](./images/openssl.png)
+
+```
+cd setup-ft/certs
+openssl req -x509 -newkey rsa:2048 -keyout privkey.pem -out cert.pem -days 365 -nodes
+```
+
+#### Paso 6: Generar una IP pública
+
+Para generar una ip pública es necesario ir a la sección *IP management* y hacer clic en el botón *Reserve public ip address*. Una vez la ip se encuentre en estado 🟢 Assigned, podemos hacer clic en los tres puntos y copiar el OCID, este id tiene la forma 
+
+```
+ocid1.publicip.oc1.us-chicago-1....
+```
+
+y será usado luego.
+
+
+#### Paso 7: Create Stack in OCI Resource Manager
 
 - Ingrese a ➡️ `Resource Manager` ➡️ `Stacks` ➡️ `Create Stack`.
 - Cree un `Stack` para el proyecto:
@@ -156,7 +178,7 @@ En el respositorio descargado encontrará una carpeta setup-tf.
     - `[Create]`
 
 
-#### e) Ingreso a la app
+#### Paso 8: Ingreso a la app
 
 Si el stack fue creado correctamente, los últimos logs mostrarán una url
 
