@@ -23,9 +23,8 @@ class SelectAIService:
         Returns:
             str: The generated profile name.
         """
-        credential_name = os.getenv('CON_ADB_DEV_USER_NAME') if user_id == 0 else (f"{os.getenv('CON_ADB_DEV_C_CREDENTIAL_NAME')}_SEL_{str(user_id)}").upper()
-        
-        return credential_name
+        credential_name = os.getenv('CON_ADB_DEV_C_CREDENTIAL_NAME') 
+        return (f"{credential_name}_SQL_{str(user_id)}").upper()
     
     @staticmethod
     def create_profile(user_id):   

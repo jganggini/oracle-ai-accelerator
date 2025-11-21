@@ -12,7 +12,6 @@ db_user_service            = database.UserService()
 db_select_ai_service       = database.SelectAIService()
 select_ai_service          = service.SelectAIService()
 select_ai_rag_service      = service.SelectAIRAGService()
-db_select_ai_agent_service = database.SelectAIAgentService()
 db_module_service          = database.ModuleService()
 db_agent_service           = database.AgentService()
 utl_function_service       = utils.FunctionService()
@@ -236,12 +235,6 @@ if login:
                                 db_select_ai_service.drop_user(user_id)
                                 msg = db_select_ai_service.create_user(user_id, sel_ai_password)
                                 component.get_toast(msg, ":material/database:")
-                            
-                            if 1 and 2 in modules_selected:
-                                profile_name_sql = select_ai_service.get_profile(user_id)
-                                profile_name_rag = select_ai_rag_service.get_profile(user_id)
-                                msg = db_select_ai_agent_service.create_agent(profile_name_sql, profile_name_rag)
-                                component.get_toast(msg, ":material/database:")
 
                             relevant_modules = [m for m in modules_selected if m not in [0, 2]]
                             if relevant_modules:
@@ -324,11 +317,6 @@ if login:
                                     db_select_ai_service.drop_user(user_id)
                                     msg = db_select_ai_service.create_user(user_id, sel_ai_password)
                                     component.get_toast(msg, ":material/database:")
-                                
-                                # Agent creation
-                                if 1 and 2 in modules_selected:
-                                    db_select_ai_rag_service.create_agent(user_id)
-
 
                                 relevant_modules = [m for m in modules_selected if m not in [0, 1, 2]]
                                 if relevant_modules:

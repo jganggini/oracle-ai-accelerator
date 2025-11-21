@@ -1,14 +1,14 @@
 import time
 import streamlit as st
 
-def get_success(msg: str, icon: str = ":material/check_circle:"):
+def get_warning(msg: str, icon: str = ":material/warning:"):
     """
     Displays a reusable success toast in Streamlit.
 
     Args:
         msg (str): The message to display in the toast.
         icon (str): The icon to display alongside the message (Streamlit format).
-                    Default is ":material/check_circle:".
+                    Default is ":material/warning:".
     """
-    st.success(msg, icon=icon)
+    st.warning(msg, icon=icon)
     time.sleep(1)

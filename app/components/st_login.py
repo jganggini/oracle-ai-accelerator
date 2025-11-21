@@ -6,6 +6,8 @@ from datetime import datetime
 
 import services.database as database
 
+global_version = "2.0.1"
+
 # Initialize the service
 db_user_service = database.UserService()
 db_agent_service = database.AgentService()
@@ -40,13 +42,15 @@ def get_menu(modules, user):
     with st.sidebar:
         st.image("images/st_pages.gif")
         
-        st.subheader(":red[Oracle AI] Accelerator", divider="red")
 
+        st.markdown("## :red[Oracle AI] Accelerator :gray-badge[:material/smart_toy: " + global_version + "]")
+        
         st.write(f"Hi, **:blue-background[{user}]**")
 
         # Always shown links
         st.page_link("app.py", label="Knowledge", icon=":material/book_ribbon:")
         st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
+        st.page_link("pages/app_agent_builder.py", label="Agent Builder", icon=":material/flowchart:")
 
         # AI Demos Section
         ai_demos = [
@@ -113,6 +117,32 @@ def get_menu(modules, user):
                         use_container_width=True
                     )
 
+        if st.session_state["page"] == "app_agent_builder.py":
+            with st.container(border=True, key="options_agent_builder_container"):
+
+                def queue_agent_builder_action(action_type: str):
+                    st.session_state['agent_builder_pending_action'] = {
+                        "type": action_type,
+                        "timestamp": datetime.now().isoformat()
+                    }
+            
+                if st.button("Add Tool", key="sidebar_add_tool", icon="🔶", use_container_width=True):
+                    queue_agent_builder_action('TOOL')
+                    st.rerun()
+            
+                if st.button("Add Task", key="sidebar_add_task", icon="🟢", use_container_width=True):
+                    queue_agent_builder_action('TASK')
+                    st.rerun()
+
+            
+                if st.button("Add Agent", key="sidebar_add_agent", icon="🟦", use_container_width=True):
+                    queue_agent_builder_action('AGENT')
+                    st.rerun()
+            
+                if st.button("Add Team", key="sidebar_add_team", icon="🔴", use_container_width=True):
+                    queue_agent_builder_action('TEAM')
+                    st.rerun()
+
         # Sign out button
         if st.button(":material/exit_to_app: Sign out", type="secondary"):
             st.set_page_config(layout="centered")
@@ -132,13 +162,15 @@ def get_login():
     else:
         # Login Form
         with st.form('form-login'):
-            st.subheader(":red[Oracle AI] Accelerator")
+
+            st.markdown("## :red[Oracle AI] Accelerator :gray-badge[:material/smart_toy: " + global_version + "]")
+
             col1, col2 = st.columns(2)
             with col1:
                 st.image("images/st_login.gif")
                 st.markdown(
                     ":gray-badge[:material/smart_toy: Agents] "
-                    ":gray-badge[:material/database: Autonomous 23ai] "
+                    ":gray-badge[:material/database: Autonomous 26ai] "
                     ":gray-badge[:material/database_search: Select AI] "
                     ":gray-badge[:material/plagiarism: Select AI RAG] "
                     ":gray-badge[:material/psychology: Generative AI] "
@@ -190,7 +222,8 @@ def get_login():
                             'chat-modules'       : [],
                             'chat-objects'       : [],
                             'chat-agent'         : 0,
-                            'chat-history'       : []
+                            'chat-history'       : [],
+                            'ai-agent'           : None
                         })
                         st.switch_page("app.py")
                         st.rerun()
