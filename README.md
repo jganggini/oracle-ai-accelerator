@@ -4,7 +4,7 @@
 <!-- Intro -->
 <br />
 <div align="center" style="text-align:center;">
-  <h1 style="font-size:40px; font-bload"><b style="color:#ec4b42">Oracle AI</b> Acelerator</h1>
+  <h1 style="font-size:40px; font-bload"><b style="color:#ec4b42">Oracle AI</b> Acelerator 2.0.1</h1>
   
   <a style="font-size:large;" href="/src/">👨🏽‍💻 Explore the Code »</a>
   <br/>
