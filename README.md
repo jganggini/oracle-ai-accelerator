@@ -4,7 +4,7 @@
 <!-- Intro -->
 <br />
 <div align="center" style="text-align:center;">
-  <h1 style="font-size:40px; font-bload"><b style="color:#ec4b42">Oracle AI</b> Acelerator 2.0.1</h1>
+  <h1 style="font-size:40px; font-bload"><b style="color:#ec4b42">Oracle AI</b> Acelerator</h1>
   
   <a style="font-size:large;" href="/src/">👨🏽‍💻 Explore the Code »</a>
   <br/>
@@ -41,7 +41,7 @@ La única condición es contar con una cuenta activa en Oracle Cloud.
 
 ## 📄 Project Description
 
-Oracle AI Accelerator es una solución integral que permite gestionar y analizar datos provenientes de múltiples fuentes como documentos, imágenes, archivos de audio y texto, mediante módulos de inteligencia artificial desplegados sobre Oracle Autonomous Database 23ai. Utiliza servicios avanzados de OCI como Generative AI, Document Understanding y Speech para aplicar procesamiento de lenguaje natural, extracción de texto, transcripción en tiempo real y análisis semántico. Toda la información es estructurada, almacenada y consultada desde una base vectorial en Oracle 23ai, lo que habilita búsquedas inteligentes, análisis de similitud y flujos de trabajo asistidos por agentes IA configurables, con control de acceso y compartición entre usuarios.
+Oracle AI Accelerator es una solución integral que permite gestionar y analizar datos provenientes de múltiples fuentes como documentos, imágenes, archivos de audio y texto, mediante módulos de inteligencia artificial desplegados sobre Oracle 26ai. Utiliza servicios avanzados de OCI como Generative AI, Document Understanding y Speech para aplicar procesamiento de lenguaje natural, extracción de texto, transcripción en tiempo real y análisis semántico. Toda la información es estructurada, almacenada y consultada desde una base vectorial en Oracle 23ai, lo que habilita búsquedas inteligentes, análisis de similitud y flujos de trabajo asistidos por agentes IA configurables, con control de acceso y compartición entre usuarios.
 
 ## 🎯 Use Cases
   * Análisis de documentos legales o médicos con detección automática de entidades sensibles.
