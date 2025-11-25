@@ -13,11 +13,6 @@ class FileService:
         self.conn_instance = Connection()
         self.conn = self.conn_instance.get_connection()
 
-    def get_all_files_cache(self, user_id, force_update=False):
-        if force_update:
-            self.get_all_files.clear()
-        return self.get_all_files(user_id)
-
     @st.cache_data
     def get_all_files(_self, user_id):
         """

@@ -5,7 +5,7 @@ from .files import FileService
 from .docs import DocService
 from .select_ai import SelectAIService
 from .select_ai_rag import SelectAIRAGService
-from .select_ai_agent import SelectAIAgentService
+from .dbms_ai_agent import DBMSAIAgentService
 
 __all__ = [
     "UserService",
@@ -15,5 +15,5 @@ __all__ = [
     "DocService",
     "SelectAIService",
     "SelectAIRAGService",
-    "SelectAIAgentService"
+    "DBMSAIAgentService"
 ]
