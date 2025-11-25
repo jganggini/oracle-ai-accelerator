@@ -79,7 +79,7 @@ if login:
         user_group_id = st.session_state["user_group_id"]
         language = st.session_state["language"]
 
-        df_files = db_file_service.get_all_files_cache(user_id)
+        df_files = db_file_service.get_all_files(user_id)
 
         # Variables: Default
         file_src_strategy   = None
@@ -221,7 +221,8 @@ if login:
                                         msg = db_file_service.delete_file_user_by_user(file_id, user_id, file_name)
                                         component.get_success(msg, icon=":material/remove_circle:")
 
-                                db_file_service.get_all_files_cache(user_id, force_update=True)
+                                db_file_service.get_all_files.clear()
+                                db_file_service.get_all_files(user_id)
 
                         except Exception as e:
                             component.get_error(f"[Error] Deleting File:\n{e}")
@@ -855,7 +856,8 @@ if login:
                                             )
 
                                         db_module_service.get_modules_files_cache(user_id, force_update=True)
-                                        db_file_service.get_all_files_cache(user_id, force_update=True)
+                                        db_file_service.get_all_files.clear()
+                                        db_file_service.get_all_files(user_id)
 
                                     component.get_success(msg_module)
 
@@ -980,7 +982,8 @@ if login:
                                 msg = db_file_service.update_file_user(file_id, new_users)
                                 component.get_success(msg, icon=":material/update:")
                                 db_file_service.get_all_file_user_cache(user_id, force_update=True)
-                                db_file_service.get_all_files_cache(user_id, force_update=True)
+                                db_file_service.get_all_files.clear()
+                                db_file_service.get_all_files(user_id)
                                 st.session_state["show_form_app"] = False
                                 st.rerun()
                             else:
