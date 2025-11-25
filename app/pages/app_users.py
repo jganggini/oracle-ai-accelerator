@@ -166,14 +166,7 @@ if login:
                     default=data["USER_MODULES"],
                     key="modules_selection"
                 )
-
-            # If modules 1 and 2 are selected, show the warning message about the module/agent
-            if 1 and 2 in modules_selected:
-                st.info(
-                    "By enabling modules Select AI and Select AI RAG, the agents module in Autonomous 26ai will also be activated.",
-                    icon=":material/auto_awesome:"
-                )
-
+            
             elif mode == "bulk":
 
                 uploaded_file = st.file_uploader("Upload CSV File", type=["csv"])
