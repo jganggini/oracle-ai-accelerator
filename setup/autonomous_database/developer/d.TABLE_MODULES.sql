@@ -50,7 +50,7 @@
     --
 
     INSERT INTO modules (module_id, module_name, module_folder, module_src_type, module_trg_type, module_vector_store)
-    VALUES (6, 'AI Speech to Text Real-Time', 'module-ai-speech-to-realtime', 'JSON', 'TXT', 1);
+    VALUES (6, 'AI Speech Real-Time', 'module-ai-speech-real-time', 'JSON', 'TXT', 1);
     --
 
     INSERT INTO modules (module_id, module_name, module_folder, module_src_type, module_trg_type, module_vector_store)

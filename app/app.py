@@ -14,7 +14,7 @@ import queue
 import time
 
 from streamlit_webrtc import webrtc_streamer, WebRtcMode, RTCConfiguration
-from services.oci_speech_realtime import start_realtime_session, OCIAudioProcessor
+from services.oci_speech_stt_realtime import start_realtime_session, OCIAudioProcessor
 
 import components as component
 import services.database as database
@@ -434,7 +434,7 @@ if login:
                             st.session_state.was_playing = ctx.state.playing
 
                             if ctx.state.playing:
-                                status_caption.info("Listening... Connected to OCI.")
+                                status_caption.info("Listening...")
                                 
                                 # Verificar si el procesador está recibiendo audio
                                 if ctx.audio_processor and not ctx.audio_processor.audio_queue:
@@ -446,9 +446,7 @@ if login:
                                     result_queue_ref = st.session_state.webrtc_result_queue
                                     
                                     # Pasamos el valor DIRECTO del selector (ej: "Spanish"), no el mapeado
-                                    # Dejamos que oci_speech_realtime.py maneje el mapeo completo.
                                     selected_lang_raw = selected_language_file 
-                                    print(f"DEBUG: Iniciando OCI Worker con idioma: {selected_lang_raw}")
 
                                     def oci_worker(audio_q, result_q, lang_raw):
                                         loop = asyncio.new_event_loop()
@@ -683,6 +681,7 @@ if login:
                                         component.get_toast(msg, icon=":material/database:")
                                         
                                         # Modules
+                                        msg_module = None  # Inicializar msg_module por defecto
                                         match module_id:
                                             case 1:
                                                 #msg = db_file_service.update_extraction(file_id, str(bucket_file_content))
@@ -797,6 +796,8 @@ if login:
                                                 file_trg_tot_characters = len(data)
                                                 file_trg_tot_time       = utl_function_service.track_time(0)
                                                 file_trg_language       = language_map[selected_language_file]
+                                            case _:
+                                                msg_module = f"Module {module_id} not implemented or invalid."
 
                                         # Update Extraction
                                         file_trg_tot_time = utl_function_service.track_time(0)
@@ -859,7 +860,8 @@ if login:
                                         db_file_service.get_all_files.clear()
                                         db_file_service.get_all_files(user_id)
 
-                                    component.get_success(msg_module)
+                                        if msg_module:
+                                            component.get_success(msg_module)
 
                                 st.session_state["show_form_app"] = False
                                 st.rerun()

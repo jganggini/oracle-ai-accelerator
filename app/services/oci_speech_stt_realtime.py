@@ -110,7 +110,7 @@ async def start_realtime_session(display_transcription_final, display_transcript
     customizations = []
     compartment_id = os.getenv("CON_COMPARTMENT_ID")
     language_code = language
-    service_endpoint = os.getenv("CON_SPEECH_SERVICE_ENDPOINT")
+    service_endpoint = os.getenv("CON_SPEECH_SERVICE_STT_ENDPOINT")
     config = from_file()
 
     while True:

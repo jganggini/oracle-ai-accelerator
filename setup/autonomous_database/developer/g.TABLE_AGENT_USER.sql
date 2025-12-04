@@ -48,3 +48,7 @@
     INSERT INTO agent_user (agent_id, user_id)
     VALUES (6, 0);
     --
+
+    INSERT INTO agent_user (agent_id, user_id)
+    VALUES (7, 0);
+    --
