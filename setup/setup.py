@@ -279,8 +279,8 @@ def main():
     exec('developer', 'n.SP_SEL_AI_AGENT.sql',
         '[OK][N] CREATE PROCEDURE AI AGENT [PROFILE].............[ CREATE_PROCEDURE ]')
 
-    exec('developer', 'o.SP_SEL_AI_AGENT_CONVERSATION.sql',
-        '[OK][O] CREATE PROCEDURE FOR AI AGENT CONVERSATION......[ CREATE_PROCEDURE ]')
+    exec('developer', 'o.SP_AI_NAME_VALIDATE.sql',
+        '[OK][O] CREATE PROCEDURE FOR AI NAME VALIDATE...........[ CREATE_PROCEDURE ]')
 
     exec('developer', 'p.VW_DOCS_FILES.sql',
         '[OK][P] CREATE VIEW DOCS FOR VECTOS STORE....................[ CREATE_VIEW ]')
