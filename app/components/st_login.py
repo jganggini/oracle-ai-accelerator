@@ -6,7 +6,7 @@ from datetime import datetime
 
 import services.database as database
 
-global_version = "2.0.2"
+global_version = "2.0.3"
 
 # Initialize the service
 db_user_service = database.UserService()
@@ -84,15 +84,34 @@ def get_menu(modules, user):
                 df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=True)
                 df_agents = df_agents[df_agents["AGENT_TYPE"] == "Analytics"]
 
+                # Modo de acción para Select AI (narrate/showsql/explainsql)
+                action_options = ["narrate", "showsql", "explainsql", "runsql", "chat"]
                 st.selectbox(
-                    "Select an Agent",
-                    options=df_agents["AGENT_ID"],
-                    format_func=lambda agent_id: f"{agent_id}: {df_agents.loc[df_agents['AGENT_ID'] == agent_id, 'AGENT_NAME'].values[0]}",
-                    key="selected_agent_id"
+                    "Select AI Action",
+                    options=action_options,
+                    index=action_options.index(st.session_state.get("select_ai_action", "narrate"))
+                    if st.session_state.get("select_ai_action", "narrate") in action_options
+                    else 0,
+                    key="select_ai_action"
                 )
                 
                 st.checkbox("Analytics Agent", False, key="analytics_agent")
-                st.checkbox("SQLExplain Agent", False, key="sql_explain_agent")
+                # Deshabilitamos el uso del Explain Agent; mantener la clave en False evita regresiones
+                st.session_state["sql_explain_agent"] = False
+
+                # Selección de agente visible solo cuando Analytics Agent está activo
+                analytics_enabled = st.session_state.get("analytics_agent", False)
+                if analytics_enabled and not df_agents.empty:
+                    st.selectbox(
+                        "Select an Agent",
+                        options=df_agents["AGENT_ID"],
+                        format_func=lambda agent_id: f"{agent_id}: {df_agents.loc[df_agents['AGENT_ID'] == agent_id, 'AGENT_NAME'].values[0]}",
+                        index=0,
+                        key="selected_agent_id"
+                    )
+                elif not analytics_enabled:
+                    # Evitamos estados inconsistentes cuando se desactiva el modo Analytics
+                    st.session_state["selected_agent_id"] = st.session_state.get("selected_agent_id")
 
                 col1, col2, = st.columns(2)
 

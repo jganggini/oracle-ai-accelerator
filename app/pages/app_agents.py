@@ -204,7 +204,21 @@ if login:
                     col3, col4 = st.columns(2)
 
                     with col3:
-                        agent_type = st.selectbox("Agent Type", ["Chat", "Extraction", "Analytics"], index=0 if agent_data["AGENT_TYPE"] != "Extraction" else 1)
+                        agent_type_options = ["Chat", "Extraction", "Analytics", "Voice"]
+                        default_type = agent_data.get("AGENT_TYPE") or "Chat"
+                        normalized_default = (
+                            default_type.capitalize()
+                            if isinstance(default_type, str)
+                            else "Chat"
+                        )
+                        if normalized_default not in agent_type_options:
+                            normalized_default = "Chat"
+
+                        agent_type = st.selectbox(
+                            "Agent Type",
+                            agent_type_options,
+                            index=agent_type_options.index(normalized_default)
+                        )
 
                     with col4:
                         filtered_models = df_models if agent_type != "Extraction" else df_models[df_models["AGENT_MODEL_TYPE"] == "vlm"]
@@ -219,7 +233,7 @@ if login:
                             format_func=lambda mid: f"{mid}: {filtered_models.loc[filtered_models['AGENT_MODEL_ID'] == mid, 'AGENT_MODEL_NAME'].values[0]}"
                         )
 
-                    if agent_type != "Extraction":
+                    if agent_type not in ["Extraction", "Analytics"]:
                         prompt_sys = st.text_area("Agent Prompt System", value=agent_data["AGENT_PROMPT_SYSTEM"], height=110, max_chars=4000)
                         prompt_msg = st.text_area("Agent Prompt Message", value=agent_data["AGENT_PROMPT_MESSAGE"], height=527, max_chars=4000, help="{context}")
                     else:

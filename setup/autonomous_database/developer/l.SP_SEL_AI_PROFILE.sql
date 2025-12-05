@@ -38,8 +38,12 @@
         l_json_attributes := '{
             "provider":"oci",
             "model":"' || l_model || '",
+            "temperature": 0.5,
             "credential_name":"' || l_credential || '",
             "comments":"true",
+            "annotations":"true",
+            "constraints":"true",
+            "conversation":"true",
             "object_list": ' || l_object_list || ',
             "region":"' || l_region || '",
             "oci_compartment_id": "' || l_compartment_id || '"

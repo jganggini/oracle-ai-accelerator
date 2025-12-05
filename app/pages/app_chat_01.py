@@ -35,20 +35,22 @@ if login:
     # Header and description for the application
     st.header(":material/database_search: Select AI")
     st.markdown("_Profile Name_ :orange-badge[:material/account_circle: "+ profile_name +"]")
-    st.caption("Uses natural-language input with generative AI and vector-search on Oracle AI Database 26ai to query, analyze and act on your data—converting prompts to SQL or chat-style interactions and enabling custom AI agents.")
+    st.caption("Uses natural-language input with generative AI and vector-search on Oracle AI Database 26ai to query, analyze and act on your data—converting prompts to SQL or chat-style interactions and enabling custom AI agents. [Learn more &rarr;](https://docs.oracle.com/en-us/iaas/autonomous-database-serverless/doc/dbms-cloud-ai-package.html)")
     
     if not df_tables.empty:
         with st.expander("See Tables"):
             # Configurar los parámetros
             group_by_columns = ["OWNER", "TABLE_NAME"]
             fields = {
-                "column_name" : "COLUMN_NAME",
-                "data_type"   : "DATA_TYPE",
-                "comments"    : "COMMENTS"
+                "column_name"    : "COLUMN_NAME",
+                "data_type"      : "DATA_TYPE",
+                "comments"       : "COMMENTS",
+                "ui_display"     : "UI_DISPLAY",
+                "classification" : "CLASSIFICATION"
             }
             json_tables = utl_function_service.get_tables_json(df_tables, group_by_columns, fields)
             
-            st.markdown("**Json Data**")
+            st.markdown("**Json Data (Metadata + Annotations)**")
             st.json(json_tables, expanded=1)
 
         # Display chat messages from history on app rerun
@@ -89,7 +91,7 @@ if login:
                 # Fetch narrate with timing
                 with st.spinner("Wait for Select AI Agent...", show_time=True):
                     start_time = time.time()
-                    action     = 'narrate'
+                    action     = st.session_state.get("select_ai_action", "narrate")
                     narrate = db_select_ai_service.get_chat(
                         prompt,
                         profile_name,

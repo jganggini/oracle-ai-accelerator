@@ -10,6 +10,12 @@
     GRANT INSERT ANY TABLE TO u_s_e_r_n_a_m_e;
     --
 
+    GRANT ALTER ANY TABLE TO u_s_e_r_n_a_m_e;
+    --
+
+    GRANT CREATE ANY INDEX TO u_s_e_r_n_a_m_e;
+    --
+
     GRANT COMMENT ANY TABLE TO u_s_e_r_n_a_m_e;
     --
 

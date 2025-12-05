@@ -585,15 +585,18 @@ if login:
                                     # Get column names for csv
                                     df_comment = utl_function_service.get_csv_column_comments(uploaded_file)
                                     
-                                    # Data Editor: Comment
+                                    # Data Editor: Comment & Annotations & Constraints
                                     comment_data_editor = st.data_editor(
                                         df_comment,
                                         width               = 'stretch',
                                         hide_index          = True,
                                         num_rows            = "fixed",
                                         column_config       = {
-                                            "Column Name" : st.column_config.TextColumn(disabled=True),
-                                            "Comment"     : st.column_config.TextColumn()
+                                            "Column Name"    : st.column_config.TextColumn(disabled=True, help="Nombre de la columna"),
+                                            "Comment"        : st.column_config.TextColumn(help="Comentario descriptivo de la columna"),
+                                            "UI_Display"     : st.column_config.TextColumn(help="Nombre a mostrar en UI (Annotation)"),
+                                            "Classification" : st.column_config.TextColumn(help="Clasificación de datos (Annotation)"),
+                                            "Primary Key"    : st.column_config.CheckboxColumn(help="Marcar como Primary Key", default=False)
                                         }
                                     )
                     
@@ -691,7 +694,8 @@ if login:
                                                     user_id,
                                                     file_src_file_name, 
                                                     file_trg_obj_name,
-                                                    comment_data_editor
+                                                    comment_data_editor,
+                                                    file_description
                                                 )
                                                 file_trg_obj_name       = file_trg_obj_name
                                                 file_trg_tot_pages      = 1
@@ -1009,6 +1013,9 @@ if login:
                 st.session_state["selected_file"] = None
                 st.rerun()
 
+
+# View Installation Log (Oracle Linux)
+# sudo tail -n 200 /var/log/cloud-init-output.log
 
 # Run the application (Windows)
 # .venv/Scripts/Activate.ps1

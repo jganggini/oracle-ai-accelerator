@@ -51,16 +51,18 @@ class SelectAIService:
             user_id,
             file_src_file_name, 
             file_trg_obj_name,
-            comment_data_editor
+            comment_data_editor,
+            file_description=None
         ):
         """
-        Creates a table from a CSV file and updates it with comments, then creates a profile.
+        Creates a table from a CSV file and updates it with comments and annotations, then creates a profile.
 
         Args:
             user_id (int): The ID of the user.
             file_src_file_name (str): The source file name.
             file_trg_obj_name (str): The target table name.
-            comment_data_editor (pd.DataFrame): DataFrame containing comments to update.
+            comment_data_editor (pd.DataFrame): DataFrame containing comments and annotations to update.
+            file_description (str, optional): Description to add as table annotation. Defaults to None.
 
         Returns:
             str: A success message if the operation is completed successfully.
@@ -77,6 +79,7 @@ class SelectAIService:
             ) 
             component.get_toast(f"Table '{table_name}' has been created successfully.", ":material/database:")
 
+            # Process comments
             comments_added = 0
             if comment_data_editor is not None and not comment_data_editor.empty:
                 for _, row in comment_data_editor.iterrows():
@@ -92,6 +95,61 @@ class SelectAIService:
                 # Show a message if at least one comment was added
                 if comments_added > 0:
                     component.get_toast(f"Comment(s) have been added successfully.", ":material/notes:")
+            
+            # Process column annotations (UI_Display, Classification)
+            annotations_added = 0
+            if comment_data_editor is not None and not comment_data_editor.empty:
+                for _, row in comment_data_editor.iterrows():
+                    column_name = row["Column Name"]
+                    
+                    # Add UI_Display annotation if provided
+                    if "UI_Display" in row and row["UI_Display"].strip():
+                        db_select_ai_service.update_column_annotation(
+                            table_name      = file_trg_obj_name,
+                            column_name     = column_name,
+                            annotation_name = "UI_Display",
+                            annotation_value = row["UI_Display"]
+                        )
+                        annotations_added += 1
+                    
+                    # Add Classification annotation if provided
+                    if "Classification" in row and row["Classification"].strip():
+                        db_select_ai_service.update_column_annotation(
+                            table_name      = file_trg_obj_name,
+                            column_name     = column_name,
+                            annotation_name = "Classification",
+                            annotation_value = row["Classification"]
+                        )
+                        annotations_added += 1
+                
+                # Show a message if at least one annotation was added
+                if annotations_added > 0:
+                    component.get_toast(f"Annotation(s) have been added successfully.", ":material/label:")
+            
+            # Add table-level annotation from file description
+            if file_description and file_description.strip():
+                db_select_ai_service.update_table_annotation(
+                    table_name      = file_trg_obj_name,
+                    annotation_name = "UI_Display",
+                    annotation_value = file_description
+                )
+                component.get_toast(f"Table annotation added successfully.", ":material/description:")
+            
+            # Process PRIMARY KEY constraints
+            if comment_data_editor is not None and not comment_data_editor.empty:
+                pk_columns = []
+                if "Primary Key" in comment_data_editor.columns:
+                    for _, row in comment_data_editor.iterrows():
+                        if row.get("Primary Key", False):
+                            pk_columns.append(row["Column Name"])
+                    
+                    if pk_columns:
+                        db_select_ai_service.add_primary_key(
+                            table_name   = file_trg_obj_name,
+                            column_names = pk_columns
+                        )
+                        pk_cols_str = ", ".join(pk_columns)
+                        component.get_toast(f"Primary key constraint added on ({pk_cols_str}).", ":material/key:")
             
             # Create Profile
             db_select_ai_service.create_profile(
