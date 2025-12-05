@@ -6,7 +6,7 @@ from datetime import datetime
 
 import services.database as database
 
-global_version = "2.0.1"
+global_version = "2.0.2"
 
 # Initialize the service
 db_user_service = database.UserService()
@@ -40,8 +40,7 @@ def get_menu(modules, user):
     module_list = parse_modules(modules)  # Parse the module list correctly
     
     with st.sidebar:
-        st.image("images/st_pages.gif")
-        
+        st.image("images/st_pages.gif")        
 
         st.markdown("## :red[Oracle AI] Accelerator :gray-badge[:material/smart_toy: " + global_version + "]")
         
@@ -51,9 +50,11 @@ def get_menu(modules, user):
         st.page_link("app.py", label="Knowledge", icon=":material/book_ribbon:")
         st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
         st.page_link("pages/app_agent_builder.py", label="Agent Builder", icon=":material/flowchart:")
+        #st.page_link("pages/app_speech.py", label="Voice Chat", icon=":material/mic:")
 
         # AI Demos Section
         ai_demos = [
+            ("AI Speech Real-Time", "pages/app_speech.py", ":material/mic:"),
             ("Select AI", "pages/app_chat_01.py", ":material/smart_toy:"),
             ("Select AI RAG", "pages/app_chat_02.py", ":material/plagiarism:"),
             ("Vector Database", "pages/app_chat_03.py", ":material/network_intelligence:")
@@ -61,7 +62,6 @@ def get_menu(modules, user):
         available_demos = [demo for demo in ai_demos if demo[0] in module_list]
 
         if available_demos:
-            st.subheader("Chats")
             for label, page, icon in available_demos:
                 st.page_link(page, label=label, icon=icon)
         
@@ -142,6 +142,88 @@ def get_menu(modules, user):
                 if st.button("Add Team", key="sidebar_add_team", icon="🔴", use_container_width=True):
                     queue_agent_builder_action('TEAM')
                     st.rerun()
+        
+        if st.session_state["page"] == "app_speech.py":
+            with st.container(border=True, key="options_speech_container"):
+                
+                # Get user agents for voice chat
+                user_id = st.session_state["user_id"]
+                df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=False)
+                df_agents = df_agents[df_agents["AGENT_TYPE"] == "Voice"]
+                
+                if not df_agents.empty:
+                    # Disable agent selection if Select AI is enabled
+                    use_select_ai = st.session_state.get("speech_use_select_ai", False)
+                    st.selectbox(
+                        "Select an Agent",
+                        options=df_agents["AGENT_ID"],
+                        format_func=lambda agent_id: f"{agent_id}: {df_agents.loc[df_agents['AGENT_ID'] == agent_id, 'AGENT_NAME'].values[0]}",
+                        key="speech_agent_id",
+                        disabled=use_select_ai
+                    )
+                
+                # Language selector
+                language_options = ["Spanish", "Portuguese", "English"]
+                current_language = st.session_state.get("language", "Spanish")
+                default_index = language_options.index(current_language) if current_language in language_options else 0
+                
+                st.selectbox(
+                    "Language",
+                    options=language_options,
+                    index=default_index,
+                    key="speech_language"
+                )
+                
+                # Select AI checkbox
+                st.checkbox(
+                    "Select AI",
+                    value=st.session_state.get("speech_use_select_ai", False),
+                    key="speech_use_select_ai",
+                    help="Use Select AI to answer queries based on database tables instead of the configured voice agent"
+                )
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if st.button(
+                        key="clear_speech",
+                        help="Clear Conversation",
+                        label="",
+                        icon=":material/delete:",
+                        disabled=(not st.session_state.get("speech_conversation", [])),
+                        use_container_width=True
+                    ):
+                        st.session_state["speech_conversation"] = []
+                        st.session_state["speech_current_partial"] = ""
+                        st.session_state["speech_processing_llm"] = False
+                        st.rerun()
+                
+                with col2:
+                    if st.session_state.get("speech_conversation", []):
+                        history_json = json.dumps(
+                            st.session_state["speech_conversation"],
+                            indent=4,
+                            ensure_ascii=False
+                        )
+                        st.download_button(
+                            key="save_speech",
+                            label="",
+                            help="Save Conversation",
+                            icon=":material/download:",
+                            data=history_json,
+                            file_name=f"voice_chat_{datetime.now().strftime('%H%M%S%f')}.json",
+                            mime="application/json",
+                            use_container_width=True
+                        )
+                    else:
+                        st.button(
+                            key="save_speech_disabled",
+                            label="",
+                            help="Save Conversation",
+                            icon=":material/download:",
+                            disabled=True,
+                            use_container_width=True
+                        )
 
         # Sign out button
         if st.button(":material/exit_to_app: Sign out", type="secondary"):
@@ -174,9 +256,10 @@ def get_login():
                     ":gray-badge[:material/database_search: Select AI] "
                     ":gray-badge[:material/plagiarism: Select AI RAG] "
                     ":gray-badge[:material/psychology: Generative AI] "
-                    ":gray-badge[:material/mic: STT RealTime] "
-                    ":gray-badge[:material/description: Document Understanding] "
                     ":gray-badge[:material/privacy_tip: PII Detection] "
+                    ":gray-badge[:material/flowchart: Agent Builder] "
+                    ":gray-badge[:material/mic: AI Speech STT/TTS RealTime] "
+                    ":gray-badge[:material/description: Document Understanding] "
                 )
             with col2:                
                 username = st.text_input('Username')
@@ -226,7 +309,6 @@ def get_login():
                             'ai-agent'           : None
                         })
                         st.switch_page("app.py")
-                        st.rerun()
                     
                     else:
                         st.error("This user is deactivated.", icon=":material/gpp_maybe:")
