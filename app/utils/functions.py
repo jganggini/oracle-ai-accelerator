@@ -91,10 +91,13 @@ class FunctionService:
         df = pd.read_csv(uploaded_file, nrows=0)  # Only read the header
         columns = df.columns.tolist()  # Get the list of column names
         
-        # Prepare data for the editor (initialize comments as empty strings)
+        # Prepare data for the editor (initialize comments, annotations and constraints)
         return pd.DataFrame({
             "Column Name": columns,
-            "Comment": ["" for _ in columns]
+            "Comment": ["" for _ in columns],
+            "UI_Display": ["" for _ in columns],
+            "Classification": ["" for _ in columns],
+            "Primary Key": [False for _ in columns]
         })
     
     @staticmethod
