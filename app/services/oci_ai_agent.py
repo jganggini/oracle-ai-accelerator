@@ -18,7 +18,7 @@ class DBMSAIAgentService:
 			message = f"[Agent AI] Name available for {object_type.upper()}: '{object_name}'."
 			return True, message
 		except Exception as e:
-			message = f"[Error] {object_type.upper()} '{object_name}' already exists or is invalid.\n{e}"
+			message = f"[Error] {object_type.upper()} '{object_name}' already exists or is invalid."
 			return False, message
 
 	@staticmethod

@@ -10,41 +10,58 @@
             RAISE_APPLICATION_ERROR(-20001, 'Invalid arguments: object_type and object_name are required');
         END IF;
 
-        /* TEAM: validar código lógico y nombres publicados */
+        /* TEAM */
         IF v_type = 'TEAM' THEN
             SELECT COUNT(*) INTO v_cnt
-            FROM ORA26AI.AI_TEAM
-            WHERE UPPER(ai_team_code) = UPPER(v_name);
+            FROM USER_AI_AGENT_TEAMS
+            WHERE UPPER(AGENT_TEAM_NAME) = UPPER(v_name);
 
             IF v_cnt > 0 THEN
                 RAISE_APPLICATION_ERROR(-20002, 'Name already exists for TEAM (code): ' || v_name);
             END IF;
 
+            RETURN;
+        END IF;
+        
+        /* AGENT */
+        IF v_type = 'AGENT' THEN
             SELECT COUNT(*) INTO v_cnt
-            FROM ORA26AI.AI_TEAM_PUBLISH
-            WHERE UPPER(ai_team_publish_name) = UPPER(v_name);
+            FROM USER_AI_AGENTS
+            WHERE UPPER(AGENT_NAME) = UPPER(v_name);
 
             IF v_cnt > 0 THEN
-                RAISE_APPLICATION_ERROR(-20003, 'Name already exists for TEAM (published): ' || v_name);
+                RAISE_APPLICATION_ERROR(-20002, 'Name already exists for AGENT (code): ' || v_name);
+            END IF;
+
+            RETURN;
+        END IF;
+        
+        /* TASK */
+        IF v_type = 'TASK' THEN
+            SELECT COUNT(*) INTO v_cnt
+            FROM USER_AI_AGENT_TASKS
+            WHERE UPPER(TASK_NAME) = UPPER(v_name);
+
+            IF v_cnt > 0 THEN
+                RAISE_APPLICATION_ERROR(-20002, 'Name already exists for TASK (code): ' || v_name);
             END IF;
 
             RETURN;
         END IF;
 
-        /* AGENT|TASK|TOOL: validar por título globalmente */
-        IF v_type IN ('AGENT', 'TASK', 'TOOL') THEN
+        /* TOOL */
+        IF v_type = 'TOOL' THEN
             SELECT COUNT(*) INTO v_cnt
-            FROM ORA26AI.AI_NODE
-            WHERE UPPER(ai_node_type) = v_type
-            AND UPPER(ai_node_title) = UPPER(v_name);
+            FROM USER_AI_AGENT_TOOLS
+            WHERE UPPER(TOOL_NAME) = UPPER(v_name);
 
             IF v_cnt > 0 THEN
-                RAISE_APPLICATION_ERROR(-20004, 'Name already exists for ' || v_type || ': ' || v_name);
+                RAISE_APPLICATION_ERROR(-20002, 'Name already exists for TOOL (code): ' || v_name);
             END IF;
 
             RETURN;
-        END IF;
-
+        END IF; 
+        
         RAISE_APPLICATION_ERROR(-20005, 'Unsupported object_type: ' || v_type);
     END;
     /
