@@ -162,12 +162,6 @@ class GenerativeAIService:
         system_text = str(df_agents["AGENT_PROMPT_SYSTEM"].values[0])
         system_prompt = PromptTemplate(input_variables=["system_text", "query"], template="{system_text}\n{query}")
         chain = system_prompt | llm
-        try:
-            response = chain.invoke({"system_text": system_text, "query": input})
-            return {"answer": response.content}
-        except (TransientServiceError, ServiceError) as _:
-            # Manejo controlado para errores transitorios (p.ej., 429 throttling)
-            return {"answer": "# Service busy. Please try again later."}
-        except Exception as _:
-            # Fallback genérico controlado
-            return {"answer": "# Service busy. Please try again later."}
+        
+        response = chain.invoke({"system_text": system_text, "query": input})
+        return response.content
