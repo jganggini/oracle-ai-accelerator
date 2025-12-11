@@ -13,7 +13,14 @@ class DBMSAIAgentService:
 		Initializes the service with a shared database connection.
 		"""
 		self.conn_instance = Connection()
-		self.conn = self.conn_instance.get_connection()
+
+	@property
+	def conn(self):
+		"""
+		Property that always returns a valid database connection.
+		Ensures reconnection if the connection was dropped.
+		"""
+		return self.conn_instance.get_connection()
 
 	def _to_json_str(self, attributes):
 		"""

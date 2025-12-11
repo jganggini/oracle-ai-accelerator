@@ -12,7 +12,14 @@ class ModuleService:
         Initializes the ModuleService with a shared database connection instance.
         """
         self.conn_instance = Connection()
-        self.conn = self.conn_instance.get_connection()
+
+    @property
+    def conn(self):
+        """
+        Property that always returns a valid database connection.
+        Ensures reconnection if the connection was dropped.
+        """
+        return self.conn_instance.get_connection()
 
     @st.cache_data
     def get_all_modules(_self):

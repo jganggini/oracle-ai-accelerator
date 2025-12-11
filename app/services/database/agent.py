@@ -12,7 +12,14 @@ class AgentService:
         Initializes the ModuleService with a shared database connection instance.
         """
         self.conn_instance = Connection()
-        self.conn = self.conn_instance.get_connection()
+
+    @property
+    def conn(self):
+        """
+        Property that always returns a valid database connection.
+        Ensures reconnection if the connection was dropped.
+        """
+        return self.conn_instance.get_connection()
 
     def get_all_agents_cache(self, user_id, force_update=False):
         """

@@ -6,6 +6,7 @@ from .docs import DocService
 from .select_ai import SelectAIService
 from .select_ai_rag import SelectAIRAGService
 from .dbms_ai_agent import DBMSAIAgentService
+from .quiz import QuizService
 
 __all__ = [
     "UserService",
@@ -15,5 +16,6 @@ __all__ = [
     "DocService",
     "SelectAIService",
     "SelectAIRAGService",
-    "DBMSAIAgentService"
+    "DBMSAIAgentService",
+    "QuizService"
 ]

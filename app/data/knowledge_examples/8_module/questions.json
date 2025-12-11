@@ -1,0 +1,2691 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-12-10",
+  "questions_name": "OCI AI Foundations 2025",
+  "modules": [
+    { "module": 1, "module_name": "AI Foundations", "percentage": 10 },
+    { "module": 2, "module_name": "Machine Learning Foundations", "percentage": 15 },
+    { "module": 3, "module_name": "Deep Learning Foundations", "percentage": 10 },
+    { "module": 4, "module_name": "Generative AI and LLM Foundations", "percentage": 15 },
+    { "module": 5, "module_name": "OCI AI Portfolio", "percentage": 15 },
+    { "module": 6, "module_name": "OCI Generative AI Service", "percentage": 15 },
+    { "module": 7, "module_name": "OCI AI Services", "percentage": 20 }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which task is a Generative AI task?",
+      "question_es": "¿Cuál tarea es una tarea de IA Generativa?",
+      "question_pt": "Qual tarefa é uma tarefa de IA Generativa?",
+      "options_en": [
+        {
+          "text": "Detecting credit card fraud",
+          "isCorrect": false
+        },
+        {
+          "text": "Identifying the main topic of a news article",
+          "isCorrect": false
+        },
+        {
+          "text": "Calculating the total word count in an article",
+          "isCorrect": false
+        },
+        {
+          "text": "Writing a poem based on a given theme",
+          "isCorrect": true
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Detectar fraude con tarjetas de crédito",
+          "isCorrect": false
+        },
+        {
+          "text": "Identificar el tema principal de un artículo de noticias",
+          "isCorrect": false
+        },
+        {
+          "text": "Calcular el recuento total de palabras en un artículo",
+          "isCorrect": false
+        },
+        {
+          "text": "Escribir un poema basado en un tema dado",
+          "isCorrect": true
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Detectar fraude de cartão de crédito",
+          "isCorrect": false
+        },
+        {
+          "text": "Identificar o tópico principal de um artigo de notícias",
+          "isCorrect": false
+        },
+        {
+          "text": "Calcular a contagem total de palavras em um artigo",
+          "isCorrect": false
+        },
+        {
+          "text": "Escrever um poema baseado em um tema dado",
+          "isCorrect": true
+        }
+      ],
+      "explanation_en": "Writing a poem based on a given theme is an example of a Generative AI task. Generative AI refers to AI systems that can generate creative content, such as text, images, music, and more. In this case, the AI is given a theme or a prompt and then generates a new piece of creative writing, which is the poem.",
+      "explanation_es": "Escribir un poema basado en un tema dado es un ejemplo de tarea de IA Generativa. La IA Generativa se refiere a sistemas de IA que pueden generar contenido creativo, como texto, imágenes, música y más. En este caso, la IA recibe un tema o instrucción y luego genera una nueva pieza de escritura creativa, que es el poema.",
+      "explanation_pt": "Escrever um poema baseado em um tema dado é um exemplo de tarefa de IA Generativa. A IA Generativa refere-se a sistemas de IA que podem gerar conteúdo criativo, como texto, imagens, música e muito mais. Neste caso, a IA recebe um tema ou prompt e então gera uma nova peça de escrita criativa, que é o poema."
+    },
+    {
+      "id": 2,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which type of Machine Learning algorithms extracts trends from data?",
+      "question_es": "¿Qué tipo de algoritmos de Machine Learning extrae tendencias de los datos?",
+      "question_pt": "Qual tipo de algoritmos de Machine Learning extrai tendências dos dados?",
+      "options_en": [
+        {
+          "text": "Supervised Machine Learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Unsupervised Machine Learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Reinforcement Learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Natural Language Processing",
+          "isCorrect": false
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Aprendizaje Automático Supervisado",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizaje Automático No Supervisado",
+          "isCorrect": true
+        },
+        {
+          "text": "Aprendizaje por Refuerzo",
+          "isCorrect": false
+        },
+        {
+          "text": "Procesamiento de Lenguaje Natural",
+          "isCorrect": false
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Aprendizado de Máquina Supervisionado",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizado de Máquina Não Supervisionado",
+          "isCorrect": true
+        },
+        {
+          "text": "Aprendizado por Reforço",
+          "isCorrect": false
+        },
+        {
+          "text": "Processamento de Linguagem Natural",
+          "isCorrect": false
+        }
+      ],
+      "explanation_en": "The unsupervised machine learning algorithms extracts trends from data. In contrast, supervised learning involves using labeled data to train algorithms to predict outcomes or classify data, and reinforcement learning focuses on training agents to make sequences of decisions through trial and error to maximize rewards. Natural Language Processing is a field within machine learning that deals with processing and understanding human language. While NLP can be used to extract trends and insights from text data, it's not a type of machine learning algorithm in the same sense as the other options.",
+      "explanation_es": "Los algoritmos de aprendizaje automático no supervisado extraen tendencias de los datos. En contraste, el aprendizaje supervisado implica usar datos etiquetados para entrenar algoritmos para predecir resultados o clasificar datos, y el aprendizaje por refuerzo se enfoca en entrenar agentes para tomar secuencias de decisiones a través de ensayo y error para maximizar recompensas. El Procesamiento de Lenguaje Natural es un campo dentro del aprendizaje automático que se ocupa de procesar y entender el lenguaje humano.",
+      "explanation_pt": "Os algoritmos de aprendizado de máquina não supervisionado extraem tendências dos dados. Em contraste, o aprendizado supervisionado envolve o uso de dados rotulados para treinar algoritmos para prever resultados ou classificar dados, e o aprendizado por reforço se concentra em treinar agentes para tomar sequências de decisões através de tentativa e erro para maximizar recompensas. O Processamento de Linguagem Natural é um campo dentro do aprendizado de máquina que lida com o processamento e compreensão da linguagem humana."
+    },
+    {
+      "id": 3,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which task is an example of a speech-related AI task?",
+      "question_es": "¿Cuál tarea es un ejemplo de una tarea de IA relacionada con el habla?",
+      "question_pt": "Qual tarefa é um exemplo de tarefa de IA relacionada à fala?",
+      "options_en": [
+        {
+          "text": "Speech-to-text Conversion",
+          "isCorrect": true
+        },
+        {
+          "text": "Language translation",
+          "isCorrect": false
+        },
+        {
+          "text": "Random number Generation",
+          "isCorrect": false
+        },
+        {
+          "text": "Music Composition",
+          "isCorrect": false
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Conversión de voz a texto",
+          "isCorrect": true
+        },
+        {
+          "text": "Traducción de idiomas",
+          "isCorrect": false
+        },
+        {
+          "text": "Generación de números aleatorios",
+          "isCorrect": false
+        },
+        {
+          "text": "Composición musical",
+          "isCorrect": false
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Conversão de fala para texto",
+          "isCorrect": true
+        },
+        {
+          "text": "Tradução de idiomas",
+          "isCorrect": false
+        },
+        {
+          "text": "Geração de números aleatórios",
+          "isCorrect": false
+        },
+        {
+          "text": "Composição musical",
+          "isCorrect": false
+        }
+      ],
+      "explanation_en": "This task involves converting spoken language or speech into written text. It's commonly referred to as automatic speech recognition (ASR) or speech-to-text conversion. Speech-related AI algorithms process audio recordings of spoken words and transcribe them into textual form.",
+      "explanation_es": "Esta tarea implica convertir el lenguaje hablado o el habla en texto escrito. Se conoce comúnmente como reconocimiento automático del habla (ASR) o conversión de voz a texto. Los algoritmos de IA relacionados con el habla procesan grabaciones de audio de palabras habladas y las transcriben a formato textual.",
+      "explanation_pt": "Esta tarefa envolve a conversão de linguagem falada ou fala em texto escrito. É comumente referida como reconhecimento automático de fala (ASR) ou conversão de fala para texto. Algoritmos de IA relacionados à fala processam gravações de áudio de palavras faladas e as transcrevem em forma textual."
+    },
+    {
+      "id": 4,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which is NOT an example of vision or image-related AI task?",
+      "question_es": "¿Cuál NO es un ejemplo de tarea de IA relacionada con visión o imágenes?",
+      "question_pt": "Qual NÃO é um exemplo de tarefa de IA relacionada à visão ou imagens?",
+      "options_en": [
+        {
+          "text": "Identify objects in images",
+          "isCorrect": false
+        },
+        {
+          "text": "Classify images",
+          "isCorrect": false
+        },
+        {
+          "text": "Facial recognition",
+          "isCorrect": false
+        },
+        {
+          "text": "Repair damaged images",
+          "isCorrect": true
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Identificar objetos en imágenes",
+          "isCorrect": false
+        },
+        {
+          "text": "Clasificar imágenes",
+          "isCorrect": false
+        },
+        {
+          "text": "Reconocimiento facial",
+          "isCorrect": false
+        },
+        {
+          "text": "Reparar imágenes dañadas",
+          "isCorrect": true
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Identificar objetos em imagens",
+          "isCorrect": false
+        },
+        {
+          "text": "Classificar imagens",
+          "isCorrect": false
+        },
+        {
+          "text": "Reconhecimento facial",
+          "isCorrect": false
+        },
+        {
+          "text": "Reparar imagens danificadas",
+          "isCorrect": true
+        }
+      ],
+      "explanation_en": "While image restoration and repair do involve working with images, it's not a typical vision task in the sense of identifying objects, classifying images, or facial recognition. While AI can certainly be used for image restoration, it's not one of the core tasks directly related to vision or image-related AI.",
+      "explanation_es": "Si bien la restauración y reparación de imágenes implican trabajar con imágenes, no es una tarea típica de visión en el sentido de identificar objetos, clasificar imágenes o reconocimiento facial. Aunque la IA puede usarse para la restauración de imágenes, no es una de las tareas principales directamente relacionadas con la IA de visión o relacionada con imágenes.",
+      "explanation_pt": "Embora a restauração e reparo de imagens envolvam trabalhar com imagens, não é uma tarefa típica de visão no sentido de identificar objetos, classificar imagens ou reconhecimento facial. Embora a IA possa certamente ser usada para restauração de imagens, não é uma das tarefas principais diretamente relacionadas à IA de visão ou relacionada a imagens."
+    },
+    {
+      "id": 5,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which type of Machine Learning is used in autonomous car driving?",
+      "question_es": "¿Qué tipo de Machine Learning se utiliza en la conducción autónoma de automóviles?",
+      "question_pt": "Qual tipo de Machine Learning é usado na condução autônoma de carros?",
+      "options_en": [
+        {
+          "text": "Supervised Learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Unsupervised Learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Natural Language Processing",
+          "isCorrect": false
+        },
+        {
+          "text": "Reinforcement Learning",
+          "isCorrect": true
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Aprendizaje Supervisado",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizaje No Supervisado",
+          "isCorrect": false
+        },
+        {
+          "text": "Procesamiento de Lenguaje Natural",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizaje por Refuerzo",
+          "isCorrect": true
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Aprendizado Supervisionado",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizado Não Supervisionado",
+          "isCorrect": false
+        },
+        {
+          "text": "Processamento de Linguagem Natural",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizado por Reforço",
+          "isCorrect": true
+        }
+      ],
+      "explanation_en": "Reinforcement Learning (RL) is a branch of Machine Learning where an agent learns to perform actions in an environment to maximize a cumulative reward. In the context of autonomous car driving, the car is the agent, the road and its surroundings form the environment, and the reward might be related to safe and efficient navigation, obeying traffic rules, and reaching the desired destination.",
+      "explanation_es": "El Aprendizaje por Refuerzo (RL) es una rama del Machine Learning donde un agente aprende a realizar acciones en un entorno para maximizar una recompensa acumulativa. En el contexto de la conducción autónoma de automóviles, el automóvil es el agente, la carretera y su entorno forman el ambiente, y la recompensa podría estar relacionada con la navegación segura y eficiente, el cumplimiento de las reglas de tráfico y llegar al destino deseado.",
+      "explanation_pt": "O Aprendizado por Reforço (RL) é um ramo do Machine Learning onde um agente aprende a realizar ações em um ambiente para maximizar uma recompensa cumulativa. No contexto da condução autônoma de carros, o carro é o agente, a estrada e seus arredores formam o ambiente, e a recompensa pode estar relacionada à navegação segura e eficiente, obedecendo às regras de trânsito e chegando ao destino desejado."
+    },
+    {
+      "id": 6,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which AI domain is associated with tasks like identifying the sentiment of a text and translating text between languages?",
+      "question_es": "¿Qué dominio de IA está asociado con tareas como identificar el sentimiento de un texto y traducir texto entre idiomas?",
+      "question_pt": "Qual domínio de IA está associado com tarefas como identificar o sentimento de um texto e traduzir texto entre idiomas?",
+      "options_en": [
+        {
+          "text": "Natural Language Processing",
+          "isCorrect": true
+        },
+        {
+          "text": "Computer Vision",
+          "isCorrect": false
+        },
+        {
+          "text": "Speech Processing",
+          "isCorrect": false
+        },
+        {
+          "text": "Anomaly Detection",
+          "isCorrect": false
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Procesamiento de Lenguaje Natural",
+          "isCorrect": true
+        },
+        {
+          "text": "Visión por Computadora",
+          "isCorrect": false
+        },
+        {
+          "text": "Procesamiento del Habla",
+          "isCorrect": false
+        },
+        {
+          "text": "Detección de Anomalías",
+          "isCorrect": false
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Processamento de Linguagem Natural",
+          "isCorrect": true
+        },
+        {
+          "text": "Visão Computacional",
+          "isCorrect": false
+        },
+        {
+          "text": "Processamento de Fala",
+          "isCorrect": false
+        },
+        {
+          "text": "Detecção de Anomalias",
+          "isCorrect": false
+        }
+      ],
+      "explanation_en": "The natural language processing domain of AI focuses on tasks related to understanding, processing, and generating natural language, such as sentiment analysis, translation, and text classification.",
+      "explanation_es": "El dominio de procesamiento de lenguaje natural de la IA se centra en tareas relacionadas con la comprensión, procesamiento y generación de lenguaje natural, como análisis de sentimientos, traducción y clasificación de texto.",
+      "explanation_pt": "O domínio de processamento de linguagem natural da IA se concentra em tarefas relacionadas à compreensão, processamento e geração de linguagem natural, como análise de sentimentos, tradução e classificação de texto."
+    },
+    {
+      "id": 7,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "What is the primary distinction between generative AI and other AI approaches like supervised learning?",
+      "question_es": "¿Cuál es la distinción principal entre la IA generativa y otros enfoques de IA como el aprendizaje supervisado?",
+      "question_pt": "Qual é a distinção principal entre IA generativa e outras abordagens de IA como aprendizado supervisionado?",
+      "options_en": [
+        {
+          "text": "Generative AI focuses on decision-making and optimization.",
+          "isCorrect": false
+        },
+        {
+          "text": "Generative AI aims to understand underlying data distribution & create new examples.",
+          "isCorrect": true
+        },
+        {
+          "text": "Generative AI generates labeled outputs for training.",
+          "isCorrect": false
+        },
+        {
+          "text": "Generative AI is exclusively used for text-based applications.",
+          "isCorrect": false
+        }
+      ],
+      "options_es": [
+        {
+          "text": "La IA Generativa se enfoca en la toma de decisiones y optimización.",
+          "isCorrect": false
+        },
+        {
+          "text": "La IA Generativa busca entender la distribución subyacente de datos y crear nuevos ejemplos.",
+          "isCorrect": true
+        },
+        {
+          "text": "La IA Generativa genera salidas etiquetadas para entrenamiento.",
+          "isCorrect": false
+        },
+        {
+          "text": "La IA Generativa se usa exclusivamente para aplicaciones basadas en texto.",
+          "isCorrect": false
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "A IA Generativa se concentra na tomada de decisões e otimização.",
+          "isCorrect": false
+        },
+        {
+          "text": "A IA Generativa visa entender a distribuição subjacente dos dados e criar novos exemplos.",
+          "isCorrect": true
+        },
+        {
+          "text": "A IA Generativa gera saídas rotuladas para treinamento.",
+          "isCorrect": false
+        },
+        {
+          "text": "A IA Generativa é usada exclusivamente para aplicações baseadas em texto.",
+          "isCorrect": false
+        }
+      ],
+      "explanation_en": "Generative AI goes beyond making predictions or decisions. It focuses on modeling the structure of the data and creating new examples that resemble the training data, allowing for the generation of new content.",
+      "explanation_es": "La IA Generativa va más allá de hacer predicciones o decisiones. Se enfoca en modelar la estructura de los datos y crear nuevos ejemplos que se asemejan a los datos de entrenamiento, permitiendo la generación de nuevo contenido.",
+      "explanation_pt": "A IA Generativa vai além de fazer previsões ou decisões. Ela se concentra em modelar a estrutura dos dados e criar novos exemplos que se assemelham aos dados de treinamento, permitindo a geração de novo conteúdo."
+    },
+    {
+      "id": 8,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "Which of these summarizes the three guiding principles for AI to be trustworthy?",
+      "question_es": "¿Cuál de estos resume los tres principios rectores para que la IA sea confiable?",
+      "question_pt": "Qual destes resume os três princípios orientadores para que a IA seja confiável?",
+      "options_en": [
+        {
+          "text": "AI should be fast, unbiased, and autonomous.",
+          "isCorrect": false
+        },
+        {
+          "text": "AI should be lawful, ethical, and robust.",
+          "isCorrect": true
+        },
+        {
+          "text": "AI should be cost-effective, cloud-based, and user-friendly.",
+          "isCorrect": false
+        },
+        {
+          "text": "AI should replace human oversight, be independent, and highly scalable.",
+          "isCorrect": false
+        }
+      ],
+      "options_es": [
+        {
+          "text": "La IA debe ser rápida, imparcial y autónoma.",
+          "isCorrect": false
+        },
+        {
+          "text": "La IA debe ser legal, ética y robusta.",
+          "isCorrect": true
+        },
+        {
+          "text": "La IA debe ser rentable, basada en la nube y fácil de usar.",
+          "isCorrect": false
+        },
+        {
+          "text": "La IA debe reemplazar la supervisión humana, ser independiente y altamente escalable.",
+          "isCorrect": false
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "A IA deve ser rápida, imparcial e autônoma.",
+          "isCorrect": false
+        },
+        {
+          "text": "A IA deve ser legal, ética e robusta.",
+          "isCorrect": true
+        },
+        {
+          "text": "A IA deve ser econômica, baseada em nuvem e fácil de usar.",
+          "isCorrect": false
+        },
+        {
+          "text": "A IA deve substituir a supervisão humana, ser independente e altamente escalável.",
+          "isCorrect": false
+        }
+      ],
+      "explanation_en": "For AI to be trustworthy, it must comply with laws and regulations (lawful), adhere to ethical values (ethical), and be reliable both technically and socially (robust).",
+      "explanation_es": "Para que la IA sea confiable, debe cumplir con las leyes y regulaciones (legal), adherirse a valores éticos (ética) y ser confiable tanto técnica como socialmente (robusta).",
+      "explanation_pt": "Para que a IA seja confiável, ela deve cumprir as leis e regulamentos (legal), aderir a valores éticos (ética) e ser confiável tanto tecnicamente quanto socialmente (robusta)."
+    },
+    {
+      "id": 9,
+      "module": 1,
+      "module_name": "AI Foundations",
+      "question_en": "A company wants to automate its email filtering system to reduce spam. Which AI technique would you recommend?",
+      "question_es": "Una empresa quiere automatizar su sistema de filtrado de correo electrónico para reducir el spam. ¿Qué técnica de IA recomendarías?",
+      "question_pt": "Uma empresa quer automatizar seu sistema de filtragem de e-mail para reduzir spam. Qual técnica de IA você recomendaria?",
+      "options_en": [
+        {
+          "text": "Machine Learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Natural Language Processing",
+          "isCorrect": false
+        },
+        {
+          "text": "Reinforcement Learning",
+          "isCorrect": false
+        },
+        {
+          "text": "Deep Learning",
+          "isCorrect": false
+        }
+      ],
+      "options_es": [
+        {
+          "text": "Machine Learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Procesamiento de Lenguaje Natural",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizaje por Refuerzo",
+          "isCorrect": false
+        },
+        {
+          "text": "Deep Learning",
+          "isCorrect": false
+        }
+      ],
+      "options_pt": [
+        {
+          "text": "Machine Learning",
+          "isCorrect": true
+        },
+        {
+          "text": "Processamento de Linguagem Natural",
+          "isCorrect": false
+        },
+        {
+          "text": "Aprendizado por Reforço",
+          "isCorrect": false
+        },
+        {
+          "text": "Deep Learning",
+          "isCorrect": false
+        }
+      ],
+      "explanation_en": "Detecting spam is a classification problem. Hence Machine Learning can be used for Supervised Machine Learning.",
+      "explanation_es": "Detectar spam es un problema de clasificación. Por lo tanto, Machine Learning puede usarse para Aprendizaje Automático Supervisado.",
+      "explanation_pt": "Detectar spam é um problema de classificação. Portanto, Machine Learning pode ser usado para Aprendizado de Máquina Supervisionado."
+    },
+    {
+      "id": 10,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "What type of Machine Learning algorithm is used when we want to predict the resale price on a residential property?",
+      "question_es": "¿Qué tipo de algoritmo de Machine Learning se utiliza cuando queremos predecir el precio de reventa de una propiedad residencial?",
+      "question_pt": "Que tipo de algoritmo de Machine Learning é usado quando queremos prever o preço de revenda de uma propriedade residencial?",
+      "options_en": [
+        { "text": "Multiclass Classification", "isCorrect": false },
+        { "text": "Binary Classification", "isCorrect": false },
+        { "text": "Anomaly Detection", "isCorrect": false },
+        { "text": "Regression", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Clasificación Multiclase", "isCorrect": false },
+        { "text": "Clasificación Binaria", "isCorrect": false },
+        { "text": "Detección de Anomalías", "isCorrect": false },
+        { "text": "Regresión", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Classificação Multiclasse", "isCorrect": false },
+        { "text": "Classificação Binária", "isCorrect": false },
+        { "text": "Detecção de Anomalias", "isCorrect": false },
+        { "text": "Regressão", "isCorrect": true }
+      ],
+      "explanation_en": "Regression is the type of Machine Learning algorithm used when we want to predict continuous numerical values, such as the resale price of a residential property. In regression tasks, the goal is to learn a mapping between input features (e.g., square footage, number of bedrooms, location) and a continuous target variable (e.g., price). Linear Regression is most employed for this purpose.",
+      "explanation_es": "La Regresión es el tipo de algoritmo de Machine Learning utilizado cuando queremos predecir valores numéricos continuos, como el precio de reventa de una propiedad residencial. En tareas de regresión, el objetivo es aprender un mapeo entre características de entrada (por ejemplo, pies cuadrados, número de habitaciones, ubicación) y una variable objetivo continua (por ejemplo, precio). La Regresión Lineal es la más empleada para este propósito.",
+      "explanation_pt": "Regressão é o tipo de algoritmo de Machine Learning usado quando queremos prever valores numéricos contínuos, como o preço de revenda de uma propriedade residencial. Em tarefas de regressão, o objetivo é aprender um mapeamento entre características de entrada (por exemplo, metragem quadrada, número de quartos, localização) e uma variável alvo contínua (por exemplo, preço). A Regressão Linear é a mais empregada para esse propósito."
+    },
+    {
+      "id": 11,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "Which algorithm is used for predicting continuous numerical values?",
+      "question_es": "¿Qué algoritmo se utiliza para predecir valores numéricos continuos?",
+      "question_pt": "Qual algoritmo é usado para prever valores numéricos contínuos?",
+      "options_en": [
+        { "text": "Linear Regression", "isCorrect": true },
+        { "text": "Decision Tree Classification", "isCorrect": false },
+        { "text": "K-Means Clustering", "isCorrect": false },
+        { "text": "Logistic Regression", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Regresión Lineal", "isCorrect": true },
+        { "text": "Clasificación con Árbol de Decisión", "isCorrect": false },
+        { "text": "Agrupamiento K-Means", "isCorrect": false },
+        { "text": "Regresión Logística", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Regressão Linear", "isCorrect": true },
+        { "text": "Classificação com Árvore de Decisão", "isCorrect": false },
+        { "text": "Agrupamento K-Means", "isCorrect": false },
+        { "text": "Regressão Logística", "isCorrect": false }
+      ],
+      "explanation_en": "Linear Regression is a regression algorithm used for predicting continuous numerical values by modeling the relationship between dependent and independent variables using a straight line. Logistic Regression is actually a classification algorithm used for binary classification. Decision Tree Classification is also used for classification tasks, not regression. K-Means Clustering is an unsupervised learning algorithm used for clustering data points, not for regression.",
+      "explanation_es": "La Regresión Lineal es un algoritmo de regresión utilizado para predecir valores numéricos continuos modelando la relación entre variables dependientes e independientes usando una línea recta. La Regresión Logística es en realidad un algoritmo de clasificación utilizado para clasificación binaria. La Clasificación con Árbol de Decisión también se utiliza para tareas de clasificación, no regresión. K-Means Clustering es un algoritmo de aprendizaje no supervisado utilizado para agrupar puntos de datos, no para regresión.",
+      "explanation_pt": "Regressão Linear é um algoritmo de regressão usado para prever valores numéricos contínuos modelando a relação entre variáveis dependentes e independentes usando uma linha reta. Regressão Logística é na verdade um algoritmo de classificação usado para classificação binária. Classificação com Árvore de Decisão também é usado para tarefas de classificação, não regressão. K-Means Clustering é um algoritmo de aprendizado não supervisionado usado para agrupar pontos de dados, não para regressão."
+    },
+    {
+      "id": 12,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "Which type of Machine Learning algorithm learns from outcomes to make decisions?",
+      "question_es": "¿Qué tipo de algoritmo de Machine Learning aprende de los resultados para tomar decisiones?",
+      "question_pt": "Qual tipo de algoritmo de Machine Learning aprende com resultados para tomar decisões?",
+      "options_en": [
+        { "text": "Reinforcement Learning", "isCorrect": true },
+        { "text": "Natural Language Processing", "isCorrect": false },
+        { "text": "Unsupervised Learning", "isCorrect": false },
+        { "text": "Supervised Learning", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Aprendizaje por Refuerzo", "isCorrect": true },
+        { "text": "Procesamiento de Lenguaje Natural", "isCorrect": false },
+        { "text": "Aprendizaje No Supervisado", "isCorrect": false },
+        { "text": "Aprendizaje Supervisado", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Aprendizado por Reforço", "isCorrect": true },
+        { "text": "Processamento de Linguagem Natural", "isCorrect": false },
+        { "text": "Aprendizado Não Supervisionado", "isCorrect": false },
+        { "text": "Aprendizado Supervisionado", "isCorrect": false }
+      ],
+      "explanation_en": "Reinforcement Learning is a type of Machine Learning algorithm that learns from outcomes to make decisions. In reinforcement learning, an agent interacts with an environment and takes actions to maximize cumulative rewards.",
+      "explanation_es": "El Aprendizaje por Refuerzo es un tipo de algoritmo de Machine Learning que aprende de los resultados para tomar decisiones. En el aprendizaje por refuerzo, un agente interactúa con un entorno y toma acciones para maximizar las recompensas acumulativas.",
+      "explanation_pt": "Aprendizado por Reforço é um tipo de algoritmo de Machine Learning que aprende com resultados para tomar decisões. No aprendizado por reforço, um agente interage com um ambiente e toma ações para maximizar recompensas cumulativas."
+    },
+    {
+      "id": 13,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "Which application does NOT require a Machine Learning solution?",
+      "question_es": "¿Qué aplicación NO requiere una solución de Machine Learning?",
+      "question_pt": "Qual aplicação NÃO requer uma solução de Machine Learning?",
+      "options_en": [
+        { "text": "Customer Segmentation", "isCorrect": false },
+        { "text": "Password Validation", "isCorrect": true },
+        { "text": "Detecting spam emails", "isCorrect": false },
+        { "text": "Stock Price Predictions", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Segmentación de Clientes", "isCorrect": false },
+        { "text": "Validación de Contraseñas", "isCorrect": true },
+        { "text": "Detección de correos spam", "isCorrect": false },
+        { "text": "Predicción de Precios de Acciones", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Segmentação de Clientes", "isCorrect": false },
+        { "text": "Validação de Senhas", "isCorrect": true },
+        { "text": "Detecção de e-mails spam", "isCorrect": false },
+        { "text": "Previsão de Preços de Ações", "isCorrect": false }
+      ],
+      "explanation_en": "Password Validation typically does not require a Machine Learning solution. Password validation is a straightforward process that involves checking whether a user-entered password matches the stored password on a server. This can be achieved through standard cryptographic techniques and rules without the need for machine learning.",
+      "explanation_es": "La Validación de Contraseñas típicamente no requiere una solución de Machine Learning. La validación de contraseñas es un proceso sencillo que implica verificar si una contraseña ingresada por el usuario coincide con la contraseña almacenada en un servidor. Esto se puede lograr a través de técnicas criptográficas estándar y reglas sin necesidad de aprendizaje automático.",
+      "explanation_pt": "Validação de Senhas tipicamente não requer uma solução de Machine Learning. A validação de senhas é um processo direto que envolve verificar se uma senha inserida pelo usuário corresponde à senha armazenada em um servidor. Isso pode ser alcançado através de técnicas criptográficas padrão e regras sem a necessidade de aprendizado de máquina."
+    },
+    {
+      "id": 14,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "Which type of function is used in Logistic Regression to predict a loan defaulter?",
+      "question_es": "¿Qué tipo de función se utiliza en la Regresión Logística para predecir un deudor moroso de préstamos?",
+      "question_pt": "Qual tipo de função é usado na Regressão Logística para prever um inadimplente de empréstimo?",
+      "options_en": [
+        { "text": "Gaussian function", "isCorrect": false },
+        { "text": "Step function", "isCorrect": false },
+        { "text": "Sigmoidal function", "isCorrect": true },
+        { "text": "Identity function", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Función Gaussiana", "isCorrect": false },
+        { "text": "Función Escalón", "isCorrect": false },
+        { "text": "Función Sigmoidal", "isCorrect": true },
+        { "text": "Función Identidad", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Função Gaussiana", "isCorrect": false },
+        { "text": "Função Degrau", "isCorrect": false },
+        { "text": "Função Sigmoidal", "isCorrect": true },
+        { "text": "Função Identidade", "isCorrect": false }
+      ],
+      "explanation_en": "Logistic Regression is a binary classification algorithm commonly used in Machine Learning to predict binary outcomes, such as whether a loan will be defaulted or not. The key idea behind Logistic Regression is to model the probability of an event occurring as a function of input features. The output of this model is transformed using the sigmoidal (also known as logistic) function. The sigmoidal function, often represented as the sigmoid function, has an S-shaped curve that maps any input value to an output value between 0 and 1.",
+      "explanation_es": "La Regresión Logística es un algoritmo de clasificación binaria comúnmente utilizado en Machine Learning para predecir resultados binarios, como si un préstamo será incumplido o no. La idea clave detrás de la Regresión Logística es modelar la probabilidad de que ocurra un evento como una función de características de entrada. La salida de este modelo se transforma utilizando la función sigmoidal (también conocida como logística). La función sigmoidal, a menudo representada como la función sigmoid, tiene una curva en forma de S que mapea cualquier valor de entrada a un valor de salida entre 0 y 1.",
+      "explanation_pt": "Regressão Logística é um algoritmo de classificação binária comumente usado em Machine Learning para prever resultados binários, como se um empréstimo será inadimplente ou não. A ideia chave por trás da Regressão Logística é modelar a probabilidade de um evento ocorrer como uma função de características de entrada. A saída deste modelo é transformada usando a função sigmoidal (também conhecida como logística). A função sigmoidal, frequentemente representada como a função sigmoid, tem uma curva em forma de S que mapeia qualquer valor de entrada para um valor de saída entre 0 e 1."
+    },
+    {
+      "id": 15,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "In Machine Learning, what does the term \"Model training\" involve?",
+      "question_es": "En Machine Learning, ¿qué implica el término \"Entrenamiento del modelo\"?",
+      "question_pt": "Em Machine Learning, o que envolve o termo \"Treinamento do modelo\"?",
+      "options_en": [
+        { "text": "Writing code for the entire program", "isCorrect": false },
+        { "text": "Collecting and labeling data", "isCorrect": false },
+        { "text": "Establishing a relationship between input and output parameters", "isCorrect": true },
+        { "text": "Analyzing the accuracy of a trained model", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Escribir código para todo el programa", "isCorrect": false },
+        { "text": "Recopilar y etiquetar datos", "isCorrect": false },
+        { "text": "Establecer una relación entre parámetros de entrada y salida", "isCorrect": true },
+        { "text": "Analizar la precisión de un modelo entrenado", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Escrever código para todo o programa", "isCorrect": false },
+        { "text": "Coletar e rotular dados", "isCorrect": false },
+        { "text": "Estabelecer uma relação entre parâmetros de entrada e saída", "isCorrect": true },
+        { "text": "Analisar a precisão de um modelo treinado", "isCorrect": false }
+      ],
+      "explanation_en": "Model training involves building a relationship between the input features and the desired output. It's the process of creating a model that can make predictions based on input data.",
+      "explanation_es": "El entrenamiento del modelo implica construir una relación entre las características de entrada y la salida deseada. Es el proceso de crear un modelo que puede hacer predicciones basadas en datos de entrada.",
+      "explanation_pt": "O treinamento do modelo envolve construir uma relação entre as características de entrada e a saída desejada. É o processo de criar um modelo que pode fazer previsões baseadas em dados de entrada."
+    },
+    {
+      "id": 16,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "What is the role of a target variable in supervised learning?",
+      "question_es": "¿Cuál es el papel de una variable objetivo en el aprendizaje supervisado?",
+      "question_pt": "Qual é o papel de uma variável alvo no aprendizado supervisionado?",
+      "options_en": [
+        { "text": "It represents the input data.", "isCorrect": false },
+        { "text": "It helps in feature selection.", "isCorrect": false },
+        { "text": "It is used to split the dataset.", "isCorrect": false },
+        { "text": "It contains the desired output or class labels.", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Representa los datos de entrada.", "isCorrect": false },
+        { "text": "Ayuda en la selección de características.", "isCorrect": false },
+        { "text": "Se utiliza para dividir el conjunto de datos.", "isCorrect": false },
+        { "text": "Contiene la salida deseada o etiquetas de clase.", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Representa os dados de entrada.", "isCorrect": false },
+        { "text": "Ajuda na seleção de características.", "isCorrect": false },
+        { "text": "É usada para dividir o conjunto de dados.", "isCorrect": false },
+        { "text": "Contém a saída desejada ou rótulos de classe.", "isCorrect": true }
+      ],
+      "explanation_en": "The target variable refers to desired outcome. It could be a numerical value or a label. e.g. spam or not spam or predicted rainfall in milimeters.",
+      "explanation_es": "La variable objetivo se refiere al resultado deseado. Puede ser un valor numérico o una etiqueta. por ejemplo, spam o no spam o lluvia predicha en milímetros.",
+      "explanation_pt": "A variável alvo refere-se ao resultado desejado. Pode ser um valor numérico ou um rótulo. por exemplo, spam ou não spam ou chuva prevista em milímetros."
+    },
+    {
+      "id": 17,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "What is the primary function of the inference process in machine learning?",
+      "question_es": "¿Cuál es la función principal del proceso de inferencia en machine learning?",
+      "question_pt": "Qual é a função principal do processo de inferência no machine learning?",
+      "options_en": [
+        { "text": "Predicting outcomes from new data points", "isCorrect": true },
+        { "text": "Adjusting the weights of a neural network", "isCorrect": false },
+        { "text": "Labeling the training data", "isCorrect": false },
+        { "text": "Collecting training data", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Predecir resultados de nuevos puntos de datos", "isCorrect": true },
+        { "text": "Ajustar los pesos de una red neuronal", "isCorrect": false },
+        { "text": "Etiquetar los datos de entrenamiento", "isCorrect": false },
+        { "text": "Recopilar datos de entrenamiento", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Prever resultados de novos pontos de dados", "isCorrect": true },
+        { "text": "Ajustar os pesos de uma rede neural", "isCorrect": false },
+        { "text": "Rotular os dados de treinamento", "isCorrect": false },
+        { "text": "Coletar dados de treinamento", "isCorrect": false }
+      ],
+      "explanation_en": "Inference refers to predicting an outcome given an input using a trained model.",
+      "explanation_es": "La inferencia se refiere a predecir un resultado dado una entrada usando un modelo entrenado.",
+      "explanation_pt": "Inferência refere-se a prever um resultado dado uma entrada usando um modelo treinado."
+    },
+    {
+      "id": 18,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "Which of these is NOT a common application of unsupervised machine learning?",
+      "question_es": "¿Cuál de estas NO es una aplicación común del aprendizaje automático no supervisado?",
+      "question_pt": "Qual destas NÃO é uma aplicação comum do aprendizado de máquina não supervisionado?",
+      "options_en": [
+        { "text": "Spam detection", "isCorrect": true },
+        { "text": "Targeted marketing campaigns", "isCorrect": false },
+        { "text": "Customer segmentation", "isCorrect": false },
+        { "text": "Outlier detection", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Detección de spam", "isCorrect": true },
+        { "text": "Campañas de marketing dirigidas", "isCorrect": false },
+        { "text": "Segmentación de clientes", "isCorrect": false },
+        { "text": "Detección de valores atípicos", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Detecção de spam", "isCorrect": true },
+        { "text": "Campanhas de marketing direcionadas", "isCorrect": false },
+        { "text": "Segmentação de clientes", "isCorrect": false },
+        { "text": "Detecção de outliers", "isCorrect": false }
+      ],
+      "explanation_en": "Spam detection is a supervised machine learning problem and NOT a unsupervised learning example.",
+      "explanation_es": "La detección de spam es un problema de aprendizaje automático supervisado y NO es un ejemplo de aprendizaje no supervisado.",
+      "explanation_pt": "Detecção de spam é um problema de aprendizado de máquina supervisionado e NÃO é um exemplo de aprendizado não supervisionado."
+    },
+    {
+      "id": 19,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "A streaming service wants to recommend TV shows based on user behavior. Which machine learning approach should be used?",
+      "question_es": "Un servicio de streaming quiere recomendar programas de TV basándose en el comportamiento del usuario. ¿Qué enfoque de machine learning debería usarse?",
+      "question_pt": "Um serviço de streaming quer recomendar programas de TV baseados no comportamento do usuário. Qual abordagem de machine learning deve ser usada?",
+      "options_en": [
+        { "text": "Deep Learning", "isCorrect": false },
+        { "text": "Supervised Learning", "isCorrect": true },
+        { "text": "Unsupervised Learning", "isCorrect": false },
+        { "text": "Reinforcement Learning", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Deep Learning", "isCorrect": false },
+        { "text": "Aprendizaje Supervisado", "isCorrect": true },
+        { "text": "Aprendizaje No Supervisado", "isCorrect": false },
+        { "text": "Aprendizaje por Refuerzo", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Deep Learning", "isCorrect": false },
+        { "text": "Aprendizado Supervisionado", "isCorrect": true },
+        { "text": "Aprendizado Não Supervisionado", "isCorrect": false },
+        { "text": "Aprendizado por Reforço", "isCorrect": false }
+      ],
+      "explanation_en": "Recommendations are given based on the user's past choices or similar user or product choices. Hence it is an example of a Supervised Machine Learning.",
+      "explanation_es": "Las recomendaciones se dan en base a las elecciones pasadas del usuario o elecciones de usuarios o productos similares. Por lo tanto, es un ejemplo de Aprendizaje Automático Supervisado.",
+      "explanation_pt": "As recomendações são dadas com base nas escolhas passadas do usuário ou escolhas de usuários ou produtos similares. Portanto, é um exemplo de Aprendizado de Máquina Supervisionado."
+    },
+    {
+      "id": 20,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "What is the role of the loss function in supervised learning algorithms?",
+      "question_es": "¿Cuál es el papel de la función de pérdida en los algoritmos de aprendizaje supervisado?",
+      "question_pt": "Qual é o papel da função de perda nos algoritmos de aprendizado supervisionado?",
+      "options_en": [
+        { "text": "It measures the similarity between predictions and actual targets.", "isCorrect": false },
+        { "text": "It evaluates the model's complexity.", "isCorrect": false },
+        { "text": "It quantifies the cost of incorrect predictions.", "isCorrect": true },
+        { "text": "It helps in feature scaling.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Mide la similitud entre predicciones y objetivos reales.", "isCorrect": false },
+        { "text": "Evalúa la complejidad del modelo.", "isCorrect": false },
+        { "text": "Cuantifica el costo de las predicciones incorrectas.", "isCorrect": true },
+        { "text": "Ayuda en el escalado de características.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Mede a similaridade entre previsões e alvos reais.", "isCorrect": false },
+        { "text": "Avalia a complexidade do modelo.", "isCorrect": false },
+        { "text": "Quantifica o custo das previsões incorretas.", "isCorrect": true },
+        { "text": "Ajuda no escalonamento de características.", "isCorrect": false }
+      ],
+      "explanation_en": "Loss function checks what is the difference between actual value and predicted value.",
+      "explanation_es": "La función de pérdida verifica cuál es la diferencia entre el valor real y el valor predicho.",
+      "explanation_pt": "A função de perda verifica qual é a diferença entre o valor real e o valor previsto."
+    },
+    {
+      "id": 21,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "What technique is used to predict the price of a house based on its features?",
+      "question_es": "¿Qué técnica se utiliza para predecir el precio de una casa basándose en sus características?",
+      "question_pt": "Qual técnica é usada para prever o preço de uma casa baseado em suas características?",
+      "options_en": [
+        { "text": "Time Series Analysis", "isCorrect": false },
+        { "text": "Clustering", "isCorrect": false },
+        { "text": "Classification", "isCorrect": false },
+        { "text": "Regression", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Análisis de Series Temporales", "isCorrect": false },
+        { "text": "Agrupamiento", "isCorrect": false },
+        { "text": "Clasificación", "isCorrect": false },
+        { "text": "Regresión", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Análise de Séries Temporais", "isCorrect": false },
+        { "text": "Agrupamento", "isCorrect": false },
+        { "text": "Classificação", "isCorrect": false },
+        { "text": "Regressão", "isCorrect": true }
+      ],
+      "explanation_en": "Predicting a house price which is a numerical value is an example of a supervised machine learning, more specifically Regression algorithm.",
+      "explanation_es": "Predecir un precio de casa que es un valor numérico es un ejemplo de aprendizaje automático supervisado, más específicamente un algoritmo de Regresión.",
+      "explanation_pt": "Prever um preço de casa que é um valor numérico é um exemplo de aprendizado de máquina supervisionado, mais especificamente algoritmo de Regressão."
+    },
+    {
+      "id": 22,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "Which algorithm is a non-parametric approach for supervised learning?",
+      "question_es": "¿Qué algoritmo es un enfoque no paramétrico para el aprendizaje supervisado?",
+      "question_pt": "Qual algoritmo é uma abordagem não paramétrica para aprendizado supervisionado?",
+      "options_en": [
+        { "text": "Decision Trees", "isCorrect": false },
+        { "text": "Linear Regression", "isCorrect": false },
+        { "text": "Random Forest", "isCorrect": false },
+        { "text": "K-Nearest Neighbors (KNN)", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Árboles de Decisión", "isCorrect": false },
+        { "text": "Regresión Lineal", "isCorrect": false },
+        { "text": "Bosque Aleatorio", "isCorrect": false },
+        { "text": "K-Vecinos Más Cercanos (KNN)", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Árvores de Decisão", "isCorrect": false },
+        { "text": "Regressão Linear", "isCorrect": false },
+        { "text": "Floresta Aleatória", "isCorrect": false },
+        { "text": "K-Vizinhos Mais Próximos (KNN)", "isCorrect": true }
+      ],
+      "explanation_en": "K-Nearest Neighbors (KNN) is considered a non-parametric algorithm: Unlike parametric models (e.g., linear regression, neural networks), KNN doesn't have any parameters that need to be learned from the data. The only parameter to tune is the number of nearest neighbors (K).",
+      "explanation_es": "K-Vecinos Más Cercanos (KNN) se considera un algoritmo no paramétrico: A diferencia de los modelos paramétricos (por ejemplo, regresión lineal, redes neuronales), KNN no tiene parámetros que necesiten aprenderse de los datos. El único parámetro para ajustar es el número de vecinos más cercanos (K).",
+      "explanation_pt": "K-Vizinhos Mais Próximos (KNN) é considerado um algoritmo não paramétrico: Diferentemente dos modelos paramétricos (por exemplo, regressão linear, redes neurais), KNN não tem parâmetros que precisam ser aprendidos dos dados. O único parâmetro para ajustar é o número de vizinhos mais próximos (K)."
+    },
+    {
+      "id": 23,
+      "module": 2,
+      "module_name": "Machine Learning Foundations",
+      "question_en": "You are training a deep learning model to predict stock prices. What type of data is this an example of?",
+      "question_es": "Estás entrenando un modelo de deep learning para predecir precios de acciones. ¿De qué tipo de datos es este un ejemplo?",
+      "question_pt": "Você está treinando um modelo de deep learning para prever preços de ações. De que tipo de dados é este um exemplo?",
+      "options_en": [
+        { "text": "Image data", "isCorrect": false },
+        { "text": "Sequential data", "isCorrect": false },
+        { "text": "Text data", "isCorrect": false },
+        { "text": "Time series data", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Datos de imagen", "isCorrect": false },
+        { "text": "Datos secuenciales", "isCorrect": false },
+        { "text": "Datos de texto", "isCorrect": false },
+        { "text": "Datos de series temporales", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Dados de imagem", "isCorrect": false },
+        { "text": "Dados sequenciais", "isCorrect": false },
+        { "text": "Dados de texto", "isCorrect": false },
+        { "text": "Dados de séries temporais", "isCorrect": true }
+      ],
+      "explanation_en": "Stock data consist of a series time stamp and a stock price pairs. hence it is considered as a time series data.",
+      "explanation_es": "Los datos de acciones consisten en una serie de marcas de tiempo y pares de precios de acciones. por lo tanto, se considera como datos de series temporales.",
+      "explanation_pt": "Os dados de ações consistem em uma série de carimbos de tempo e pares de preços de ações. portanto, é considerado como dados de séries temporais."
+    },
+    {
+      "id": 24,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "Which sequence model can maintain relevant information over long sequences?",
+      "question_es": "¿Qué modelo de secuencia puede mantener información relevante durante secuencias largas?",
+      "question_pt": "Qual modelo de sequência pode manter informações relevantes durante sequências longas?",
+      "options_en": [
+        { "text": "Recurrent Neural Networks", "isCorrect": false },
+        { "text": "Long Short-Term Memory Neural Networks", "isCorrect": true },
+        { "text": "Feed Forward Neural Networks", "isCorrect": false },
+        { "text": "Convolutional Neural Networks", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Redes Neuronales Recurrentes", "isCorrect": false },
+        { "text": "Redes Neuronales de Memoria a Corto y Largo Plazo", "isCorrect": true },
+        { "text": "Redes Neuronales de Alimentación Directa", "isCorrect": false },
+        { "text": "Redes Neuronales Convolucionales", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Redes Neurais Recorrentes", "isCorrect": false },
+        { "text": "Redes Neurais de Memória de Curto e Longo Prazo", "isCorrect": true },
+        { "text": "Redes Neurais de Alimentação Direta", "isCorrect": false },
+        { "text": "Redes Neurais Convolucionais", "isCorrect": false }
+      ],
+      "explanation_en": "Long Short-Term Memory (LSTM) Neural Networks are the sequence model of choice when it comes to handling and maintaining relevant information over long sequences, making them particularly well-suited for tasks like language modeling, machine translation, and speech recognition.",
+      "explanation_es": "Las Redes Neuronales de Memoria a Corto y Largo Plazo (LSTM) son el modelo de secuencia de elección cuando se trata de manejar y mantener información relevante durante secuencias largas, haciéndolas particularmente adecuadas para tareas como modelado de lenguaje, traducción automática y reconocimiento de voz.",
+      "explanation_pt": "Redes Neurais de Memória de Curto e Longo Prazo (LSTM) são o modelo de sequência de escolha quando se trata de lidar e manter informações relevantes durante sequências longas, tornando-as particularmente adequadas para tarefas como modelagem de linguagem, tradução automática e reconhecimento de fala."
+    },
+    {
+      "id": 25,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "Which Neural Network has a feedback loop and is designed to handle sequential data?",
+      "question_es": "¿Qué Red Neuronal tiene un bucle de retroalimentación y está diseñada para manejar datos secuenciales?",
+      "question_pt": "Qual Rede Neural tem um loop de feedback e é projetada para lidar com dados sequenciais?",
+      "options_en": [
+        { "text": "Feed Forward Neural Networks", "isCorrect": false },
+        { "text": "Recurrent Neural Networks", "isCorrect": true },
+        { "text": "Convolution Neural Networks", "isCorrect": false },
+        { "text": "Multi-Layer Perceptron Neural Networks", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Redes Neuronales de Alimentación Directa", "isCorrect": false },
+        { "text": "Redes Neuronales Recurrentes", "isCorrect": true },
+        { "text": "Redes Neuronales Convolucionales", "isCorrect": false },
+        { "text": "Redes Neuronales Perceptrón Multicapa", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Redes Neurais de Alimentação Direta", "isCorrect": false },
+        { "text": "Redes Neurais Recorrentes", "isCorrect": true },
+        { "text": "Redes Neurais Convolucionais", "isCorrect": false },
+        { "text": "Redes Neurais Perceptron Multicamada", "isCorrect": false }
+      ],
+      "explanation_en": "Recurrent Neural Networks (RNNs) are a type of neural network architecture that includes feedback connections. These feedback connections allow RNNs to process sequential data, such as time series, natural language, speech, and more.",
+      "explanation_es": "Las Redes Neuronales Recurrentes (RNN) son un tipo de arquitectura de red neuronal que incluye conexiones de retroalimentación. Estas conexiones de retroalimentación permiten a las RNN procesar datos secuenciales, como series temporales, lenguaje natural, voz y más.",
+      "explanation_pt": "Redes Neurais Recorrentes (RNNs) são um tipo de arquitetura de rede neural que inclui conexões de feedback. Essas conexões de feedback permitem que as RNNs processem dados sequenciais, como séries temporais, linguagem natural, fala e muito mais."
+    },
+    {
+      "id": 26,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "Which essential component of Artificial Neural Network performs weighted summation and applies activation function on input data to produce an output?",
+      "question_es": "¿Qué componente esencial de la Red Neuronal Artificial realiza la suma ponderada y aplica la función de activación en los datos de entrada para producir una salida?",
+      "question_pt": "Qual componente essencial da Rede Neural Artificial realiza a soma ponderada e aplica a função de ativação nos dados de entrada para produzir uma saída?",
+      "options_en": [
+        { "text": "Iterator", "isCorrect": false },
+        { "text": "Bias", "isCorrect": false },
+        { "text": "Neuron", "isCorrect": true },
+        { "text": "Classifier", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Iterador", "isCorrect": false },
+        { "text": "Sesgo", "isCorrect": false },
+        { "text": "Neurona", "isCorrect": true },
+        { "text": "Clasificador", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Iterador", "isCorrect": false },
+        { "text": "Viés", "isCorrect": false },
+        { "text": "Neurônio", "isCorrect": true },
+        { "text": "Classificador", "isCorrect": false }
+      ],
+      "explanation_en": "A neuron in an Artificial Neural Network is the fundamental building block responsible for performing weighted summation and applying an activation function to input data to produce an output.",
+      "explanation_es": "Una neurona en una Red Neuronal Artificial es el bloque de construcción fundamental responsable de realizar la suma ponderada y aplicar una función de activación a los datos de entrada para producir una salida.",
+      "explanation_pt": "Um neurônio em uma Rede Neural Artificial é o bloco de construção fundamental responsável por realizar a soma ponderada e aplicar uma função de ativação aos dados de entrada para produzir uma saída."
+    },
+    {
+      "id": 27,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "How do hidden layers in neural networks help with character recognition?",
+      "question_es": "¿Cómo ayudan las capas ocultas en las redes neuronales con el reconocimiento de caracteres?",
+      "question_pt": "Como as camadas ocultas nas redes neurais ajudam com o reconhecimento de caracteres?",
+      "options_en": [
+        { "text": "Directly mapping input characters to output predictions", "isCorrect": false },
+        { "text": "Improving the interpretability of the model's decisions", "isCorrect": false },
+        { "text": "Increasing the network's processing speed", "isCorrect": false },
+        { "text": "Enabling the network to learn complex features like edges and shapes", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Mapeando directamente caracteres de entrada a predicciones de salida", "isCorrect": false },
+        { "text": "Mejorando la interpretabilidad de las decisiones del modelo", "isCorrect": false },
+        { "text": "Aumentando la velocidad de procesamiento de la red", "isCorrect": false },
+        { "text": "Permitiendo que la red aprenda características complejas como bordes y formas", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Mapeando diretamente caracteres de entrada para previsões de saída", "isCorrect": false },
+        { "text": "Melhorando a interpretabilidade das decisões do modelo", "isCorrect": false },
+        { "text": "Aumentando a velocidade de processamento da rede", "isCorrect": false },
+        { "text": "Permitindo que a rede aprenda características complexas como bordas e formas", "isCorrect": true }
+      ],
+      "explanation_en": "Hidden layers in neural networks are crucial for character recognition because they enable the network to learn and extract complex features and patterns, such as edges, shapes, and curves, which are essential for recognizing characters.",
+      "explanation_es": "Las capas ocultas en las redes neuronales son cruciales para el reconocimiento de caracteres porque permiten que la red aprenda y extraiga características y patrones complejos, como bordes, formas y curvas, que son esenciales para reconocer caracteres.",
+      "explanation_pt": "Camadas ocultas nas redes neurais são cruciais para o reconhecimento de caracteres porque permitem que a rede aprenda e extraia características e padrões complexos, como bordas, formas e curvas, que são essenciais para reconhecer caracteres."
+    },
+    {
+      "id": 28,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "Which type of Recurrent Neural Network (RNN) architecture is used for Machine Translation?",
+      "question_es": "¿Qué tipo de arquitectura de Red Neuronal Recurrente (RNN) se utiliza para la Traducción Automática?",
+      "question_pt": "Qual tipo de arquitetura de Rede Neural Recorrente (RNN) é usado para Tradução Automática?",
+      "options_en": [
+        { "text": "Many-to-One", "isCorrect": false },
+        { "text": "Many-to-Many", "isCorrect": true },
+        { "text": "One-to-One", "isCorrect": false },
+        { "text": "One-to-Many", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Muchos a Uno", "isCorrect": false },
+        { "text": "Muchos a Muchos", "isCorrect": true },
+        { "text": "Uno a Uno", "isCorrect": false },
+        { "text": "Uno a Muchos", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Muitos para Um", "isCorrect": false },
+        { "text": "Muitos para Muitos", "isCorrect": true },
+        { "text": "Um para Um", "isCorrect": false },
+        { "text": "Um para Muitos", "isCorrect": false }
+      ],
+      "explanation_en": "Machine Translation involves translating a sentence or a sequence of text from one language to another, which is essentially a sequence-to-sequence problem. In Many-to-Many RNN architecture, the network takes a sequence of inputs and produces a sequence of outputs. In the context of machine translation, this means it can take a sequence of words or tokens in one language as input and generate a corresponding sequence of words or tokens in another language as output.",
+      "explanation_es": "La Traducción Automática implica traducir una oración o una secuencia de texto de un idioma a otro, que es esencialmente un problema de secuencia a secuencia. En la arquitectura RNN Muchos a Muchos, la red toma una secuencia de entradas y produce una secuencia de salidas. En el contexto de la traducción automática, esto significa que puede tomar una secuencia de palabras o tokens en un idioma como entrada y generar una secuencia correspondiente de palabras o tokens en otro idioma como salida.",
+      "explanation_pt": "Tradução Automática envolve traduzir uma sentença ou uma sequência de texto de um idioma para outro, que é essencialmente um problema de sequência para sequência. Na arquitetura RNN Muitos para Muitos, a rede pega uma sequência de entradas e produz uma sequência de saídas. No contexto da tradução automática, isso significa que ela pode pegar uma sequência de palavras ou tokens em um idioma como entrada e gerar uma sequência correspondente de palavras ou tokens em outro idioma como saída."
+    },
+    {
+      "id": 29,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "What is the primary purpose of deep learning model architectures like Convolutional Neural Networks (CNNs)?",
+      "question_es": "¿Cuál es el propósito principal de las arquitecturas de modelos de deep learning como las Redes Neuronales Convolucionales (CNN)?",
+      "question_pt": "Qual é o propósito principal das arquiteturas de modelos de deep learning como Redes Neurais Convolucionais (CNNs)?",
+      "options_en": [
+        { "text": "Generating high-resolution images", "isCorrect": false },
+        { "text": "Creating music compositions", "isCorrect": false },
+        { "text": "Processing sequential data", "isCorrect": false },
+        { "text": "Detecting patterns in images", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Generar imágenes de alta resolución", "isCorrect": false },
+        { "text": "Crear composiciones musicales", "isCorrect": false },
+        { "text": "Procesar datos secuenciales", "isCorrect": false },
+        { "text": "Detectar patrones en imágenes", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Gerar imagens de alta resolução", "isCorrect": false },
+        { "text": "Criar composições musicais", "isCorrect": false },
+        { "text": "Processar dados sequenciais", "isCorrect": false },
+        { "text": "Detectar padrões em imagens", "isCorrect": true }
+      ],
+      "explanation_en": "Convolutional Neural Networks (CNNs) are specifically designed to process and analyze visual data, such as images. They excel at detecting patterns, features, and objects within images.",
+      "explanation_es": "Las Redes Neuronales Convolucionales (CNN) están diseñadas específicamente para procesar y analizar datos visuales, como imágenes. Sobresalen en la detección de patrones, características y objetos dentro de las imágenes.",
+      "explanation_pt": "Redes Neurais Convolucionais (CNNs) são especificamente projetadas para processar e analisar dados visuais, como imagens. Elas se destacam na detecção de padrões, características e objetos dentro de imagens."
+    },
+    {
+      "id": 30,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "What is the purpose of the hidden layer in an artificial neural network?",
+      "question_es": "¿Cuál es el propósito de la capa oculta en una red neuronal artificial?",
+      "question_pt": "Qual é o propósito da camada oculta em uma rede neural artificial?",
+      "options_en": [
+        { "text": "This layer receives and passes input data to the subsequent layers; it does not perform any computations.", "isCorrect": false },
+        { "text": "This layer is optional, and it processes and transforms inputs from the network's weights and activation functions.", "isCorrect": true },
+        { "text": "This layer produces the final outputs of the network based on the processed information from the other layers.", "isCorrect": false },
+        { "text": "This layer applies filters to the image data.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Esta capa recibe y pasa los datos de entrada a las capas posteriores; no realiza ningún cálculo.", "isCorrect": false },
+        { "text": "Esta capa es opcional y procesa y transforma las entradas de los pesos y funciones de activación de la red.", "isCorrect": true },
+        { "text": "Esta capa produce las salidas finales de la red basadas en la información procesada de las otras capas.", "isCorrect": false },
+        { "text": "Esta capa aplica filtros a los datos de imagen.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Esta camada recebe e passa dados de entrada para as camadas subsequentes; não realiza nenhum cálculo.", "isCorrect": false },
+        { "text": "Esta camada é opcional e processa e transforma entradas dos pesos e funções de ativação da rede.", "isCorrect": true },
+        { "text": "Esta camada produz as saídas finais da rede baseadas nas informações processadas das outras camadas.", "isCorrect": false },
+        { "text": "Esta camada aplica filtros aos dados de imagem.", "isCorrect": false }
+      ],
+      "explanation_en": "Hidden layers, take the input from input or other hidden layer and multiples it through weights and activations. Input layer accepts input and output layer outputs the final result.",
+      "explanation_es": "Las capas ocultas toman la entrada de la capa de entrada u otra capa oculta y la multiplican a través de pesos y activaciones. La capa de entrada acepta la entrada y la capa de salida produce el resultado final.",
+      "explanation_pt": "Camadas ocultas pegam a entrada da camada de entrada ou de outra camada oculta e a multiplicam através de pesos e ativações. A camada de entrada aceita a entrada e a camada de saída produz o resultado final."
+    },
+    {
+      "id": 31,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "What type of data is most likely to be used with deep learning algorithms?",
+      "question_es": "¿Qué tipo de datos es más probable que se utilice con algoritmos de deep learning?",
+      "question_pt": "Que tipo de dados é mais provável de ser usado com algoritmos de deep learning?",
+      "options_en": [
+        { "text": "Only string data", "isCorrect": false },
+        { "text": "Data with human interpretable features", "isCorrect": false },
+        { "text": "Time series data", "isCorrect": false },
+        { "text": "Complex data with non-human interpretable features", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Solo datos de cadena", "isCorrect": false },
+        { "text": "Datos con características interpretables por humanos", "isCorrect": false },
+        { "text": "Datos de series temporales", "isCorrect": false },
+        { "text": "Datos complejos con características no interpretables por humanos", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Apenas dados de string", "isCorrect": false },
+        { "text": "Dados com características interpretáveis por humanos", "isCorrect": false },
+        { "text": "Dados de séries temporais", "isCorrect": false },
+        { "text": "Dados complexos com características não interpretáveis por humanos", "isCorrect": true }
+      ],
+      "explanation_en": "Deep Learning is suitable for complex data like images, audio or video. These type of data is usually not human interpretable. e.g. if we pick a few pixels out of the image , we may or may not be interpret these individually.",
+      "explanation_es": "Deep Learning es adecuado para datos complejos como imágenes, audio o video. Este tipo de datos generalmente no es interpretable por humanos. por ejemplo, si tomamos algunos píxeles de la imagen, puede que podamos o no interpretar estos individualmente.",
+      "explanation_pt": "Deep Learning é adequado para dados complexos como imagens, áudio ou vídeo. Este tipo de dados geralmente não é interpretável por humanos. por exemplo, se pegarmos alguns pixels da imagem, podemos ou não ser capazes de interpretar estes individualmente."
+    },
+    {
+      "id": 32,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "You are working on a deep learning project to generate music. Which type of neural network is best suited for this task?",
+      "question_es": "Estás trabajando en un proyecto de deep learning para generar música. ¿Qué tipo de red neuronal es más adecuada para esta tarea?",
+      "question_pt": "Você está trabalhando em um projeto de deep learning para gerar música. Qual tipo de rede neural é mais adequado para esta tarefa?",
+      "options_en": [
+        { "text": "Feedforward Neural Network (FNN)", "isCorrect": false },
+        { "text": "Convolutional Neural Network (CNN)", "isCorrect": false },
+        { "text": "Autoencoder", "isCorrect": false },
+        { "text": "Recurrent Neural Network (RNN)", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Red Neuronal de Alimentación Directa (FNN)", "isCorrect": false },
+        { "text": "Red Neuronal Convolucional (CNN)", "isCorrect": false },
+        { "text": "Autocodificador", "isCorrect": false },
+        { "text": "Red Neuronal Recurrente (RNN)", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Rede Neural de Alimentação Direta (FNN)", "isCorrect": false },
+        { "text": "Rede Neural Convolucional (CNN)", "isCorrect": false },
+        { "text": "Autocodificador", "isCorrect": false },
+        { "text": "Rede Neural Recorrente (RNN)", "isCorrect": true }
+      ],
+      "explanation_en": "Predicting a next note in music needs context of prior notes. For this RNN is well suited.",
+      "explanation_es": "Predecir una nota siguiente en música necesita el contexto de las notas anteriores. Para esto, RNN es muy adecuada.",
+      "explanation_pt": "Prever uma próxima nota na música precisa do contexto das notas anteriores. Para isso, RNN é bem adequada."
+    },
+    {
+      "id": 33,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "You are training a deep learning model to recognize faces. What type of neural network is best suited for this task?",
+      "question_es": "Estás entrenando un modelo de deep learning para reconocer rostros. ¿Qué tipo de red neuronal es más adecuada para esta tarea?",
+      "question_pt": "Você está treinando um modelo de deep learning para reconhecer rostos. Qual tipo de rede neural é mais adequado para esta tarefa?",
+      "options_en": [
+        { "text": "Convolutional Neural Network (CNN)", "isCorrect": true },
+        { "text": "Autoencoder", "isCorrect": false },
+        { "text": "Feedforward Neural Network (FNN)", "isCorrect": false },
+        { "text": "Recurrent Neural Network (RNN)", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Red Neuronal Convolucional (CNN)", "isCorrect": true },
+        { "text": "Autocodificador", "isCorrect": false },
+        { "text": "Red Neuronal de Alimentación Directa (FNN)", "isCorrect": false },
+        { "text": "Red Neuronal Recurrente (RNN)", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Rede Neural Convolucional (CNN)", "isCorrect": true },
+        { "text": "Autocodificador", "isCorrect": false },
+        { "text": "Rede Neural de Alimentação Direta (FNN)", "isCorrect": false },
+        { "text": "Rede Neural Recorrente (RNN)", "isCorrect": false }
+      ],
+      "explanation_en": "Face recognition is based on the feature extraction given an image. CNN is well suited for this purpose.",
+      "explanation_es": "El reconocimiento facial se basa en la extracción de características dada una imagen. CNN es muy adecuada para este propósito.",
+      "explanation_pt": "Reconhecimento facial é baseado na extração de características dada uma imagem. CNN é bem adequada para este propósito."
+    },
+    {
+      "id": 34,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "You're developing an image classification software that can identify specific objects. Which AI subset would you use?",
+      "question_es": "Estás desarrollando un software de clasificación de imágenes que puede identificar objetos específicos. ¿Qué subconjunto de IA usarías?",
+      "question_pt": "Você está desenvolvendo um software de classificação de imagens que pode identificar objetos específicos. Qual subconjunto de IA você usaria?",
+      "options_en": [
+        { "text": "Natural Language Processing", "isCorrect": false },
+        { "text": "Machine Learning", "isCorrect": false },
+        { "text": "Reinforcement Learning", "isCorrect": false },
+        { "text": "Deep Learning", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Procesamiento de Lenguaje Natural", "isCorrect": false },
+        { "text": "Machine Learning", "isCorrect": false },
+        { "text": "Aprendizaje por Refuerzo", "isCorrect": false },
+        { "text": "Deep Learning", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Processamento de Linguagem Natural", "isCorrect": false },
+        { "text": "Machine Learning", "isCorrect": false },
+        { "text": "Aprendizado por Reforço", "isCorrect": false },
+        { "text": "Deep Learning", "isCorrect": true }
+      ],
+      "explanation_en": "Object detection is implemented using Deep Learning. Hence the answer is Deep Learning.",
+      "explanation_es": "La detección de objetos se implementa usando Deep Learning. Por lo tanto, la respuesta es Deep Learning.",
+      "explanation_pt": "Detecção de objetos é implementada usando Deep Learning. Portanto, a resposta é Deep Learning."
+    },
+    {
+      "id": 35,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "You are writing poems. You need your computer to help you complete your lines by suggesting right words. Which deep learning model is best suited for this task?",
+      "question_es": "Estás escribiendo poemas. Necesitas que tu computadora te ayude a completar tus líneas sugiriendo las palabras correctas. ¿Qué modelo de deep learning es más adecuado para esta tarea?",
+      "question_pt": "Você está escrevendo poemas. Você precisa que seu computador ajude você a completar suas linhas sugerindo as palavras certas. Qual modelo de deep learning é mais adequado para esta tarefa?",
+      "options_en": [
+        { "text": "Variational Autoencoder (VAE)", "isCorrect": false },
+        { "text": "Recurrent Neural Network (RNN)", "isCorrect": true },
+        { "text": "Generative Adversarial Network (GAN)", "isCorrect": false },
+        { "text": "Convolutional Neural Network (CNN)", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Autocodificador Variacional (VAE)", "isCorrect": false },
+        { "text": "Red Neuronal Recurrente (RNN)", "isCorrect": true },
+        { "text": "Red Generativa Antagónica (GAN)", "isCorrect": false },
+        { "text": "Red Neuronal Convolucional (CNN)", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Autocodificador Variacional (VAE)", "isCorrect": false },
+        { "text": "Rede Neural Recorrente (RNN)", "isCorrect": true },
+        { "text": "Rede Generativa Adversarial (GAN)", "isCorrect": false },
+        { "text": "Rede Neural Convolucional (CNN)", "isCorrect": false }
+      ],
+      "explanation_en": "Prediction of a next word given a sequence of words needs to use a context of prior words in a sequence. RNN is well suited for this.",
+      "explanation_es": "La predicción de una palabra siguiente dada una secuencia de palabras necesita usar un contexto de palabras anteriores en una secuencia. RNN es muy adecuada para esto.",
+      "explanation_pt": "Previsão de uma próxima palavra dada uma sequência de palavras precisa usar um contexto de palavras anteriores em uma sequência. RNN é bem adequada para isso."
+    },
+    {
+      "id": 36,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "A self-driving car needs to detect pedestrians and make safe lane changes. Which AI concept is being applied here?",
+      "question_es": "Un automóvil autónomo necesita detectar peatones y hacer cambios de carril seguros. ¿Qué concepto de IA se está aplicando aquí?",
+      "question_pt": "Um carro autônomo precisa detectar pedestres e fazer mudanças de faixa seguras. Qual conceito de IA está sendo aplicado aqui?",
+      "options_en": [
+        { "text": "Artificial Intelligence", "isCorrect": false },
+        { "text": "Deep Learning", "isCorrect": true },
+        { "text": "Natural Language Processing", "isCorrect": false },
+        { "text": "Machine Learning", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Inteligencia Artificial", "isCorrect": false },
+        { "text": "Deep Learning", "isCorrect": true },
+        { "text": "Procesamiento de Lenguaje Natural", "isCorrect": false },
+        { "text": "Machine Learning", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Inteligência Artificial", "isCorrect": false },
+        { "text": "Deep Learning", "isCorrect": true },
+        { "text": "Processamento de Linguagem Natural", "isCorrect": false },
+        { "text": "Machine Learning", "isCorrect": false }
+      ],
+      "explanation_en": "Detecting pedestrians and making lane changes is similar to a human behaviour. Hence the answer is Artificial Intelligence.",
+      "explanation_es": "Detectar peatones y hacer cambios de carril es similar a un comportamiento humano. Por lo tanto, la respuesta es Inteligencia Artificial.",
+      "explanation_pt": "Detectar pedestres e fazer mudanças de faixa é similar a um comportamento humano. Portanto, a resposta é Inteligência Artificial."
+    },
+    {
+      "id": 37,
+      "module": 3,
+      "module_name": "Deep Learning Foundations",
+      "question_en": "What is the primary limitation of Recurrent Neural Networks (RNNs) when processing long sequences?",
+      "question_es": "¿Cuál es la limitación principal de las Redes Neuronales Recurrentes (RNN) al procesar secuencias largas?",
+      "question_pt": "Qual é a limitação principal das Redes Neurais Recorrentes (RNNs) ao processar sequências longas?",
+      "options_en": [
+        { "text": "RNNs struggle with long-range dependencies due to the vanishing gradient problem.", "isCorrect": true },
+        { "text": "RNNs can only process numerical data, not text.", "isCorrect": false },
+        { "text": "RNNs can only understand words that appear at the beginning of a sentence.", "isCorrect": false },
+        { "text": "RNNs process words in parallel, making them less efficient than transformers.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Las RNN tienen dificultades con dependencias de largo alcance debido al problema del gradiente evanescente.", "isCorrect": true },
+        { "text": "Las RNN solo pueden procesar datos numéricos, no texto.", "isCorrect": false },
+        { "text": "Las RNN solo pueden entender palabras que aparecen al principio de una oración.", "isCorrect": false },
+        { "text": "Las RNN procesan palabras en paralelo, haciéndolas menos eficientes que los transformers.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "RNNs têm dificuldades com dependências de longo alcance devido ao problema do gradiente desaparecente.", "isCorrect": true },
+        { "text": "RNNs só podem processar dados numéricos, não texto.", "isCorrect": false },
+        { "text": "RNNs só podem entender palavras que aparecem no início de uma sentença.", "isCorrect": false },
+        { "text": "RNNs processam palavras em paralelo, tornando-as menos eficientes que transformers.", "isCorrect": false }
+      ],
+      "explanation_en": "RNNs process text sequentially and struggle to retain context from distant words due to vanishing gradient issues. This limits their ability to capture long-range dependencies.",
+      "explanation_es": "Las RNN procesan texto secuencialmente y tienen dificultades para retener el contexto de palabras distantes debido a problemas de gradiente evanescente. Esto limita su capacidad para capturar dependencias de largo alcance.",
+      "explanation_pt": "RNNs processam texto sequencialmente e têm dificuldade em reter contexto de palavras distantes devido a problemas de gradiente desaparecente. Isso limita sua capacidade de capturar dependências de longo alcance."
+    },
+    {
+      "id": 38,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "Which statement accurately describes generative AI?",
+      "question_es": "¿Qué afirmación describe con precisión la IA generativa?",
+      "question_pt": "Qual afirmação descreve com precisão a IA generativa?",
+      "options_en": [
+        { "text": "Creates new content without making predictions.", "isCorrect": true },
+        { "text": "Exclusively trains to predict future data patterns", "isCorrect": false },
+        { "text": "Limits functions to generating only text-based outputs.", "isCorrect": false },
+        { "text": "Focuses on making accurate predictions based on training data.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Crea nuevo contenido sin hacer predicciones.", "isCorrect": true },
+        { "text": "Entrena exclusivamente para predecir patrones de datos futuros", "isCorrect": false },
+        { "text": "Limita las funciones a generar solo salidas basadas en texto.", "isCorrect": false },
+        { "text": "Se enfoca en hacer predicciones precisas basadas en datos de entrenamiento.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Cria novo conteúdo sem fazer previsões.", "isCorrect": true },
+        { "text": "Treina exclusivamente para prever padrões de dados futuros", "isCorrect": false },
+        { "text": "Limita funções para gerar apenas saídas baseadas em texto.", "isCorrect": false },
+        { "text": "Foca em fazer previsões precisas baseadas em dados de treinamento.", "isCorrect": false }
+      ],
+      "explanation_en": "Generative AI is focused on creating new content or data rather than making predictions based on existing training data. It involves generating novel and meaningful outputs, such as images, text, music, or other forms of creative content.",
+      "explanation_es": "La IA Generativa se centra en crear contenido o datos nuevos en lugar de hacer predicciones basadas en datos de entrenamiento existentes. Implica generar salidas novedosas y significativas, como imágenes, texto, música u otras formas de contenido creativo.",
+      "explanation_pt": "IA Generativa está focada em criar novo conteúdo ou dados em vez de fazer previsões baseadas em dados de treinamento existentes. Envolve gerar saídas novas e significativas, como imagens, texto, música ou outras formas de conteúdo criativo."
+    },
+    {
+      "id": 39,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "Fine-tuning is unnecessary for Large Language Models (LLMs) if your application does not involve which specific aspect?",
+      "question_es": "El ajuste fino es innecesario para los Modelos de Lenguaje Grande (LLM) si su aplicación no involucra qué aspecto específico?",
+      "question_pt": "O ajuste fino é desnecessário para Modelos de Linguagem Grande (LLMs) se sua aplicação não envolve qual aspecto específico?",
+      "options_en": [
+        { "text": "Bias mitigation", "isCorrect": false },
+        { "text": "Domain vocabulary", "isCorrect": false },
+        { "text": "Efficiency & resource utilization", "isCorrect": false },
+        { "text": "Task specific adaptation", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Mitigación de sesgos", "isCorrect": false },
+        { "text": "Vocabulario de dominio", "isCorrect": false },
+        { "text": "Eficiencia y utilización de recursos", "isCorrect": false },
+        { "text": "Adaptación específica de tarea", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Mitigação de viés", "isCorrect": false },
+        { "text": "Vocabulário de domínio", "isCorrect": false },
+        { "text": "Eficiência e utilização de recursos", "isCorrect": false },
+        { "text": "Adaptação específica de tarefa", "isCorrect": true }
+      ],
+      "explanation_en": "Fine-tuning of Large Language Models (LLMs) is primarily performed to adapt the model to specific tasks or domains. If your application doesn't require task-specific adaptation, then fine-tuning may not be necessary. Fine-tuning can be used to optimize the efficiency and resource utilization of LLMs, help adapt the model to domain-specific vocabulary, and address bias-related issues.",
+      "explanation_es": "El ajuste fino de Modelos de Lenguaje Grande (LLM) se realiza principalmente para adaptar el modelo a tareas o dominios específicos. Si su aplicación no requiere adaptación específica de tarea, entonces el ajuste fino puede no ser necesario. El ajuste fino puede usarse para optimizar la eficiencia y utilización de recursos de los LLM, ayudar a adaptar el modelo al vocabulario específico del dominio y abordar problemas relacionados con sesgos.",
+      "explanation_pt": "O ajuste fino de Modelos de Linguagem Grande (LLMs) é realizado principalmente para adaptar o modelo a tarefas ou domínios específicos. Se sua aplicação não requer adaptação específica de tarefa, então o ajuste fino pode não ser necessário. O ajuste fino pode ser usado para otimizar a eficiência e utilização de recursos dos LLMs, ajudar a adaptar o modelo ao vocabulário específico do domínio e abordar questões relacionadas a viés."
+    },
+    {
+      "id": 40,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "What aspect of Large Language Models significantly impacts their capabilities, performance, and resource requirements?",
+      "question_es": "¿Qué aspecto de los Modelos de Lenguaje Grande impacta significativamente sus capacidades, rendimiento y requisitos de recursos?",
+      "question_pt": "Qual aspecto dos Modelos de Linguagem Grande impacta significativamente suas capacidades, desempenho e requisitos de recursos?",
+      "options_en": [
+        { "text": "Model size and parameters, including the number of tokens and weights", "isCorrect": true },
+        { "text": "Complexity of the programming languages used for model development", "isCorrect": false },
+        { "text": "Total number of GPUs used for model training", "isCorrect": false },
+        { "text": "Number of training iterations performed during model training", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Tamaño del modelo y parámetros, incluido el número de tokens y pesos", "isCorrect": true },
+        { "text": "Complejidad de los lenguajes de programación usados para el desarrollo del modelo", "isCorrect": false },
+        { "text": "Número total de GPUs usadas para el entrenamiento del modelo", "isCorrect": false },
+        { "text": "Número de iteraciones de entrenamiento realizadas durante el entrenamiento del modelo", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Tamanho do modelo e parâmetros, incluindo o número de tokens e pesos", "isCorrect": true },
+        { "text": "Complexidade das linguagens de programação usadas para o desenvolvimento do modelo", "isCorrect": false },
+        { "text": "Número total de GPUs usadas para o treinamento do modelo", "isCorrect": false },
+        { "text": "Número de iterações de treinamento realizadas durante o treinamento do modelo", "isCorrect": false }
+      ],
+      "explanation_en": "The size and complexity of a language model, including the number of parameters (weights) and tokens have a profound impact on its capabilities and performance. Larger models with more parameters tend to have a better understanding of language and can generate more coherent and contextually relevant text. Larger models, however, require substantial computational resources, including GPUs and memory, for both training and inference.",
+      "explanation_es": "El tamaño y complejidad de un modelo de lenguaje, incluido el número de parámetros (pesos) y tokens tienen un impacto profundo en sus capacidades y rendimiento. Los modelos más grandes con más parámetros tienden a tener una mejor comprensión del lenguaje y pueden generar texto más coherente y contextualmente relevante. Los modelos más grandes, sin embargo, requieren recursos computacionales sustanciales, incluidas GPUs y memoria, tanto para el entrenamiento como para la inferencia.",
+      "explanation_pt": "O tamanho e complexidade de um modelo de linguagem, incluindo o número de parâmetros (pesos) e tokens têm um impacto profundo em suas capacidades e desempenho. Modelos maiores com mais parâmetros tendem a ter uma melhor compreensão da linguagem e podem gerar texto mais coerente e contextualmente relevante. Modelos maiores, no entanto, requerem recursos computacionais substanciais, incluindo GPUs e memória, tanto para treinamento quanto para inferência."
+    },
+    {
+      "id": 41,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "Sequence models are used to solve problems involving sequentially ordered data points or events. Which is NOT the best use case for sequence models?",
+      "question_es": "Los modelos de secuencia se utilizan para resolver problemas que involucran puntos de datos o eventos ordenados secuencialmente. ¿Cuál NO es el mejor caso de uso para modelos de secuencia?",
+      "question_pt": "Modelos de sequência são usados para resolver problemas envolvendo pontos de dados ou eventos ordenados sequencialmente. Qual NÃO é o melhor caso de uso para modelos de sequência?",
+      "options_en": [
+        { "text": "Speech recognition and language translation", "isCorrect": false },
+        { "text": "Image classification and object recognition", "isCorrect": true },
+        { "text": "Natural language processing tasks like sentiment analysis", "isCorrect": false },
+        { "text": "Time series analysis and forecasting", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Reconocimiento de voz y traducción de idiomas", "isCorrect": false },
+        { "text": "Clasificación de imágenes y reconocimiento de objetos", "isCorrect": true },
+        { "text": "Tareas de procesamiento de lenguaje natural como análisis de sentimientos", "isCorrect": false },
+        { "text": "Análisis y pronóstico de series temporales", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Reconhecimento de fala e tradução de idiomas", "isCorrect": false },
+        { "text": "Classificação de imagens e reconhecimento de objetos", "isCorrect": true },
+        { "text": "Tarefas de processamento de linguagem natural como análise de sentimentos", "isCorrect": false },
+        { "text": "Análise e previsão de séries temporais", "isCorrect": false }
+      ],
+      "explanation_en": "Sequence models are indeed well-suited for tasks involving sequentially ordered data points or events, such as time series analysis, natural language processing, speech recognition, and language translation. However, for image classification and object recognition, traditional machine learning models and convolutional neural networks (CNNs) are more commonly used.",
+      "explanation_es": "Los modelos de secuencia son de hecho adecuados para tareas que involucran puntos de datos o eventos ordenados secuencialmente, como análisis de series temporales, procesamiento de lenguaje natural, reconocimiento de voz y traducción de idiomas. Sin embargo, para la clasificación de imágenes y reconocimiento de objetos, se usan más comúnmente modelos de aprendizaje automático tradicionales y redes neuronales convolucionales (CNN).",
+      "explanation_pt": "Modelos de sequência são de fato adequados para tarefas envolvendo pontos de dados ou eventos ordenados sequencialmente, como análise de séries temporais, processamento de linguagem natural, reconhecimento de fala e tradução de idiomas. No entanto, para classificação de imagens e reconhecimento de objetos, modelos de aprendizado de máquina tradicionais e redes neurais convolucionais (CNNs) são mais comumente usados."
+    },
+    {
+      "id": 42,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "What is \"in-context learning\" in the context of large language models (LLMs)?",
+      "question_es": "¿Qué es el \"aprendizaje en contexto\" en el contexto de los modelos de lenguaje grande (LLM)?",
+      "question_pt": "O que é \"aprendizagem em contexto\" no contexto de modelos de linguagem grande (LLMs)?",
+      "options_en": [
+        { "text": "Providing a few examples of a target task via the input prompt.", "isCorrect": true },
+        { "text": "Modifying the behavior of a pretrained LLLM permanently.", "isCorrect": false },
+        { "text": "Training a model on a diverse range of tasks.", "isCorrect": false },
+        { "text": "Teaching the model through zero-shot learning.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Proporcionar algunos ejemplos de una tarea objetivo a través del prompt de entrada.", "isCorrect": true },
+        { "text": "Modificar el comportamiento de un LLM preentrenado permanentemente.", "isCorrect": false },
+        { "text": "Entrenar un modelo en una gama diversa de tareas.", "isCorrect": false },
+        { "text": "Enseñar al modelo a través de aprendizaje de cero disparos.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Fornecer alguns exemplos de uma tarefa alvo através do prompt de entrada.", "isCorrect": true },
+        { "text": "Modificar o comportamento de um LLM pré-treinado permanentemente.", "isCorrect": false },
+        { "text": "Treinar um modelo em uma gama diversa de tarefas.", "isCorrect": false },
+        { "text": "Ensinar o modelo através de aprendizagem de zero disparos.", "isCorrect": false }
+      ],
+      "explanation_en": "In-context learning refers to the capability of generative large language models (LLMs) to learn and perform new tasks without further training or fine-tuning. Instead of modifying the model permanently, users can guide the model's behavior by providing a few examples of the target task through the input prompt. This is particularly useful when direct access to the model is limited, such as when using it through an API or user interface.",
+      "explanation_es": "El aprendizaje en contexto se refiere a la capacidad de los modelos de lenguaje grande generativos (LLM) para aprender y realizar nuevas tareas sin entrenamiento o ajuste fino adicional. En lugar de modificar el modelo permanentemente, los usuarios pueden guiar el comportamiento del modelo proporcionando algunos ejemplos de la tarea objetivo a través del prompt de entrada. Esto es particularmente útil cuando el acceso directo al modelo es limitado, como cuando se usa a través de una API o interfaz de usuario.",
+      "explanation_pt": "Aprendizagem em contexto refere-se à capacidade de modelos de linguagem grande generativos (LLMs) de aprender e realizar novas tarefas sem treinamento ou ajuste fino adicional. Em vez de modificar o modelo permanentemente, os usuários podem guiar o comportamento do modelo fornecendo alguns exemplos da tarefa alvo através do prompt de entrada. Isso é particularmente útil quando o acesso direto ao modelo é limitado, como quando usado através de uma API ou interface de usuário."
+    },
+    {
+      "id": 43,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "Which technique involves providing explicit examples in a prompt to guide an LLM's response?",
+      "question_es": "¿Qué técnica implica proporcionar ejemplos explícitos en un prompt para guiar la respuesta de un LLM?",
+      "question_pt": "Qual técnica envolve fornecer exemplos explícitos em um prompt para guiar a resposta de um LLM?",
+      "options_en": [
+        { "text": "Zero-shot learning", "isCorrect": false },
+        { "text": "Self-supervised learning", "isCorrect": false },
+        { "text": "Few-shot prompting", "isCorrect": true },
+        { "text": "Chain-of-thought prompting", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Aprendizaje de cero disparos", "isCorrect": false },
+        { "text": "Aprendizaje autosupervisado", "isCorrect": false },
+        { "text": "Prompting de pocos disparos", "isCorrect": true },
+        { "text": "Prompting de cadena de pensamiento", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Aprendizagem de zero disparos", "isCorrect": false },
+        { "text": "Aprendizagem autossupervisionada", "isCorrect": false },
+        { "text": "Prompting de poucos disparos", "isCorrect": true },
+        { "text": "Prompting de cadeia de pensamento", "isCorrect": false }
+      ],
+      "explanation_en": "Few-shot prompting involves giving k examples of a task before asking the model to generate an answer, helping improve its performance. For example, showing translations before requesting a new one.",
+      "explanation_es": "El prompting de pocos disparos implica dar k ejemplos de una tarea antes de pedir al modelo que genere una respuesta, ayudando a mejorar su rendimiento. Por ejemplo, mostrar traducciones antes de solicitar una nueva.",
+      "explanation_pt": "Prompting de poucos disparos envolve dar k exemplos de uma tarefa antes de pedir ao modelo para gerar uma resposta, ajudando a melhorar seu desempenho. Por exemplo, mostrar traduções antes de solicitar uma nova."
+    },
+    {
+      "id": 44,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "What role do tokens play in Large Language Models (LLMs)?",
+      "question_es": "¿Qué papel juegan los tokens en los Modelos de Lenguaje Grande (LLM)?",
+      "question_pt": "Qual papel os tokens desempenham nos Modelos de Linguagem Grande (LLMs)?",
+      "options_en": [
+        { "text": "They are individual units into which a piece of text is divided during processing by the model.", "isCorrect": true },
+        { "text": "They represent the numerical values of model parameters.", "isCorrect": false },
+        { "text": "They are used to define the architecture of the model's neural network.", "isCorrect": false },
+        { "text": "They determine the size of the model's memory.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Son unidades individuales en las que se divide un texto durante el procesamiento por el modelo.", "isCorrect": true },
+        { "text": "Representan los valores numéricos de los parámetros del modelo.", "isCorrect": false },
+        { "text": "Se usan para definir la arquitectura de la red neuronal del modelo.", "isCorrect": false },
+        { "text": "Determinan el tamaño de la memoria del modelo.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "São unidades individuais nas quais um texto é dividido durante o processamento pelo modelo.", "isCorrect": true },
+        { "text": "Representam os valores numéricos dos parâmetros do modelo.", "isCorrect": false },
+        { "text": "São usados para definir a arquitetura da rede neural do modelo.", "isCorrect": false },
+        { "text": "Determinam o tamanho da memória do modelo.", "isCorrect": false }
+      ],
+      "explanation_en": "Tokens are the fundamental units of text that Large Language Models (LLMs) process. A token can be a word, subword, or character, depending on the tokenization method used. The model interprets and generates text based on these tokens rather than entire sentences or paragraphs at once.",
+      "explanation_es": "Los tokens son las unidades fundamentales de texto que los Modelos de Lenguaje Grande (LLM) procesan. Un token puede ser una palabra, subpalabra o carácter, dependiendo del método de tokenización utilizado. El modelo interpreta y genera texto basándose en estos tokens en lugar de oraciones o párrafos completos a la vez.",
+      "explanation_pt": "Tokens são as unidades fundamentais de texto que os Modelos de Linguagem Grande (LLMs) processam. Um token pode ser uma palavra, subpalavra ou caractere, dependendo do método de tokenização usado. O modelo interpreta e gera texto baseado nesses tokens em vez de sentenças ou parágrafos inteiros de uma vez."
+    },
+    {
+      "id": 45,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "Which statement best describes the pretraining process of a Generative AI model?",
+      "question_es": "¿Qué afirmación describe mejor el proceso de preentrenamiento de un modelo de IA Generativa?",
+      "question_pt": "Qual afirmação descreve melhor o processo de pré-treinamento de um modelo de IA Generativa?",
+      "options_en": [
+        { "text": "It only memorizes examples and reproduces them exactly.", "isCorrect": false },
+        { "text": "It learns from labeled data and maps inputs to corresponding labels.", "isCorrect": false },
+        { "text": "It exclusively relies on reinforcement learning from human feedback.", "isCorrect": false },
+        { "text": "It learns patterns in unstructured data without requiring labeled training data.", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Solo memoriza ejemplos y los reproduce exactamente.", "isCorrect": false },
+        { "text": "Aprende de datos etiquetados y mapea entradas a etiquetas correspondientes.", "isCorrect": false },
+        { "text": "Depende exclusivamente del aprendizaje por refuerzo a partir de retroalimentación humana.", "isCorrect": false },
+        { "text": "Aprende patrones en datos no estructurados sin requerir datos de entrenamiento etiquetados.", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Apenas memoriza exemplos e os reproduz exatamente.", "isCorrect": false },
+        { "text": "Aprende de dados rotulados e mapeia entradas para rótulos correspondentes.", "isCorrect": false },
+        { "text": "Depende exclusivamente do aprendizado por reforço a partir de feedback humano.", "isCorrect": false },
+        { "text": "Aprende padrões em dados não estruturados sem exigir dados de treinamento rotulados.", "isCorrect": true }
+      ],
+      "explanation_en": "Generative AI models do not require labeled data in the pre-training stage. Instead, they learn patterns from vast amounts of unstructured data, enabling them to generate new, unique outputs.",
+      "explanation_es": "Los modelos de IA Generativa no requieren datos etiquetados en la etapa de preentrenamiento. En cambio, aprenden patrones de vastas cantidades de datos no estructurados, permitiéndoles generar salidas nuevas y únicas.",
+      "explanation_pt": "Modelos de IA Generativa não requerem dados rotulados no estágio de pré-treinamento. Em vez disso, aprendem padrões de vastas quantidades de dados não estruturados, permitindo-lhes gerar saídas novas e únicas."
+    },
+    {
+      "id": 46,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "Which statement best describes the primary difference between Large Language Models (LLMs) and traditional Machine Learning (ML) models?",
+      "question_es": "¿Qué afirmación describe mejor la diferencia principal entre los Modelos de Lenguaje Grande (LLM) y los modelos de Machine Learning (ML) tradicionales?",
+      "question_pt": "Qual afirmação descreve melhor a diferença principal entre Modelos de Linguagem Grande (LLMs) e modelos de Machine Learning (ML) tradicionais?",
+      "options_en": [
+        { "text": "LLMs are pretrained on a large text corpus whereas ML models need to be trained on custom data.", "isCorrect": true },
+        { "text": "LLMs require extensive feature engineering, while traditional ML models can generate human-like text with minimal feature engineering.", "isCorrect": false },
+        { "text": "LLMs have a limited number of parameters compared to ML models.", "isCorrect": false },
+        { "text": "Traditional ML models are better at understanding and generating natural language, while LLMs are primarily used for numerical data analysis.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Los LLM están preentrenados en un gran corpus de texto mientras que los modelos ML necesitan entrenarse con datos personalizados.", "isCorrect": true },
+        { "text": "Los LLM requieren ingeniería de características extensa, mientras que los modelos ML tradicionales pueden generar texto similar al humano con ingeniería de características mínima.", "isCorrect": false },
+        { "text": "Los LLM tienen un número limitado de parámetros en comparación con los modelos ML.", "isCorrect": false },
+        { "text": "Los modelos ML tradicionales son mejores para entender y generar lenguaje natural, mientras que los LLM se usan principalmente para análisis de datos numéricos.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "LLMs são pré-treinados em um grande corpus de texto enquanto modelos ML precisam ser treinados em dados personalizados.", "isCorrect": true },
+        { "text": "LLMs requerem engenharia de características extensa, enquanto modelos ML tradicionais podem gerar texto semelhante ao humano com engenharia de características mínima.", "isCorrect": false },
+        { "text": "LLMs têm um número limitado de parâmetros em comparação com modelos ML.", "isCorrect": false },
+        { "text": "Modelos ML tradicionais são melhores em entender e gerar linguagem natural, enquanto LLMs são usados principalmente para análise de dados numéricos.", "isCorrect": false }
+      ],
+      "explanation_en": "Large Language Models (LLMs) are trained on massive datasets containing diverse text sources, enabling them to generalize across a wide range of language tasks. In contrast, traditional ML models often require training on specific, task-oriented datasets and may not generalize as well across different domains without retraining.",
+      "explanation_es": "Los Modelos de Lenguaje Grande (LLM) se entrenan en conjuntos de datos masivos que contienen diversas fuentes de texto, permitiéndoles generalizar en una amplia gama de tareas de lenguaje. En contraste, los modelos ML tradicionales a menudo requieren entrenamiento en conjuntos de datos específicos orientados a tareas y pueden no generalizar tan bien en diferentes dominios sin reentrenamiento.",
+      "explanation_pt": "Modelos de Linguagem Grande (LLMs) são treinados em conjuntos de dados massivos contendo diversas fontes de texto, permitindo-lhes generalizar em uma ampla gama de tarefas de linguagem. Em contraste, modelos ML tradicionais frequentemente requerem treinamento em conjuntos de dados específicos orientados a tarefas e podem não generalizar tão bem em diferentes domínios sem retreinamento."
+    },
+    {
+      "id": 47,
+      "module": 4,
+      "module_name": "Generative AI and LLM Foundations",
+      "question_en": "What is the primary goal of fine-tuning a Large Language Model (LLM)?",
+      "question_es": "¿Cuál es el objetivo principal de ajustar finamente un Modelo de Lenguaje Grande (LLM)?",
+      "question_pt": "Qual é o objetivo principal de ajustar finamente um Modelo de Linguagem Grande (LLM)?",
+      "options_en": [
+        { "text": "To train the model from scratch using a completely new dataset", "isCorrect": false },
+        { "text": "To adjust the pretrained model's parameters using a smaller, task-specific dataset, improving its performance on specific tasks", "isCorrect": true },
+        { "text": "To convert the model into a different type of neural network architecture", "isCorrect": false },
+        { "text": "To decrease the number of parameters in the model to reduce computational cost", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Entrenar el modelo desde cero usando un conjunto de datos completamente nuevo", "isCorrect": false },
+        { "text": "Ajustar los parámetros del modelo preentrenado usando un conjunto de datos más pequeño específico de la tarea, mejorando su rendimiento en tareas específicas", "isCorrect": true },
+        { "text": "Convertir el modelo en un tipo diferente de arquitectura de red neuronal", "isCorrect": false },
+        { "text": "Disminuir el número de parámetros en el modelo para reducir el costo computacional", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Treinar o modelo do zero usando um conjunto de dados completamente novo", "isCorrect": false },
+        { "text": "Ajustar os parâmetros do modelo pré-treinado usando um conjunto de dados menor específico da tarefa, melhorando seu desempenho em tarefas específicas", "isCorrect": true },
+        { "text": "Converter o modelo em um tipo diferente de arquitetura de rede neural", "isCorrect": false },
+        { "text": "Diminuir o número de parâmetros no modelo para reduzir o custo computacional", "isCorrect": false }
+      ],
+      "explanation_en": "Fine-tuning involves adapting a pre-trained LLM to a specific domain or task by training it on a smaller, specialized dataset. This allows the model to retain its general knowledge while improving accuracy and relevance for particular applications.",
+      "explanation_es": "El ajuste fino implica adaptar un LLM preentrenado a un dominio o tarea específica entrenándolo en un conjunto de datos más pequeño y especializado. Esto permite al modelo retener su conocimiento general mientras mejora la precisión y relevancia para aplicaciones particulares.",
+      "explanation_pt": "Ajuste fino envolve adaptar um LLM pré-treinado a um domínio ou tarefa específica treinando-o em um conjunto de dados menor e especializado. Isso permite que o modelo retenha seu conhecimento geral enquanto melhora a precisão e relevância para aplicações particulares."
+    },
+    {
+      "id": 48,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "Which is NOT an Oracle Cloud Infrastructure AI service?",
+      "question_es": "¿Cuál NO es un servicio de IA de Oracle Cloud Infrastructure?",
+      "question_pt": "Qual NÃO é um serviço de IA da Oracle Cloud Infrastructure?",
+      "options_en": [
+        { "text": "Speech", "isCorrect": false },
+        { "text": "Language", "isCorrect": false },
+        { "text": "Vision", "isCorrect": false },
+        { "text": "Translator", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Speech", "isCorrect": false },
+        { "text": "Language", "isCorrect": false },
+        { "text": "Vision", "isCorrect": false },
+        { "text": "Translator", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Speech", "isCorrect": false },
+        { "text": "Language", "isCorrect": false },
+        { "text": "Vision", "isCorrect": false },
+        { "text": "Translator", "isCorrect": true }
+      ],
+      "explanation_en": "Oracle Cloud Infrastructure (OCI) offers various AI services, including Language, Speech, and Vision services. \"Translator\" is not a standalone AI service category offered by Oracle Cloud Infrastructure",
+      "explanation_es": "Oracle Cloud Infrastructure (OCI) ofrece varios servicios de IA, incluidos los servicios de Language, Speech y Vision. \"Translator\" no es una categoría de servicio de IA independiente ofrecida por Oracle Cloud Infrastructure",
+      "explanation_pt": "Oracle Cloud Infrastructure (OCI) oferece vários serviços de IA, incluindo serviços de Language, Speech e Vision. \"Translator\" não é uma categoria de serviço de IA independente oferecida pela Oracle Cloud Infrastructure"
+    },
+    {
+      "id": 49,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "Which OCI Data Science feature allows you to use catalogued models as HTTP endpoints on fully managed infrastructure?",
+      "question_es": "¿Qué característica de OCI Data Science le permite usar modelos catalogados como endpoints HTTP en infraestructura totalmente administrada?",
+      "question_pt": "Qual recurso do OCI Data Science permite usar modelos catalogados como endpoints HTTP em infraestrutura totalmente gerenciada?",
+      "options_en": [
+        { "text": "Jobs", "isCorrect": false },
+        { "text": "Model Deployments", "isCorrect": true },
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Conda Environments", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Jobs", "isCorrect": false },
+        { "text": "Model Deployments", "isCorrect": true },
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Conda Environments", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Jobs", "isCorrect": false },
+        { "text": "Model Deployments", "isCorrect": true },
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Conda Environments", "isCorrect": false }
+      ],
+      "explanation_en": "Model Deployments in OCI Data Science enable you to deploy your machine learning models as HTTP endpoints, making them accessible for real-time predictions and inferences. You can easily deploy, manage, and scale these models on fully managed infrastructure. Model Deployments are a key component for operationalizing your machine learning models and integrating them into your applications or services.",
+      "explanation_es": "Model Deployments en OCI Data Science le permite implementar sus modelos de aprendizaje automático como endpoints HTTP, haciéndolos accesibles para predicciones e inferencias en tiempo real. Puede implementar, administrar y escalar fácilmente estos modelos en infraestructura totalmente administrada. Model Deployments son un componente clave para operacionalizar sus modelos de aprendizaje automático e integrarlos en sus aplicaciones o servicios.",
+      "explanation_pt": "Model Deployments no OCI Data Science permite implantar seus modelos de aprendizado de máquina como endpoints HTTP, tornando-os acessíveis para previsões e inferências em tempo real. Você pode facilmente implantar, gerenciar e escalar esses modelos em infraestrutura totalmente gerenciada. Model Deployments são um componente-chave para operacionalizar seus modelos de aprendizado de máquina e integrá-los em suas aplicações ou serviços."
+    },
+    {
+      "id": 50,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "What is the advantage of using OCI Superclusters for AI workloads?",
+      "question_es": "¿Cuál es la ventaja de usar OCI Superclusters para cargas de trabajo de IA?",
+      "question_pt": "Qual é a vantagem de usar OCI Superclusters para cargas de trabalho de IA?",
+      "options_en": [
+        { "text": "Offer seamless integration with social media platforms.", "isCorrect": false },
+        { "text": "Are ideal for tasks like text-to-speech conversion.", "isCorrect": false },
+        { "text": "Provide a cost-effective solution for simple AI tasks.", "isCorrect": false },
+        { "text": "Deliver exceptional performance and scalability for complex AI tasks.", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Ofrecen integración perfecta con plataformas de redes sociales.", "isCorrect": false },
+        { "text": "Son ideales para tareas como conversión de texto a voz.", "isCorrect": false },
+        { "text": "Proporcionan una solución rentable para tareas de IA simples.", "isCorrect": false },
+        { "text": "Ofrecen rendimiento excepcional y escalabilidad para tareas de IA complejas.", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Oferecem integração perfeita com plataformas de mídia social.", "isCorrect": false },
+        { "text": "São ideais para tarefas como conversão de texto para fala.", "isCorrect": false },
+        { "text": "Fornecem uma solução econômica para tarefas de IA simples.", "isCorrect": false },
+        { "text": "Oferecem desempenho excepcional e escalabilidade para tarefas de IA complexas.", "isCorrect": true }
+      ],
+      "explanation_en": "OCI AI Superclusters are specifically designed to handle demanding AI workloads that require significant computational power and scalability. They are optimized to provide high performance for complex tasks like training large machine learning models, deep learning, and other compute-intensive AI tasks.",
+      "explanation_es": "Los OCI AI Superclusters están diseñados específicamente para manejar cargas de trabajo de IA exigentes que requieren un poder computacional significativo y escalabilidad. Están optimizados para proporcionar alto rendimiento para tareas complejas como entrenamiento de modelos de aprendizaje automático grandes, deep learning y otras tareas de IA intensivas en computación.",
+      "explanation_pt": "OCI AI Superclusters são especificamente projetados para lidar com cargas de trabalho de IA exigentes que requerem poder computacional significativo e escalabilidade. Eles são otimizados para fornecer alto desempenho para tarefas complexas como treinamento de grandes modelos de aprendizado de máquina, deep learning e outras tarefas de IA intensivas em computação."
+    },
+    {
+      "id": 51,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "Which OCI Data Science feature enables you to define and run repeatable machine learning tasks on fully managed infrastructure?",
+      "question_es": "¿Qué característica de OCI Data Science le permite definir y ejecutar tareas de machine learning repetibles en infraestructura totalmente administrada?",
+      "question_pt": "Qual recurso do OCI Data Science permite definir e executar tarefas de machine learning repetíveis em infraestrutura totalmente gerenciada?",
+      "options_en": [
+        { "text": "Jobs", "isCorrect": true },
+        { "text": "Conda Environments", "isCorrect": false },
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Model Detection", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Jobs", "isCorrect": true },
+        { "text": "Conda Environments", "isCorrect": false },
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Model Detection", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Jobs", "isCorrect": true },
+        { "text": "Conda Environments", "isCorrect": false },
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Model Detection", "isCorrect": false }
+      ],
+      "explanation_en": "Jobs in OCI Data Science allow you to define and run repeatable machine learning tasks and workflows. You can create and execute specific operations, such as data preprocessing, model training, model evaluation, and more, using Jobs. They provide a structured way to automate and manage individual tasks within a data science project.",
+      "explanation_es": "Jobs en OCI Data Science le permite definir y ejecutar tareas y flujos de trabajo de machine learning repetibles. Puede crear y ejecutar operaciones específicas, como preprocesamiento de datos, entrenamiento de modelos, evaluación de modelos y más, usando Jobs. Proporcionan una forma estructurada de automatizar y administrar tareas individuales dentro de un proyecto de ciencia de datos.",
+      "explanation_pt": "Jobs no OCI Data Science permite definir e executar tarefas e fluxos de trabalho de machine learning repetíveis. Você pode criar e executar operações específicas, como pré-processamento de dados, treinamento de modelos, avaliação de modelos e mais, usando Jobs. Eles fornecem uma maneira estruturada de automatizar e gerenciar tarefas individuais dentro de um projeto de ciência de dados."
+    },
+    {
+      "id": 52,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "Which data type is used in Oracle Database 23ai to compare documents?",
+      "question_es": "¿Qué tipo de dato se utiliza en Oracle Database 23ai para comparar documentos?",
+      "question_pt": "Qual tipo de dado é usado no Oracle Database 23ai para comparar documentos?",
+      "options_en": [
+        { "text": "Vector", "isCorrect": true },
+        { "text": "Array", "isCorrect": false },
+        { "text": "Boolean", "isCorrect": false },
+        { "text": "String", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Vector", "isCorrect": true },
+        { "text": "Array", "isCorrect": false },
+        { "text": "Boolean", "isCorrect": false },
+        { "text": "String", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Vector", "isCorrect": true },
+        { "text": "Array", "isCorrect": false },
+        { "text": "Boolean", "isCorrect": false },
+        { "text": "String", "isCorrect": false }
+      ],
+      "explanation_en": "VECTOR data type to store vectors directly in Oracle Database 23ai",
+      "explanation_es": "Tipo de dato VECTOR para almacenar vectores directamente en Oracle Database 23ai",
+      "explanation_pt": "Tipo de dado VECTOR para armazenar vetores diretamente no Oracle Database 23ai"
+    },
+    {
+      "id": 53,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "You need a suitable GPU for massive-scale (HPC) AI training and inference workloads. Which NVIDIA GPU are you most likely to choose?",
+      "question_es": "Necesita una GPU adecuada para entrenamiento e inferencia de IA a escala masiva (HPC). ¿Qué GPU de NVIDIA es más probable que elija?",
+      "question_pt": "Você precisa de uma GPU adequada para treinamento e inferência de IA em escala massiva (HPC). Qual GPU NVIDIA você provavelmente escolheria?",
+      "options_en": [
+        { "text": "H100", "isCorrect": false },
+        { "text": "A10", "isCorrect": false },
+        { "text": "GB200", "isCorrect": true },
+        { "text": "A100", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "H100", "isCorrect": false },
+        { "text": "A10", "isCorrect": false },
+        { "text": "GB200", "isCorrect": true },
+        { "text": "A100", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "H100", "isCorrect": false },
+        { "text": "A10", "isCorrect": false },
+        { "text": "GB200", "isCorrect": true },
+        { "text": "A100", "isCorrect": false }
+      ],
+      "explanation_en": "The GB200 GPU is a next-generation Grace Blackwell GPU designed for exascale AI and HPC workloads, making it more suitable for massive-scale AI training rather than standard large-scale AI workloads.",
+      "explanation_es": "La GPU GB200 es una GPU Grace Blackwell de próxima generación diseñada para cargas de trabajo de IA y HPC a escala exa, haciéndola más adecuada para entrenamiento de IA a escala masiva en lugar de cargas de trabajo de IA a gran escala estándar.",
+      "explanation_pt": "A GPU GB200 é uma GPU Grace Blackwell de próxima geração projetada para cargas de trabalho de IA e HPC em escala exa, tornando-a mais adequada para treinamento de IA em escala massiva em vez de cargas de trabalho de IA em grande escala padrão."
+    },
+    {
+      "id": 54,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "John has successfully trained a machine learning model using OCI. He now needs to deploy it for real-time predictions where it can process user inputs and generate responses. Which OCI service should he use for deployment?",
+      "question_es": "John ha entrenado con éxito un modelo de machine learning usando OCI. Ahora necesita implementarlo para predicciones en tiempo real donde pueda procesar entradas de usuario y generar respuestas. ¿Qué servicio de OCI debería usar para la implementación?",
+      "question_pt": "John treinou com sucesso um modelo de machine learning usando OCI. Agora ele precisa implantá-lo para previsões em tempo real onde possa processar entradas de usuário e gerar respostas. Qual serviço OCI ele deve usar para implantação?",
+      "options_en": [
+        { "text": "OCI Speech", "isCorrect": false },
+        { "text": "OCI Language", "isCorrect": false },
+        { "text": "OCI Object Storage", "isCorrect": false },
+        { "text": "OCI Data Science", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "OCI Speech", "isCorrect": false },
+        { "text": "OCI Language", "isCorrect": false },
+        { "text": "OCI Object Storage", "isCorrect": false },
+        { "text": "OCI Data Science", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "OCI Speech", "isCorrect": false },
+        { "text": "OCI Language", "isCorrect": false },
+        { "text": "OCI Object Storage", "isCorrect": false },
+        { "text": "OCI Data Science", "isCorrect": true }
+      ],
+      "explanation_en": "Once a model is trained, it needs to be deployed for real-time inferencing using OCI Data Science and GPU Compute. This allows the model to process new data efficiently.",
+      "explanation_es": "Una vez que se entrena un modelo, debe implementarse para inferencias en tiempo real usando OCI Data Science y GPU Compute. Esto permite que el modelo procese nuevos datos de manera eficiente.",
+      "explanation_pt": "Uma vez que um modelo é treinado, ele precisa ser implantado para inferência em tempo real usando OCI Data Science e GPU Compute. Isso permite que o modelo processe novos dados de forma eficiente."
+    },
+    {
+      "id": 55,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "Which of these components is NOT a part of OCI AI Infrastructure?",
+      "question_es": "¿Cuál de estos componentes NO es parte de la Infraestructura de IA de OCI?",
+      "question_pt": "Qual destes componentes NÃO faz parte da Infraestrutura de IA da OCI?",
+      "options_en": [
+        { "text": "RDMA Network", "isCorrect": false },
+        { "text": "NVIDIA GPUs", "isCorrect": false },
+        { "text": "OCI Vault", "isCorrect": true },
+        { "text": "OCI Storage", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Red RDMA", "isCorrect": false },
+        { "text": "GPUs NVIDIA", "isCorrect": false },
+        { "text": "OCI Vault", "isCorrect": true },
+        { "text": "OCI Storage", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Rede RDMA", "isCorrect": false },
+        { "text": "GPUs NVIDIA", "isCorrect": false },
+        { "text": "OCI Vault", "isCorrect": true },
+        { "text": "OCI Storage", "isCorrect": false }
+      ],
+      "explanation_en": "OCI AI Infrastructure includes NVIDIA GPUs, OCI Storage, and RDMA Networking for high-performance AI and ML workloads. However, OCI Vault is primarily used for securing and managing cryptographic keys and secrets, not AI infrastructure.",
+      "explanation_es": "La Infraestructura de IA de OCI incluye GPUs NVIDIA, OCI Storage y redes RDMA para cargas de trabajo de IA y ML de alto rendimiento. Sin embargo, OCI Vault se usa principalmente para asegurar y administrar claves criptográficas y secretos, no infraestructura de IA.",
+      "explanation_pt": "Infraestrutura de IA da OCI inclui GPUs NVIDIA, OCI Storage e rede RDMA para cargas de trabalho de IA e ML de alto desempenho. No entanto, OCI Vault é usado principalmente para proteger e gerenciar chaves criptográficas e segredos, não infraestrutura de IA."
+    },
+    {
+      "id": 56,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "How does Oracle Database 23ai allow the use of pretrained AI models for vector search?",
+      "question_es": "¿Cómo permite Oracle Database 23ai el uso de modelos de IA preentrenados para búsqueda vectorial?",
+      "question_pt": "Como o Oracle Database 23ai permite o uso de modelos de IA pré-treinados para busca vetorial?",
+      "options_en": [
+        { "text": "By storing only raw image files for direct comparison", "isCorrect": false },
+        { "text": "By restricting models to only Oracle-provided APIs", "isCorrect": false },
+        { "text": "By loading ONNX models directly into the database", "isCorrect": true },
+        { "text": "By manually converting AI models into SQL queries", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Almacenando solo archivos de imagen sin procesar para comparación directa", "isCorrect": false },
+        { "text": "Restringiendo modelos solo a APIs proporcionadas por Oracle", "isCorrect": false },
+        { "text": "Cargando modelos ONNX directamente en la base de datos", "isCorrect": true },
+        { "text": "Convirtiendo manualmente modelos de IA en consultas SQL", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Armazenando apenas arquivos de imagem brutos para comparação direta", "isCorrect": false },
+        { "text": "Restringindo modelos apenas a APIs fornecidas pela Oracle", "isCorrect": false },
+        { "text": "Carregando modelos ONNX diretamente no banco de dados", "isCorrect": true },
+        { "text": "Convertendo manualmente modelos de IA em consultas SQL", "isCorrect": false }
+      ],
+      "explanation_en": "Oracle Database 23ai allows ONNX models to be loaded into the database, enabling vector embedding generation and similarity searches.",
+      "explanation_es": "Oracle Database 23ai permite que los modelos ONNX se carguen en la base de datos, habilitando la generación de embeddings vectoriales y búsquedas de similitud.",
+      "explanation_pt": "Oracle Database 23ai permite que modelos ONNX sejam carregados no banco de dados, habilitando a geração de embeddings vetoriais e buscas de similaridade."
+    },
+    {
+      "id": 57,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "What is the purpose of the Model Catalog in OCI Data Science?",
+      "question_es": "¿Cuál es el propósito del Model Catalog en OCI Data Science?",
+      "question_pt": "Qual é o propósito do Model Catalog no OCI Data Science?",
+      "options_en": [
+        { "text": "It functions as a real-time data processing engine.", "isCorrect": false },
+        { "text": "It only stores raw datasets for training ML models.", "isCorrect": false },
+        { "text": "It serves as a repository for storing, tracking, and managing machine learning models.", "isCorrect": true },
+        { "text": "It is used to deploy models as API endpoints.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Funciona como un motor de procesamiento de datos en tiempo real.", "isCorrect": false },
+        { "text": "Solo almacena conjuntos de datos sin procesar para entrenar modelos ML.", "isCorrect": false },
+        { "text": "Sirve como un repositorio para almacenar, rastrear y administrar modelos de machine learning.", "isCorrect": true },
+        { "text": "Se usa para implementar modelos como endpoints de API.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Funciona como um mecanismo de processamento de dados em tempo real.", "isCorrect": false },
+        { "text": "Armazena apenas conjuntos de dados brutos para treinar modelos ML.", "isCorrect": false },
+        { "text": "Serve como um repositório para armazenar, rastrear e gerenciar modelos de machine learning.", "isCorrect": true },
+        { "text": "É usado para implantar modelos como endpoints de API.", "isCorrect": false }
+      ],
+      "explanation_en": "The Model Catalog in OCI Data Science acts as a centralized repository where users can store, track, and share models with their team. It enables collaboration and easy retrieval of models for future use.",
+      "explanation_es": "El Model Catalog en OCI Data Science actúa como un repositorio centralizado donde los usuarios pueden almacenar, rastrear y compartir modelos con su equipo. Permite la colaboración y la recuperación fácil de modelos para uso futuro.",
+      "explanation_pt": "O Model Catalog no OCI Data Science atua como um repositório centralizado onde os usuários podem armazenar, rastrear e compartilhar modelos com sua equipe. Ele permite colaboração e recuperação fácil de modelos para uso futuro."
+    },
+    {
+      "id": 58,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "You need a suitable GPU for small or medium scale AI training and inference workloads. Which NVIDIA GPU are you most likely to choose?",
+      "question_es": "Necesita una GPU adecuada para cargas de trabajo de entrenamiento e inferencia de IA a escala pequeña o mediana. ¿Qué GPU de NVIDIA es más probable que elija?",
+      "question_pt": "Você precisa de uma GPU adequada para cargas de trabalho de treinamento e inferência de IA em escala pequena ou média. Qual GPU NVIDIA você provavelmente escolheria?",
+      "options_en": [
+        { "text": "GB200", "isCorrect": false },
+        { "text": "H200", "isCorrect": false },
+        { "text": "B200", "isCorrect": false },
+        { "text": "A100", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "GB200", "isCorrect": false },
+        { "text": "H200", "isCorrect": false },
+        { "text": "B200", "isCorrect": false },
+        { "text": "A100", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "GB200", "isCorrect": false },
+        { "text": "H200", "isCorrect": false },
+        { "text": "B200", "isCorrect": false },
+        { "text": "A100", "isCorrect": true }
+      ],
+      "explanation_en": "The NVIDIA A100 GPU is widely used for small to medium-scale AI training and inference workloads, offering high-performance compute capabilities, tensor cores, and scalability. While H200 is a newer high-memory variant, the A100 remains a strong choice for efficient AI workloads.",
+      "explanation_es": "La GPU NVIDIA A100 se usa ampliamente para cargas de trabajo de entrenamiento e inferencia de IA a escala pequeña a mediana, ofreciendo capacidades de computación de alto rendimiento, núcleos tensor y escalabilidad. Aunque H200 es una variante más nueva de alta memoria, la A100 sigue siendo una opción sólida para cargas de trabajo de IA eficientes.",
+      "explanation_pt": "A GPU NVIDIA A100 é amplamente usada para cargas de trabalho de treinamento e inferência de IA em escala pequena a média, oferecendo capacidades de computação de alto desempenho, núcleos tensor e escalabilidade. Embora H200 seja uma variante mais nova de alta memória, a A100 permanece uma escolha forte para cargas de trabalho de IA eficientes."
+    },
+    {
+      "id": 59,
+      "module": 5,
+      "module_name": "OCI AI Portfolio",
+      "question_en": "What is the advantage of using OCI Superclusters for AI workloads?",
+      "question_es": "¿Cuál es la ventaja de usar OCI Superclusters para cargas de trabajo de IA?",
+      "question_pt": "Qual é a vantagem de usar OCI Superclusters para cargas de trabalho de IA?",
+      "options_en": [
+        { "text": "They are ideal for tasks like text-to-speech conversion.", "isCorrect": false },
+        { "text": "They offer seamless integration with social media platforms.", "isCorrect": false },
+        { "text": "They provide a cost-effective solution for simple AI tasks.", "isCorrect": false },
+        { "text": "They deliver exceptional performance and scalability for complex AI tasks.", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Son ideales para tareas como conversión de texto a voz.", "isCorrect": false },
+        { "text": "Ofrecen integración perfecta con plataformas de redes sociales.", "isCorrect": false },
+        { "text": "Proporcionan una solución rentable para tareas de IA simples.", "isCorrect": false },
+        { "text": "Ofrecen rendimiento excepcional y escalabilidad para tareas de IA complejas.", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "São ideais para tarefas como conversão de texto para fala.", "isCorrect": false },
+        { "text": "Oferecem integração perfeita com plataformas de mídia social.", "isCorrect": false },
+        { "text": "Fornecem uma solução econômica para tarefas de IA simples.", "isCorrect": false },
+        { "text": "Oferecem desempenho excepcional e escalabilidade para tarefas de IA complexas.", "isCorrect": true }
+      ],
+      "explanation_en": "OCI AI Superclusters are specifically designed to handle demanding AI workloads that require significant computational power and scalability. They are optimized to provide high performance for complex tasks like training large machine learning models, deep learning, and other compute-intensive AI tasks.",
+      "explanation_es": "Los OCI AI Superclusters están diseñados específicamente para manejar cargas de trabajo de IA exigentes que requieren un poder computacional significativo y escalabilidad. Están optimizados para proporcionar alto rendimiento para tareas complejas como entrenamiento de modelos de aprendizaje automático grandes, deep learning y otras tareas de IA intensivas en computación.",
+      "explanation_pt": "OCI AI Superclusters são especificamente projetados para lidar com cargas de trabalho de IA exigentes que requerem poder computacional significativo e escalabilidade. Eles são otimizados para fornecer alto desempenho para tarefas complexas como treinamento de grandes modelos de aprendizado de máquina, deep learning e outras tarefas de IA intensivas em computação."
+    },
+    {
+      "id": 60,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "Which key feature allows AI Vector Search to store embeddings in Oracle Database 23ai?",
+      "question_es": "¿Qué característica clave permite que AI Vector Search almacene embeddings en Oracle Database 23ai?",
+      "question_pt": "Qual recurso-chave permite que AI Vector Search armazene embeddings no Oracle Database 23ai?",
+      "options_en": [
+        { "text": "Graph-based indexing", "isCorrect": false },
+        { "text": "JSON object storage", "isCorrect": false },
+        { "text": "IMAGE datatype", "isCorrect": false },
+        { "text": "VECTOR datatype", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Indexación basada en grafos", "isCorrect": false },
+        { "text": "Almacenamiento de objetos JSON", "isCorrect": false },
+        { "text": "Tipo de dato IMAGE", "isCorrect": false },
+        { "text": "Tipo de dato VECTOR", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Indexação baseada em grafos", "isCorrect": false },
+        { "text": "Armazenamento de objetos JSON", "isCorrect": false },
+        { "text": "Tipo de dado IMAGE", "isCorrect": false },
+        { "text": "Tipo de dado VECTOR", "isCorrect": true }
+      ],
+      "explanation_en": "The VECTOR datatype in Oracle Database 23ai is specifically designed to store embeddings for AI Vector Search. This datatype allows efficient storage and retrieval of high-dimensional numerical representations of data, enabling similarity searches for AI and machine learning applications.",
+      "explanation_es": "El tipo de dato VECTOR en Oracle Database 23ai está diseñado específicamente para almacenar embeddings para AI Vector Search. Este tipo de dato permite el almacenamiento y recuperación eficiente de representaciones numéricas de alta dimensión de datos, habilitando búsquedas de similitud para aplicaciones de IA y machine learning.",
+      "explanation_pt": "O tipo de dado VECTOR no Oracle Database 23ai é especificamente projetado para armazenar embeddings para AI Vector Search. Este tipo de dado permite armazenamento e recuperação eficientes de representações numéricas de alta dimensão de dados, habilitando buscas de similaridade para aplicações de IA e machine learning."
+    },
+    {
+      "id": 61,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "How do chat models in OCI Generative AI differ from embedding models?",
+      "question_es": "¿En qué se diferencian los modelos de chat en OCI Generative AI de los modelos de embedding?",
+      "question_pt": "Como os modelos de chat no OCI Generative AI diferem dos modelos de embedding?",
+      "options_en": [
+        { "text": "Chat models are for search queries, while embedding models process images", "isCorrect": false },
+        { "text": "Chat models generate text, while embedding models convert text into numerical representations", "isCorrect": true },
+        { "text": "Both chat and embedding models perform the same function", "isCorrect": false },
+        { "text": "Embedding models generate text responses, while chat models focus on vector representations", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Los modelos de chat son para consultas de búsqueda, mientras que los modelos de embedding procesan imágenes", "isCorrect": false },
+        { "text": "Los modelos de chat generan texto, mientras que los modelos de embedding convierten texto en representaciones numéricas", "isCorrect": true },
+        { "text": "Tanto los modelos de chat como de embedding realizan la misma función", "isCorrect": false },
+        { "text": "Los modelos de embedding generan respuestas de texto, mientras que los modelos de chat se enfocan en representaciones vectoriales", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Modelos de chat são para consultas de busca, enquanto modelos de embedding processam imagens", "isCorrect": false },
+        { "text": "Modelos de chat geram texto, enquanto modelos de embedding convertem texto em representações numéricas", "isCorrect": true },
+        { "text": "Modelos de chat e embedding realizam a mesma função", "isCorrect": false },
+        { "text": "Modelos de embedding geram respostas de texto, enquanto modelos de chat focam em representações vetoriais", "isCorrect": false }
+      ],
+      "explanation_en": "Chat models generate human-like responses, while embedding models convert text into vectors for semantic search and similarity analysis.",
+      "explanation_es": "Los modelos de chat generan respuestas similares a las humanas, mientras que los modelos de embedding convierten texto en vectores para búsqueda semántica y análisis de similitud.",
+      "explanation_pt": "Modelos de chat geram respostas semelhantes às humanas, enquanto modelos de embedding convertem texto em vetores para busca semântica e análise de similaridade."
+    },
+    {
+      "id": 62,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "What is the primary purpose of the OCI Playground in Generative AI?",
+      "question_es": "¿Cuál es el propósito principal del OCI Playground en Generative AI?",
+      "question_pt": "Qual é o propósito principal do OCI Playground no Generative AI?",
+      "options_en": [
+        { "text": "To deploy AI models for production use", "isCorrect": false },
+        { "text": "To store embeddings for AI vector search", "isCorrect": false },
+        { "text": "To visually explore and test pre-trained and fine-tuned models without writing code", "isCorrect": true },
+        { "text": "To manage GPU-based compute resources for AI training", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Implementar modelos de IA para uso en producción", "isCorrect": false },
+        { "text": "Almacenar embeddings para búsqueda vectorial de IA", "isCorrect": false },
+        { "text": "Explorar y probar visualmente modelos preentrenados y ajustados sin escribir código", "isCorrect": true },
+        { "text": "Administrar recursos de cómputo basados en GPU para entrenamiento de IA", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Implantar modelos de IA para uso em produção", "isCorrect": false },
+        { "text": "Armazenar embeddings para busca vetorial de IA", "isCorrect": false },
+        { "text": "Explorar e testar visualmente modelos pré-treinados e ajustados sem escrever código", "isCorrect": true },
+        { "text": "Gerenciar recursos de computação baseados em GPU para treinamento de IA", "isCorrect": false }
+      ],
+      "explanation_en": "The OCI Playground allows users to test prompts, refine parameters, and experiment with models before integrating them into applications, all without writing code.",
+      "explanation_es": "El OCI Playground permite a los usuarios probar prompts, refinar parámetros y experimentar con modelos antes de integrarlos en aplicaciones, todo sin escribir código.",
+      "explanation_pt": "O OCI Playground permite que os usuários testem prompts, refinem parâmetros e experimentem com modelos antes de integrá-los em aplicações, tudo sem escrever código."
+    },
+    {
+      "id": 63,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "Your company wants to fine-tune a pre-trained LLM to better respond to customer queries related to travel bookings. What resource is required in OCI for this fine-tuning?",
+      "question_es": "Su empresa quiere ajustar finamente un LLM preentrenado para responder mejor a las consultas de clientes relacionadas con reservas de viajes. ¿Qué recurso se requiere en OCI para este ajuste fino?",
+      "question_pt": "Sua empresa quer ajustar finamente um LLM pré-treinado para responder melhor a consultas de clientes relacionadas a reservas de viagens. Qual recurso é necessário no OCI para este ajuste fino?",
+      "options_en": [
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Object Storage Bucket", "isCorrect": false },
+        { "text": "AI Vision Service", "isCorrect": false },
+        { "text": "Dedicated AI Cluster", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Object Storage Bucket", "isCorrect": false },
+        { "text": "AI Vision Service", "isCorrect": false },
+        { "text": "Cluster de IA Dedicado", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Model Catalog", "isCorrect": false },
+        { "text": "Object Storage Bucket", "isCorrect": false },
+        { "text": "AI Vision Service", "isCorrect": false },
+        { "text": "Cluster de IA Dedicado", "isCorrect": true }
+      ],
+      "explanation_en": "Dedicated AI Clusters provide GPU-based compute resources required to fine-tune a pre-trained model for specific tasks like customer support.",
+      "explanation_es": "Los Clusters de IA Dedicados proporcionan recursos de cómputo basados en GPU necesarios para ajustar finamente un modelo preentrenado para tareas específicas como soporte al cliente.",
+      "explanation_pt": "Clusters de IA Dedicados fornecem recursos de computação baseados em GPU necessários para ajustar finamente um modelo pré-treinado para tarefas específicas como suporte ao cliente."
+    },
+    {
+      "id": 64,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "What is the purpose of model endpoints in OCI Generative AI?",
+      "question_es": "¿Cuál es el propósito de los endpoints de modelo en OCI Generative AI?",
+      "question_pt": "Qual é o propósito dos endpoints de modelo no OCI Generative AI?",
+      "options_en": [
+        { "text": "To automatically scale AI compute resources", "isCorrect": false },
+        { "text": "To store embeddings for AI vector search", "isCorrect": false },
+        { "text": "To manage network security for AI applications", "isCorrect": false },
+        { "text": "To host and serve fine-tuned models for inference", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Escalar automáticamente recursos de cómputo de IA", "isCorrect": false },
+        { "text": "Almacenar embeddings para búsqueda vectorial de IA", "isCorrect": false },
+        { "text": "Administrar la seguridad de red para aplicaciones de IA", "isCorrect": false },
+        { "text": "Alojar y servir modelos ajustados para inferencia", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Escalar automaticamente recursos de computação de IA", "isCorrect": false },
+        { "text": "Armazenar embeddings para busca vetorial de IA", "isCorrect": false },
+        { "text": "Gerenciar segurança de rede para aplicações de IA", "isCorrect": false },
+        { "text": "Hospedar e servir modelos ajustados para inferência", "isCorrect": true }
+      ],
+      "explanation_en": "Model endpoints allow deployed models to be accessed via an API for real-time inference, making them available for AI applications.",
+      "explanation_es": "Los endpoints de modelo permiten que los modelos implementados sean accesibles a través de una API para inferencia en tiempo real, haciéndolos disponibles para aplicaciones de IA.",
+      "explanation_pt": "Endpoints de modelo permitem que modelos implantados sejam acessados via API para inferência em tempo real, tornando-os disponíveis para aplicações de IA."
+    },
+    {
+      "id": 65,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "What is \"in-context learning\" in the context of large language models (LLMs)?",
+      "question_es": "¿Qué es el \"aprendizaje en contexto\" en el contexto de los modelos de lenguaje grande (LLM)?",
+      "question_pt": "O que é \"aprendizagem em contexto\" no contexto de modelos de linguagem grande (LLMs)?",
+      "options_en": [
+        { "text": "Training a model on a diverse range of tasks.", "isCorrect": false },
+        { "text": "Modifying the behavior of an Oracle Cloud Infrastructure (OCI) pre-trained LLM permanently.", "isCorrect": false },
+        { "text": "Teaching the model through zero-shot learning.", "isCorrect": false },
+        { "text": "Providing a few examples of a target task via the input prompt.", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Entrenar un modelo en una gama diversa de tareas.", "isCorrect": false },
+        { "text": "Modificar el comportamiento de un LLM preentrenado de Oracle Cloud Infrastructure (OCI) permanentemente.", "isCorrect": false },
+        { "text": "Enseñar al modelo a través de aprendizaje de cero disparos.", "isCorrect": false },
+        { "text": "Proporcionar algunos ejemplos de una tarea objetivo a través del prompt de entrada.", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Treinar um modelo em uma gama diversa de tarefas.", "isCorrect": false },
+        { "text": "Modificar o comportamento de um LLM pré-treinado da Oracle Cloud Infrastructure (OCI) permanentemente.", "isCorrect": false },
+        { "text": "Ensinar o modelo através de aprendizagem de zero disparos.", "isCorrect": false },
+        { "text": "Fornecer alguns exemplos de uma tarefa alvo através do prompt de entrada.", "isCorrect": true }
+      ],
+      "explanation_en": "In-context learning refers to the capability of Large Language Models (LLMs) to learn and perform new tasks without further training or fine-tuning. Instead of modifying a pre-trained model permanently, users can guide the model's behavior by providing a few examples of the target task through the input prompt. This is particularly useful when direct access to the model is limited, such as when using it through an API or user interface.",
+      "explanation_es": "El aprendizaje en contexto se refiere a la capacidad de los Modelos de Lenguaje Grande (LLM) para aprender y realizar nuevas tareas sin entrenamiento o ajuste fino adicional. En lugar de modificar un modelo preentrenado permanentemente, los usuarios pueden guiar el comportamiento del modelo proporcionando algunos ejemplos de la tarea objetivo a través del prompt de entrada. Esto es particularmente útil cuando el acceso directo al modelo es limitado, como cuando se usa a través de una API o interfaz de usuario.",
+      "explanation_pt": "Aprendizagem em contexto refere-se à capacidade de Modelos de Linguagem Grande (LLMs) de aprender e realizar novas tarefas sem treinamento ou ajuste fino adicional. Em vez de modificar um modelo pré-treinado permanentemente, os usuários podem guiar o comportamento do modelo fornecendo alguns exemplos da tarefa alvo através do prompt de entrada. Isso é particularmente útil quando o acesso direto ao modelo é limitado, como quando usado através de uma API ou interface de usuário."
+    },
+    {
+      "id": 66,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "Which is a feature offered by the Oracle Cloud Infrastructure (OCI) Speech service?",
+      "question_es": "¿Cuál es una característica ofrecida por el servicio Speech de Oracle Cloud Infrastructure (OCI)?",
+      "question_pt": "Qual é um recurso oferecido pelo serviço Speech da Oracle Cloud Infrastructure (OCI)?",
+      "options_en": [
+        { "text": "Converting text into images.", "isCorrect": false },
+        { "text": "Recognizing objects in images.", "isCorrect": false },
+        { "text": "Transcribing spoken language into written text.", "isCorrect": true },
+        { "text": "Analyzing sentiment in text.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Convertir texto en imágenes.", "isCorrect": false },
+        { "text": "Reconocer objetos en imágenes.", "isCorrect": false },
+        { "text": "Transcribir lenguaje hablado en texto escrito.", "isCorrect": true },
+        { "text": "Analizar el sentimiento en texto.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Converter texto em imagens.", "isCorrect": false },
+        { "text": "Reconhecer objetos em imagens.", "isCorrect": false },
+        { "text": "Transcrever linguagem falada em texto escrito.", "isCorrect": true },
+        { "text": "Analisar sentimento em texto.", "isCorrect": false }
+      ],
+      "explanation_en": "OCI Speech service enables the conversion of spoken language into written text, making it useful for applications like transcription services and voice assistants.",
+      "explanation_es": "El servicio OCI Speech permite la conversión de lenguaje hablado en texto escrito, haciéndolo útil para aplicaciones como servicios de transcripción y asistentes de voz.",
+      "explanation_pt": "O serviço OCI Speech permite a conversão de linguagem falada em texto escrito, tornando-o útil para aplicações como serviços de transcrição e assistentes de voz."
+    },
+    {
+      "id": 67,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "How does Select AI generate SQL queries from natural language questions?",
+      "question_es": "¿Cómo genera Select AI consultas SQL a partir de preguntas en lenguaje natural?",
+      "question_pt": "Como o Select AI gera consultas SQL a partir de perguntas em linguagem natural?",
+      "options_en": [
+        { "text": "It requires users to manually input query parameters.", "isCorrect": false },
+        { "text": "It only works with structured datasets that contain predefined SQL commands.", "isCorrect": false },
+        { "text": "It provides the best SQL query based on predefined templates.", "isCorrect": false },
+        { "text": "It connects to an LLM, infers the query intent, and formulates the SQL command.", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Requiere que los usuarios ingresen manualmente los parámetros de consulta.", "isCorrect": false },
+        { "text": "Solo funciona con conjuntos de datos estructurados que contienen comandos SQL predefinidos.", "isCorrect": false },
+        { "text": "Proporciona la mejor consulta SQL basada en plantillas predefinidas.", "isCorrect": false },
+        { "text": "Se conecta a un LLM, infiere la intención de la consulta y formula el comando SQL.", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Requer que os usuários insiram manualmente os parâmetros de consulta.", "isCorrect": false },
+        { "text": "Funciona apenas com conjuntos de dados estruturados que contêm comandos SQL predefinidos.", "isCorrect": false },
+        { "text": "Fornece a melhor consulta SQL baseada em modelos predefinidos.", "isCorrect": false },
+        { "text": "Conecta-se a um LLM, infere a intenção da consulta e formula o comando SQL.", "isCorrect": true }
+      ],
+      "explanation_en": "Select AI translates natural language into SQL by leveraging large language models (LLMs) to infer intent and construct the required SQL query.",
+      "explanation_es": "Select AI traduce lenguaje natural a SQL aprovechando modelos de lenguaje grande (LLM) para inferir la intención y construir la consulta SQL requerida.",
+      "explanation_pt": "Select AI traduz linguagem natural para SQL aproveitando modelos de linguagem grande (LLMs) para inferir intenção e construir a consulta SQL necessária."
+    },
+    {
+      "id": 68,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "T-Few fine-tuning in OCI Generative AI Service reduces cost and training time as compared to traditional fine-tuning. Which statement correctly explains the reason behind it?",
+      "question_es": "El ajuste fino T-Few en OCI Generative AI Service reduce el costo y el tiempo de entrenamiento en comparación con el ajuste fino tradicional. ¿Qué afirmación explica correctamente la razón detrás de esto?",
+      "question_pt": "O ajuste fino T-Few no OCI Generative AI Service reduz o custo e o tempo de treinamento em comparação com o ajuste fino tradicional. Qual afirmação explica corretamente a razão por trás disso?",
+      "options_en": [
+        { "text": "It requires manually configuring each layer of the model for optimization.", "isCorrect": false },
+        { "text": "It trains the entire model from scratch for each task.", "isCorrect": false },
+        { "text": "It selectively updates only a fraction of the model's weights.", "isCorrect": true },
+        { "text": "It does not allow customization of pretrained models.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Requiere configurar manualmente cada capa del modelo para optimización.", "isCorrect": false },
+        { "text": "Entrena todo el modelo desde cero para cada tarea.", "isCorrect": false },
+        { "text": "Actualiza selectivamente solo una fracción de los pesos del modelo.", "isCorrect": true },
+        { "text": "No permite la personalización de modelos preentrenados.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Requer configurar manualmente cada camada do modelo para otimização.", "isCorrect": false },
+        { "text": "Treina todo o modelo do zero para cada tarefa.", "isCorrect": false },
+        { "text": "Atualiza seletivamente apenas uma fração dos pesos do modelo.", "isCorrect": true },
+        { "text": "Não permite personalização de modelos pré-treinados.", "isCorrect": false }
+      ],
+      "explanation_en": "T-Few fine-tuning adds new layers to the pre-trained model and modifies only a fraction of the model s weights, significantly reducing the time and cost compared to full fine-tuning.",
+      "explanation_es": "El ajuste fino T-Few agrega nuevas capas al modelo preentrenado y modifica solo una fracción de los pesos del modelo, reduciendo significativamente el tiempo y el costo en comparación con el ajuste fino completo.",
+      "explanation_pt": "O ajuste fino T-Few adiciona novas camadas ao modelo pré-treinado e modifica apenas uma fração dos pesos do modelo, reduzindo significativamente o tempo e o custo em comparação com o ajuste fino completo."
+    },
+    {
+      "id": 69,
+      "module": 6,
+      "module_name": "OCI Generative AI Service",
+      "question_en": "How does Select AI enhance the interaction with Oracle Autonomous Database?",
+      "question_es": "¿Cómo mejora Select AI la interacción con Oracle Autonomous Database?",
+      "question_pt": "Como o Select AI melhora a interação com Oracle Autonomous Database?",
+      "options_en": [
+        { "text": "By improving network security protocols", "isCorrect": false },
+        { "text": "By enabling natural language prompts instead of SQL code", "isCorrect": true },
+        { "text": "By providing advanced data visualization tools", "isCorrect": false },
+        { "text": "By eliminating the need for database administrators", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Mejorando los protocolos de seguridad de red", "isCorrect": false },
+        { "text": "Habilitando prompts en lenguaje natural en lugar de código SQL", "isCorrect": true },
+        { "text": "Proporcionando herramientas avanzadas de visualización de datos", "isCorrect": false },
+        { "text": "Eliminando la necesidad de administradores de bases de datos", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Melhorando os protocolos de segurança de rede", "isCorrect": false },
+        { "text": "Habilitando prompts em linguagem natural em vez de código SQL", "isCorrect": true },
+        { "text": "Fornecendo ferramentas avançadas de visualização de dados", "isCorrect": false },
+        { "text": "Eliminando a necessidade de administradores de banco de dados", "isCorrect": false }
+      ],
+      "explanation_en": "Select AI simplifies database queries by allowing users to interact with Oracle Autonomous Database using natural language prompts instead of writing SQL code. This enables faster data retrieval and makes querying more accessible to non-technical users.",
+      "explanation_es": "Select AI simplifica las consultas de bases de datos al permitir a los usuarios interactuar con Oracle Autonomous Database usando prompts en lenguaje natural en lugar de escribir código SQL. Esto permite una recuperación de datos más rápida y hace que las consultas sean más accesibles para usuarios no técnicos.",
+      "explanation_pt": "Select AI simplifica consultas de banco de dados permitindo que os usuários interajam com Oracle Autonomous Database usando prompts em linguagem natural em vez de escrever código SQL. Isso permite recuperação de dados mais rápida e torna consultas mais acessíveis para usuários não técnicos."
+    },
+    {
+      "id": 70,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Which OCI AI service is used to extract tabular content from documents?",
+      "question_es": "¿Qué servicio de IA de OCI se utiliza para extraer contenido tabular de documentos?",
+      "question_pt": "Qual serviço de IA da OCI é usado para extrair conteúdo tabular de documentos?",
+      "options_en": [
+        { "text": "Object Storage", "isCorrect": false },
+        { "text": "Vision", "isCorrect": true },
+        { "text": "Speech", "isCorrect": false },
+        { "text": "Language", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Object Storage", "isCorrect": false },
+        { "text": "Vision", "isCorrect": true },
+        { "text": "Speech", "isCorrect": false },
+        { "text": "Language", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Object Storage", "isCorrect": false },
+        { "text": "Vision", "isCorrect": true },
+        { "text": "Speech", "isCorrect": false },
+        { "text": "Language", "isCorrect": false }
+      ],
+      "explanation_en": "You can organize and extract text and structure from image-based documents and PDFs by calling the Document AI pretrained models with a single request in OCI Vision.",
+      "explanation_es": "Puede organizar y extraer texto y estructura de documentos basados en imágenes y PDFs llamando a los modelos preentrenados de Document AI con una sola solicitud en OCI Vision.",
+      "explanation_pt": "Você pode organizar e extrair texto e estrutura de documentos baseados em imagem e PDFs chamando os modelos pré-treinados de Document AI com uma única solicitação no OCI Vision."
+    },
+    {
+      "id": 71,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Which capability of OCI Vision service uses a bounding box inside an image?",
+      "question_es": "¿Qué capacidad del servicio OCI Vision utiliza un cuadro delimitador dentro de una imagen?",
+      "question_pt": "Qual capacidade do serviço OCI Vision usa uma caixa delimitadora dentro de uma imagem?",
+      "options_en": [
+        { "text": "Object Repair", "isCorrect": false },
+        { "text": "Image Classification", "isCorrect": false },
+        { "text": "Image Recognition", "isCorrect": false },
+        { "text": "Object Detection", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Reparación de Objetos", "isCorrect": false },
+        { "text": "Clasificación de Imágenes", "isCorrect": false },
+        { "text": "Reconocimiento de Imágenes", "isCorrect": false },
+        { "text": "Detección de Objetos", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Reparo de Objetos", "isCorrect": false },
+        { "text": "Classificação de Imagens", "isCorrect": false },
+        { "text": "Reconhecimento de Imagens", "isCorrect": false },
+        { "text": "Detecção de Objetos", "isCorrect": true }
+      ],
+      "explanation_en": "Object Detection is a computer vision task that involves identifying and locating objects within an image. It not only recognizes the presence of objects but also provides information about their location in the image through the use of bounding boxes. Each bounding box represents the position and size of a detected object within the image.",
+      "explanation_es": "La Detección de Objetos es una tarea de visión por computadora que implica identificar y localizar objetos dentro de una imagen. No solo reconoce la presencia de objetos sino que también proporciona información sobre su ubicación en la imagen mediante el uso de cuadros delimitadores. Cada cuadro delimitador representa la posición y el tamaño de un objeto detectado dentro de la imagen.",
+      "explanation_pt": "Detecção de Objetos é uma tarefa de visão computacional que envolve identificar e localizar objetos dentro de uma imagem. Não apenas reconhece a presença de objetos, mas também fornece informações sobre sua localização na imagem através do uso de caixas delimitadoras. Cada caixa delimitadora representa a posição e o tamanho de um objeto detectado dentro da imagem."
+    },
+    {
+      "id": 72,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Which capability is offered by the OCI Language service?",
+      "question_es": "¿Qué capacidad ofrece el servicio OCI Language?",
+      "question_pt": "Qual capacidade é oferecida pelo serviço OCI Language?",
+      "options_en": [
+        { "text": "Speech-to-Text Conversion", "isCorrect": false },
+        { "text": "Object Detection", "isCorrect": false },
+        { "text": "Image Recognition", "isCorrect": false },
+        { "text": "Text Sentiment Analysis", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Conversión de Voz a Texto", "isCorrect": false },
+        { "text": "Detección de Objetos", "isCorrect": false },
+        { "text": "Reconocimiento de Imágenes", "isCorrect": false },
+        { "text": "Análisis de Sentimiento de Texto", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Conversão de Fala para Texto", "isCorrect": false },
+        { "text": "Detecção de Objetos", "isCorrect": false },
+        { "text": "Reconhecimento de Imagens", "isCorrect": false },
+        { "text": "Análise de Sentimento de Texto", "isCorrect": true }
+      ],
+      "explanation_en": "OCI Language Service is a natural language processing (NLP) service. This service allows you to analyze text data and determine the sentiment or emotional tone expressed in the text. It identifies the sentiment of the text - and not just one sentiment for the entire block of text, but the different sentiments for different aspects.",
+      "explanation_es": "OCI Language Service es un servicio de procesamiento de lenguaje natural (NLP). Este servicio le permite analizar datos de texto y determinar el sentimiento o tono emocional expresado en el texto. Identifica el sentimiento del texto, y no solo un sentimiento para todo el bloque de texto, sino los diferentes sentimientos para diferentes aspectos.",
+      "explanation_pt": "OCI Language Service é um serviço de processamento de linguagem natural (NLP). Este serviço permite analisar dados de texto e determinar o sentimento ou tom emocional expresso no texto. Identifica o sentimento do texto - e não apenas um sentimento para todo o bloco de texto, mas os diferentes sentimentos para diferentes aspectos."
+    },
+    {
+      "id": 73,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Which language is NOT supported by the OCI Speech service?",
+      "question_es": "¿Qué idioma NO es compatible con el servicio OCI Speech?",
+      "question_pt": "Qual idioma NÃO é suportado pelo serviço OCI Speech?",
+      "options_en": [
+        { "text": "Spanish", "isCorrect": false },
+        { "text": "Portuguese", "isCorrect": false },
+        { "text": "Mandarin", "isCorrect": true },
+        { "text": "English", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Español", "isCorrect": false },
+        { "text": "Portugués", "isCorrect": false },
+        { "text": "Mandarín", "isCorrect": true },
+        { "text": "Inglés", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Espanhol", "isCorrect": false },
+        { "text": "Português", "isCorrect": false },
+        { "text": "Mandarim", "isCorrect": true },
+        { "text": "Inglês", "isCorrect": false }
+      ],
+      "explanation_en": "OCI Speech Supports English, Spanish, and Portuguese",
+      "explanation_es": "OCI Speech es compatible con inglés, español y portugués",
+      "explanation_pt": "OCI Speech suporta inglês, espanhol e português"
+    },
+    {
+      "id": 74,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "How does normalization improve the readability of transcriptions in OCI Speech?",
+      "question_es": "¿Cómo mejora la normalización la legibilidad de las transcripciones en OCI Speech?",
+      "question_pt": "Como a normalização melhora a legibilidade das transcrições no OCI Speech?",
+      "options_en": [
+        { "text": "It removes unnecessary words from the transcription.", "isCorrect": false },
+        { "text": "It converts elements like numbers, dates, and URLs into standard readable formats.", "isCorrect": true },
+        { "text": "It replaces all uppercase letters with lowercase.", "isCorrect": false },
+        { "text": "It translates transcriptions into multiple languages.", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Elimina palabras innecesarias de la transcripción.", "isCorrect": false },
+        { "text": "Convierte elementos como números, fechas y URLs en formatos legibles estándar.", "isCorrect": true },
+        { "text": "Reemplaza todas las letras mayúsculas con minúsculas.", "isCorrect": false },
+        { "text": "Traduce transcripciones a múltiples idiomas.", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Remove palavras desnecessárias da transcrição.", "isCorrect": false },
+        { "text": "Converte elementos como números, datas e URLs em formatos legíveis padrão.", "isCorrect": true },
+        { "text": "Substitui todas as letras maiúsculas por minúsculas.", "isCorrect": false },
+        { "text": "Traduz transcrições para múltiplos idiomas.", "isCorrect": false }
+      ],
+      "explanation_en": "Normalization ensures that addresses, times, numbers, and URLs are formatted correctly, making the text more readable and suitable for further processing.",
+      "explanation_es": "La normalización asegura que las direcciones, horas, números y URLs estén formateados correctamente, haciendo que el texto sea más legible y adecuado para un procesamiento adicional.",
+      "explanation_pt": "A normalização garante que endereços, horários, números e URLs sejam formatados corretamente, tornando o texto mais legível e adequado para processamento adicional."
+    },
+    {
+      "id": 75,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "David is transcribing a customer support call using OCI Speech. The call contains some profane language, and he wants to retain the original words but mark them as inappropriate rather than discarding them. Which profanity filtering option should David use?",
+      "question_es": "David está transcribiendo una llamada de soporte al cliente usando OCI Speech. La llamada contiene lenguaje profano, y quiere retener las palabras originales pero marcarlas como inapropiadas en lugar de descartarlas. ¿Qué opción de filtrado de blasfemias debería usar David?",
+      "question_pt": "David está transcrevendo uma chamada de suporte ao cliente usando OCI Speech. A chamada contém linguagem profana, e ele quer reter as palavras originais mas marcá-las como inapropriadas em vez de descartá-las. Qual opção de filtragem de profanidade David deve usar?",
+      "options_en": [
+        { "text": "Tagging", "isCorrect": true },
+        { "text": "Masking", "isCorrect": false },
+        { "text": "Removing", "isCorrect": false },
+        { "text": "Normalization", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Etiquetado", "isCorrect": true },
+        { "text": "Enmascaramiento", "isCorrect": false },
+        { "text": "Eliminación", "isCorrect": false },
+        { "text": "Normalización", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Marcação", "isCorrect": true },
+        { "text": "Mascaramento", "isCorrect": false },
+        { "text": "Remoção", "isCorrect": false },
+        { "text": "Normalização", "isCorrect": false }
+      ],
+      "explanation_en": "To retain the words but mark them, tagging is the correct choice. This method leaves the words in place while adding labels to indicate profanity.",
+      "explanation_es": "Para retener las palabras pero marcarlas, el etiquetado es la opción correcta. Este método deja las palabras en su lugar mientras agrega etiquetas para indicar blasfemias.",
+      "explanation_pt": "Para reter as palavras mas marcá-las, a marcação é a escolha correta. Este método deixa as palavras no lugar enquanto adiciona rótulos para indicar profanidade."
+    },
+    {
+      "id": 76,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Mark is analyzing customer receipts and wants to automatically find and save details such as merchant name, transaction date, and total amount for record-keeping. Which OCI Vision feature should he use?",
+      "question_es": "Mark está analizando recibos de clientes y quiere encontrar y guardar automáticamente detalles como el nombre del comerciante, la fecha de transacción y el monto total para llevar registros. ¿Qué característica de OCI Vision debería usar?",
+      "question_pt": "Mark está analisando recibos de clientes e quer encontrar e salvar automaticamente detalhes como nome do comerciante, data da transação e valor total para manutenção de registros. Qual recurso do OCI Vision ele deve usar?",
+      "options_en": [
+        { "text": "Document classification", "isCorrect": false },
+        { "text": "Key-value extraction", "isCorrect": true },
+        { "text": "Table extraction", "isCorrect": false },
+        { "text": "OCR (Optical Character Recognition)", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Clasificación de documentos", "isCorrect": false },
+        { "text": "Extracción de clave-valor", "isCorrect": true },
+        { "text": "Extracción de tablas", "isCorrect": false },
+        { "text": "OCR (Reconocimiento Óptico de Caracteres)", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Classificação de documentos", "isCorrect": false },
+        { "text": "Extração de chave-valor", "isCorrect": true },
+        { "text": "Extração de tabelas", "isCorrect": false },
+        { "text": "OCR (Reconhecimento Óptico de Caracteres)", "isCorrect": false }
+      ],
+      "explanation_en": "To extract specific values from receipts, key-value extraction is the best feature, as it identifies and extracts predefined fields like merchant name and transaction date.",
+      "explanation_es": "Para extraer valores específicos de recibos, la extracción de clave-valor es la mejor característica, ya que identifica y extrae campos predefinidos como el nombre del comerciante y la fecha de transacción.",
+      "explanation_pt": "Para extrair valores específicos de recibos, a extração de chave-valor é o melhor recurso, pois identifica e extrai campos predefinidos como nome do comerciante e data da transação."
+    },
+    {
+      "id": 77,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Which OCI Document Understanding feature is useful for identifying whether a document is an invoice, receipt, or resume, based on its appearance and keywords?",
+      "question_es": "¿Qué característica de OCI Document Understanding es útil para identificar si un documento es una factura, recibo o currículum, basándose en su apariencia y palabras clave?",
+      "question_pt": "Qual recurso do OCI Document Understanding é útil para identificar se um documento é uma fatura, recibo ou currículo, baseado em sua aparência e palavras-chave?",
+      "options_en": [
+        { "text": "Document classification", "isCorrect": true },
+        { "text": "OCR (Optical Character Recognition)", "isCorrect": false },
+        { "text": "Image classification", "isCorrect": false },
+        { "text": "Table extraction", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Clasificación de documentos", "isCorrect": true },
+        { "text": "OCR (Reconocimiento Óptico de Caracteres)", "isCorrect": false },
+        { "text": "Clasificación de imágenes", "isCorrect": false },
+        { "text": "Extracción de tablas", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Classificação de documentos", "isCorrect": true },
+        { "text": "OCR (Reconhecimento Óptico de Caracteres)", "isCorrect": false },
+        { "text": "Classificação de imagens", "isCorrect": false },
+        { "text": "Extração de tabelas", "isCorrect": false }
+      ],
+      "explanation_en": "Document classification helps categorize documents based on their visual structure and extracted keywords, making it useful for recognizing invoices, receipts, and resumes.",
+      "explanation_es": "La clasificación de documentos ayuda a categorizar documentos basándose en su estructura visual y palabras clave extraídas, haciéndola útil para reconocer facturas, recibos y currículums.",
+      "explanation_pt": "A classificação de documentos ajuda a categorizar documentos com base em sua estrutura visual e palavras-chave extraídas, tornando-a útil para reconhecer faturas, recibos e currículos."
+    },
+    {
+      "id": 78,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Lisa runs an automated security system that monitors parking lots using cameras. She wants to locate and label vehicles and license plates in each frame. Which OCI Vision feature should she use?",
+      "question_es": "Lisa ejecuta un sistema de seguridad automatizado que monitorea estacionamientos usando cámaras. Quiere localizar y etiquetar vehículos y placas de matrícula en cada cuadro. ¿Qué característica de OCI Vision debería usar?",
+      "question_pt": "Lisa executa um sistema de segurança automatizado que monitora estacionamentos usando câmeras. Ela quer localizar e rotular veículos e placas de licença em cada quadro. Qual recurso do OCI Vision ela deve usar?",
+      "options_en": [
+        { "text": "Object detection", "isCorrect": true },
+        { "text": "Image classification", "isCorrect": false },
+        { "text": "Speech-to-text", "isCorrect": false },
+        { "text": "Document Classification", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Detección de objetos", "isCorrect": true },
+        { "text": "Clasificación de imágenes", "isCorrect": false },
+        { "text": "Voz a texto", "isCorrect": false },
+        { "text": "Clasificación de documentos", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Detecção de objetos", "isCorrect": true },
+        { "text": "Classificação de imagens", "isCorrect": false },
+        { "text": "Fala para texto", "isCorrect": false },
+        { "text": "Classificação de documentos", "isCorrect": false }
+      ],
+      "explanation_en": "To detect and label specific objects (vehicles and license plates) within images, object detection is the best choice.",
+      "explanation_es": "Para detectar y etiquetar objetos específicos (vehículos y placas de matrícula) dentro de imágenes, la detección de objetos es la mejor opción.",
+      "explanation_pt": "Para detectar e rotular objetos específicos (veículos e placas de licença) dentro de imagens, a detecção de objetos é a melhor escolha."
+    },
+    {
+      "id": 79,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "John works in a news aggregation platform and wants to automatically categorize articles into topics like \"Politics\", \"Technology\", and \"Sports\". Which feature of OCI Language would help him?",
+      "question_es": "John trabaja en una plataforma de agregación de noticias y quiere categorizar automáticamente artículos en temas como \"Política\", \"Tecnología\" y \"Deportes\". ¿Qué característica de OCI Language le ayudaría?",
+      "question_pt": "John trabalha em uma plataforma de agregação de notícias e quer categorizar automaticamente artigos em tópicos como \"Política\", \"Tecnologia\" e \"Esportes\". Qual recurso do OCI Language o ajudaria?",
+      "options_en": [
+        { "text": "Named entity recognition", "isCorrect": false },
+        { "text": "Language detection", "isCorrect": false },
+        { "text": "Sentiment analysis", "isCorrect": false },
+        { "text": "Text classification", "isCorrect": true }
+      ],
+      "options_es": [
+        { "text": "Reconocimiento de entidades nombradas", "isCorrect": false },
+        { "text": "Detección de idioma", "isCorrect": false },
+        { "text": "Análisis de sentimientos", "isCorrect": false },
+        { "text": "Clasificación de texto", "isCorrect": true }
+      ],
+      "options_pt": [
+        { "text": "Reconhecimento de entidade nomeada", "isCorrect": false },
+        { "text": "Detecção de idioma", "isCorrect": false },
+        { "text": "Análise de sentimentos", "isCorrect": false },
+        { "text": "Classificação de texto", "isCorrect": true }
+      ],
+      "explanation_en": "The text classification feature of OCI Language is the best choice. It assigns content to one of 600+ categories.",
+      "explanation_es": "La característica de clasificación de texto de OCI Language es la mejor opción. Asigna contenido a una de más de 600 categorías.",
+      "explanation_pt": "O recurso de classificação de texto do OCI Language é a melhor escolha. Ele atribui conteúdo a uma de mais de 600 categorias."
+    },
+    {
+      "id": 80,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "John needs to analyze the accuracy of OCI Speech transcriptions for a legal case. He wants to evaluate how sure the model is about each word in the transcription. Which feature should he use?",
+      "question_es": "John necesita analizar la precisión de las transcripciones de OCI Speech para un caso legal. Quiere evaluar qué tan seguro está el modelo sobre cada palabra en la transcripción. ¿Qué característica debería usar?",
+      "question_pt": "John precisa analisar a precisão das transcrições do OCI Speech para um caso legal. Ele quer avaliar quão certo o modelo está sobre cada palavra na transcrição. Qual recurso ele deve usar?",
+      "options_en": [
+        { "text": "Confidence scoring", "isCorrect": true },
+        { "text": "Batch support", "isCorrect": false },
+        { "text": "Profanity filtering", "isCorrect": false },
+        { "text": "Normalization", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Puntuación de confianza", "isCorrect": true },
+        { "text": "Soporte por lotes", "isCorrect": false },
+        { "text": "Filtrado de blasfemias", "isCorrect": false },
+        { "text": "Normalización", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Pontuação de confiança", "isCorrect": true },
+        { "text": "Suporte em lote", "isCorrect": false },
+        { "text": "Filtragem de profanidade", "isCorrect": false },
+        { "text": "Normalização", "isCorrect": false }
+      ],
+      "explanation_en": "To analyze accuracy, confidence scoring is the best option. It provides word-by-word and overall transcription confidence levels.",
+      "explanation_es": "Para analizar la precisión, la puntuación de confianza es la mejor opción. Proporciona niveles de confianza palabra por palabra y de la transcripción general.",
+      "explanation_pt": "Para analisar a precisão, a pontuação de confiança é a melhor opção. Fornece níveis de confiança palavra por palavra e de transcrição geral."
+    },
+    {
+      "id": 81,
+      "module": 7,
+      "module_name": "OCI AI Services",
+      "question_en": "Emma works for a media company that produces video content for online platforms. She needs to add closed captions to their videos for accessibility. Which OCI Speech feature should Emma use?",
+      "question_es": "Emma trabaja para una empresa de medios que produce contenido de video para plataformas en línea. Necesita agregar subtítulos a sus videos para accesibilidad. ¿Qué característica de OCI Speech debería usar Emma?",
+      "question_pt": "Emma trabalha para uma empresa de mídia que produz conteúdo de vídeo para plataformas online. Ela precisa adicionar legendas fechadas aos seus vídeos para acessibilidade. Qual recurso do OCI Speech Emma deve usar?",
+      "options_en": [
+        { "text": "SRT file support", "isCorrect": true },
+        { "text": "Batching support", "isCorrect": false },
+        { "text": "Confidence scoring", "isCorrect": false },
+        { "text": "Profanity filtering", "isCorrect": false }
+      ],
+      "options_es": [
+        { "text": "Soporte de archivos SRT", "isCorrect": true },
+        { "text": "Soporte de procesamiento por lotes", "isCorrect": false },
+        { "text": "Puntuación de confianza", "isCorrect": false },
+        { "text": "Filtrado de blasfemias", "isCorrect": false }
+      ],
+      "options_pt": [
+        { "text": "Suporte a arquivos SRT", "isCorrect": true },
+        { "text": "Suporte de processamento em lote", "isCorrect": false },
+        { "text": "Pontuação de confiança", "isCorrect": false },
+        { "text": "Filtragem de profanidade", "isCorrect": false }
+      ],
+      "explanation_en": "For closed captions, OCI Speech s SRT file support is the best choice. This allows captions to be added easily to videos in industry-standard format.",
+      "explanation_es": "Para subtítulos, el soporte de archivos SRT de OCI Speech es la mejor opción. Esto permite que los subtítulos se agreguen fácilmente a los videos en formato estándar de la industria.",
+      "explanation_pt": "Para legendas fechadas, o suporte a arquivos SRT do OCI Speech é a melhor escolha. Isso permite que legendas sejam adicionadas facilmente aos vídeos em formato padrão da indústria."
+    }
+  ]
+}
+
+

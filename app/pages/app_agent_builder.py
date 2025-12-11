@@ -895,7 +895,7 @@ if login:
         action_col_add, action_col_clear = st.columns(2)
         add_disabled = not (agent_options and task_options)
         with action_col_add:
-            if st.button("Add Agents `(attr)`", key=f"team_add_assignment_{node.id}", type="secondary", disabled=add_disabled, use_container_width=True):
+            if st.button("Add Agents `(attr)`", key=f"team_add_assignment_{node.id}", type="secondary", disabled=add_disabled, width="stretch"):
                 if selected_agent and selected_task:
                     if not any(a.get('agent') == selected_agent and a.get('task') == selected_task for a in assignments):
                         assignments.append({'agent': selected_agent, 'task': selected_task})
@@ -904,7 +904,7 @@ if login:
                         node.data = data
         with action_col_clear:
             clear_disabled = not assignments
-            if st.button("Clear Agents `(attr)`", key=f"team_clear_assignment_{node.id}", type="secondary", disabled=clear_disabled, use_container_width=True):
+            if st.button("Clear Agents `(attr)`", key=f"team_clear_assignment_{node.id}", type="secondary", disabled=clear_disabled, width="stretch"):
                 assignments.clear()
                 data['team_assignments'] = assignments
                 data['agents_attr'] = ""

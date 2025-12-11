@@ -537,3 +537,55 @@ class UserService:
             ORDER BY A.USER_ID DESC
         """
         return pd.read_sql(query, con=_self.conn)
+
+    def get_users_by_module_cache(self, module_id, force_update=False):
+        """
+        Cached wrapper to retrieve users with access to a specific module.
+        """
+        if force_update:
+            self.get_users_by_module.clear()
+        return self.get_users_by_module(module_id)
+
+    @st.cache_data
+    def get_users_by_module(_self, module_id):
+        """
+        Retrieves all active users that have access to a specific module.
+
+        Args:
+            module_id (int): The ID of the module to filter by.
+
+        Returns:
+            pd.DataFrame: A DataFrame containing user information with access to the module.
+        """
+        query = f"""
+            SELECT
+                A.USER_ID,
+                A.USER_GROUP_ID,
+                B.USER_GROUP_NAME,
+                A.USER_USERNAME,
+                A.USER_NAME,
+                A.USER_LAST_NAME,
+                A.USER_NAME || ' ' || A.USER_LAST_NAME AS USER_FULL_NAME,
+                A.USER_EMAIL,
+                A.USER_MODULES,
+                A.USER_STATE,
+                A.USER_DATE
+            FROM
+                USERS A
+            JOIN USER_GROUP B
+                ON A.USER_GROUP_ID = B.USER_GROUP_ID
+            WHERE
+                A.USER_STATE <> 0
+                AND EXISTS (
+                    SELECT 1
+                    FROM JSON_TABLE(
+                        TO_CHAR(A.USER_MODULES),
+                        '$[*]' COLUMNS (
+                            MODULE_ID NUMBER PATH '$'
+                        )
+                    ) JT
+                    WHERE JT.MODULE_ID = {module_id}
+                )
+            ORDER BY A.USER_ID ASC
+        """
+        return pd.read_sql(query, con=_self.conn)

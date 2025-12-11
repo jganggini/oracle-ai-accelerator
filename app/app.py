@@ -68,6 +68,7 @@ if login:
         db_doc_service                = database.DocService()
         utl_function_service          = utils.FunctionService()
         db_user_service               = database.UserService()
+        db_quiz_service               = database.QuizService()
         st.header(":material/book_ribbon: Knowledge")
         st.caption("Manage Knowledge")
         st.set_page_config(layout="wide")
@@ -80,6 +81,10 @@ if login:
         language = st.session_state["language"]
 
         df_files = db_file_service.get_all_files(user_id)
+
+        # Filtrar módulo 8 (Quiz) solo para Administrators
+        if "Administrator" not in st.session_state.get("modules", ""):
+            df_files = df_files[df_files["MODULE_ID"] != 8]
 
         # Variables: Default
         file_src_strategy   = None
@@ -245,6 +250,10 @@ if login:
                     df_agents = db_agent_service.get_all_agents_cache(user_id, force_update=True)
                     df_agents = df_agents[df_agents["AGENT_TYPE"] == "Extraction"]
 
+                    # Filtrar módulo 8 (Quiz) solo para Administrators
+                    if "Administrator" not in st.session_state.get("modules", ""):
+                        df_modules = df_modules[df_modules["MODULE_ID"] != 8]
+
                     if not df_modules.empty:
                         selected_module_id = st.selectbox(
                             "Which module would you like to start with?",
@@ -270,6 +279,20 @@ if login:
                             options=list(language_map.keys()),
                             index=list(language_map.keys()).index(language)
                         )
+
+                        selected_quiz_user_id = None
+                        if selected_module_id == 8:
+                            # Obtener usuarios con acceso al módulo 8
+                            df_users_module_8 = db_user_service.get_users_by_module_cache(8)
+                            
+                            if not df_users_module_8.empty:
+                                selected_quiz_user_id = st.selectbox(
+                                    "Which user will have access to the quiz?",
+                                    options=df_users_module_8["USER_ID"].tolist(),
+                                    format_func=lambda user_id: f"{df_users_module_8.loc[df_users_module_8['USER_ID'] == user_id, 'USER_FULL_NAME'].values[0]} ({df_users_module_8.loc[df_users_module_8['USER_ID'] == user_id, 'USER_USERNAME'].values[0]})"
+                                )
+                            else:
+                                st.warning("No hay usuarios con acceso al módulo 8.")
 
                         selected_pii = False
                         if selected_module_id == 4:
@@ -608,6 +631,26 @@ if login:
                             if not uploaded_transcription or len(uploaded_transcription) == 0:
                                 warning_msg = "Please load a valid real-time transcription."
 
+                        elif selected_module_id == 8:
+                            # Validación específica para Quiz
+                            if not uploaded_files:
+                                warning_msg = "Please upload a valid JSON file with quiz questions."
+                            elif not selected_quiz_user_id:
+                                warning_msg = "Please select a user who will have access to the quiz."
+                            else:
+                                # Validar que el JSON tenga la estructura correcta
+                                try:
+                                    json_content = uploaded_files.getvalue().decode("utf-8")
+                                    quiz_data = json.loads(json_content)
+                                    if "questions" not in quiz_data or not isinstance(quiz_data["questions"], list):
+                                        warning_msg = "Invalid JSON structure. The file must contain a 'questions' array."
+                                    elif len(quiz_data["questions"]) == 0:
+                                        warning_msg = "The quiz file must contain at least one question."
+                                except json.JSONDecodeError:
+                                    warning_msg = "Invalid JSON file. Please upload a valid JSON file."
+                                except Exception as e:
+                                    warning_msg = f"Error reading file: {str(e)}"
+
                         elif selected_uploaded == "File":
                             if not uploaded_files:
                                 warning_msg = "Please upload at least one valid file."
@@ -798,6 +841,42 @@ if login:
                                                 file_trg_obj_name       = file_trg_obj_name
                                                 file_trg_tot_pages      = 1
                                                 file_trg_tot_characters = len(data)
+                                                file_trg_tot_time       = utl_function_service.track_time(0)
+                                                file_trg_language       = language_map[selected_language_file]
+                                            case 8:
+                                                # Quiz Module: Parse JSON and load questions to database
+                                                object_name = bucket_file_name
+                                                
+                                                # Get JSON content from bucket
+                                                json_content = bucket_service.get_object(object_name).decode("utf-8")
+                                                questions_data = json.loads(json_content)
+                                                
+                                                # Store extraction in file
+                                                msg = db_file_service.update_extraction(file_id, json_content)
+                                                component.get_toast(msg, ":material/database:")
+                                                
+                                                # Check if this is a reload using service method
+                                                is_reload = db_quiz_service.check_if_reload(file_id)
+                                                
+                                                # Insert/Reload questions into quiz table
+                                                msg_quiz = db_quiz_service.insert_quiz_questions(
+                                                    file_id, 
+                                                    questions_data,
+                                                    reload=is_reload
+                                                )
+                                                component.get_toast(msg_quiz, icon=":material/quiz:")
+                                                
+                                                # Assign quiz to selected user (only on first load)
+                                                if selected_quiz_user_id and not is_reload:
+                                                    msg_share = db_file_service.update_file_user(file_id, [selected_quiz_user_id])
+                                                    component.get_toast(msg_share, icon=":material/person_add:")
+                                                
+                                                action_text = "reloaded" if is_reload else "loaded"
+                                                msg_module = f"Quiz '{questions_data.get('questions_name', 'Quiz')}' {action_text} successfully with {len(questions_data.get('questions', []))} questions."
+                                                
+                                                file_trg_obj_name       = file_trg_obj_name
+                                                file_trg_tot_pages      = len(questions_data.get('questions', []))
+                                                file_trg_tot_characters = len(json_content)
                                                 file_trg_tot_time       = utl_function_service.track_time(0)
                                                 file_trg_language       = language_map[selected_language_file]
                                             case _:

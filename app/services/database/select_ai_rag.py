@@ -12,7 +12,14 @@ class SelectAIRAGService:
         Initializes the SelectAIRAGService with a shared database connection.
         """
         self.conn_instance = Connection()
-        self.conn = self.conn_instance.get_connection()
+
+    @property
+    def conn(self):
+        """
+        Property that always returns a valid database connection.
+        Ensures reconnection if the connection was dropped.
+        """
+        return self.conn_instance.get_connection()
 
     def create_profile(
             self,
@@ -55,10 +62,13 @@ class SelectAIRAGService:
         Returns:
             str: The generated chat response.
         """
+        # Escape single quotes in prompt for SQL
+        prompt_escaped = prompt.replace("'", "''")
+        
         query = f"""
             SELECT
                 DBMS_CLOUD_AI.GENERATE(
-                prompt       => '{prompt} /** Format the response in markdown. Do not underline titles. Just focus on the information in the documents. Answer in {language}. If you do not know the answer, answer imperatively and exactly: ''NNN.'' **/',
+                prompt       => '{prompt_escaped} /** Format the response in markdown. Do not underline titles. Just focus on the information in the documents. Answer in {language}. If you do not know the answer, answer imperatively and exactly: ''NNN.'' **/',
                 profile_name => '{profile_name}',
                 action       => '{action}') AS CHAT
             FROM DUAL

@@ -2,15 +2,19 @@ import ast
 import pandas as pd
 import streamlit as st
 import json
+import time
+import random
 from datetime import datetime
 
 import services.database as database
 
-global_version = "2.0.3"
+global_version = "2.0.4"
 
 # Initialize the service
 db_user_service = database.UserService()
 db_agent_service = database.AgentService()
+db_quiz_service = database.QuizService()
+db_file_service = database.FileService()
 
 def parse_modules(modules):
     """
@@ -48,8 +52,15 @@ def get_menu(modules, user):
 
         # Always shown links
         st.page_link("app.py", label="Knowledge", icon=":material/book_ribbon:")
-        st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
-        st.page_link("pages/app_agent_builder.py", label="Agent Builder", icon=":material/flowchart:")
+        
+        # Agents solo si tiene módulos con vector store
+        if "Vector Database" in st.session_state.get("modules", ""):
+            st.page_link("pages/app_agents.py", label="Agents", icon=":material/smart_toy:")
+            st.page_link("pages/app_agent_builder.py", label="Agent Builder", icon=":material/flowchart:")
+        
+        # Quiz solo si tiene el módulo 8
+        if "Quiz" in st.session_state.get("modules", ""):
+            st.page_link("pages/app_quiz.py", label="Quiz", icon=":material/quiz:")
         #st.page_link("pages/app_speech.py", label="Voice Chat", icon=":material/mic:")
 
         # AI Demos Section
@@ -70,11 +81,15 @@ def get_menu(modules, user):
         if "Administrator" in module_list:
             st.page_link("pages/app_users.py", label="Users", icon=":material/settings_account_box:")
             st.page_link("pages/app_user_group.py", label="User Group", icon=":material/group:")
-        
-        
         st.page_link("pages/app_profile.py", label="Profile", icon=":material/manage_accounts:")
-
+        
+        # Reports Section (only for Administrators)
+        if "Administrator" in module_list:
+            st.subheader("Reports")
+            st.page_link("pages/app_quiz_report.py", label="Quiz Reports", icon=":material/analytics:")
+        
         st.subheader("Options")
+        
         
         if st.session_state["page"] == "app_chat_01.py":
             with st.container(border=True, key="options_select_ai_container"):
@@ -116,7 +131,7 @@ def get_menu(modules, user):
                 col1, col2, = st.columns(2)
 
                 with col1:
-                    if st.button(key="clear", help="Clear Chat", label="", icon=":material/delete:", disabled=(not st.session_state["chat-select-ai"]), use_container_width=True):
+                    if st.button(key="clear", help="Clear Chat", label="", icon=":material/delete:", disabled=(not st.session_state["chat-select-ai"]), width="stretch"):
                         st.session_state["chat-select-ai"] = []
                         st.rerun()
 
@@ -133,7 +148,7 @@ def get_menu(modules, user):
                         file_name=f"chat_history_{datetime.now().strftime('%H%M%S%f')}.json",
                         mime="text/plain",
                         disabled=(not st.session_state["chat-select-ai"]), 
-                        use_container_width=True
+                        width="stretch"
                     )
 
         if st.session_state["page"] == "app_agent_builder.py":
@@ -145,20 +160,20 @@ def get_menu(modules, user):
                         "timestamp": datetime.now().isoformat()
                     }
             
-                if st.button("Add Tool", key="sidebar_add_tool", icon="🔶", use_container_width=True):
+                if st.button("Add Tool", key="sidebar_add_tool", icon="🔶", width="stretch"):
                     queue_agent_builder_action('TOOL')
                     st.rerun()
             
-                if st.button("Add Task", key="sidebar_add_task", icon="🟢", use_container_width=True):
+                if st.button("Add Task", key="sidebar_add_task", icon="🟢", width="stretch"):
                     queue_agent_builder_action('TASK')
                     st.rerun()
 
             
-                if st.button("Add Agent", key="sidebar_add_agent", icon="🟦", use_container_width=True):
+                if st.button("Add Agent", key="sidebar_add_agent", icon="🟦", width="stretch"):
                     queue_agent_builder_action('AGENT')
                     st.rerun()
             
-                if st.button("Add Team", key="sidebar_add_team", icon="🔴", use_container_width=True):
+                if st.button("Add Team", key="sidebar_add_team", icon="🔴", width="stretch"):
                     queue_agent_builder_action('TEAM')
                     st.rerun()
         
@@ -210,7 +225,7 @@ def get_menu(modules, user):
                         label="",
                         icon=":material/delete:",
                         disabled=(not st.session_state.get("speech_conversation", [])),
-                        use_container_width=True
+                        width="stretch"
                     ):
                         st.session_state["speech_conversation"] = []
                         st.session_state["speech_current_partial"] = ""
@@ -232,7 +247,7 @@ def get_menu(modules, user):
                             data=history_json,
                             file_name=f"voice_chat_{datetime.now().strftime('%H%M%S%f')}.json",
                             mime="application/json",
-                            use_container_width=True
+                            width="stretch"
                         )
                     else:
                         st.button(
@@ -241,8 +256,74 @@ def get_menu(modules, user):
                             help="Save Conversation",
                             icon=":material/download:",
                             disabled=True,
-                            use_container_width=True
+                            width="stretch"
                         )
+        
+        if st.session_state["page"] == "app_quiz.py":
+            with st.container(border=True, key="options_quiz_container"):
+                user_id = st.session_state.get("user_id")
+                df_files = db_file_service.get_all_files(user_id) if user_id else None
+                df_quiz_files = df_files[df_files["MODULE_ID"] == 8] if df_files is not None and not df_files.empty else None
+                
+                if df_quiz_files is None or df_quiz_files.empty:
+                    st.info("No quizzes available. Please contact the administrator.", icon=":material/info:")
+                else:
+                    quiz_running = st.session_state.get("quiz_started", False) and not st.session_state.get("quiz_finished", False)
+                    quiz_finished = st.session_state.get("quiz_finished", False)
+                    
+                    # Show selector only when quiz is not running/finished
+                    if not quiz_running and not quiz_finished:
+                        selected_file_id = st.selectbox(
+                            "Select Quiz",
+                            options=df_quiz_files["FILE_ID"].tolist(),
+                            format_func=lambda fid: f"{df_quiz_files.loc[df_quiz_files['FILE_ID'] == fid, 'FILE_DESCRIPTION'].values[0]}",
+                            key="quiz_selected_file_id"
+                        )
+                        df_all_questions_sidebar = db_quiz_service.get_quiz_questions(selected_file_id)
+                        st.caption(f"Total available questions: **{len(df_all_questions_sidebar)}**")
+                    
+                    # Quiz in progress - show info and Leave button
+                    elif quiz_running:
+                        st.markdown("**Evaluation in Progress**")
+                        
+                        # Evaluation name
+                        st.caption(f"{st.session_state.get('quiz_evaluation_name', '')}")
+                        
+                        # Timer
+                        if st.session_state.get("quiz_start_time"):
+                            elapsed = int(time.time() - st.session_state["quiz_start_time"])
+                            st.metric(
+                                "Elapsed Time",
+                                f"{elapsed // 60}:{elapsed % 60:02d}",
+                                delta=None
+                            )
+                        
+                        # Leave Quiz button
+                        if st.button("Leave Quiz", type="secondary", icon=":material/cancel:", width="stretch"):
+                            if st.session_state.get("quiz_confirm_abandon", False):
+                                st.session_state["quiz_started"] = False
+                                st.session_state["quiz_finished"] = False
+                                st.session_state["quiz_confirm_abandon"] = False
+                                st.rerun()
+                            else:
+                                st.session_state["quiz_confirm_abandon"] = True
+                                st.warning("Click again to confirm")
+                    
+                    # Quiz finished - show score and reset button
+                    elif quiz_finished:
+                        answers = st.session_state.get("quiz_answers", {})
+                        if answers:
+                            correct = sum(1 for ans in answers.values() if ans["is_correct"] == 1)
+                            total = len(answers)
+                            st.metric("Score", f"{(correct/total)*100:.1f}%")
+                        
+                        # Take Another Quiz button
+                        if st.button("Take Quiz", type="primary", icon=":material/refresh:", width="stretch"):
+                            # Clear all quiz-related keys
+                            for key in list(st.session_state.keys()):
+                                if key.startswith("quiz_") or key.startswith("saved_option_"):
+                                    del st.session_state[key]
+                            st.rerun()
 
         # Sign out button
         if st.button(":material/exit_to_app: Sign out", type="secondary"):

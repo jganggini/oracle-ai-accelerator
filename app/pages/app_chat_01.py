@@ -132,7 +132,10 @@ if login:
                             analytics_df = df
                             selected_agent_id = int(st.session_state.get("selected_agent_id"))
                             time.sleep(2)
-                            analytics_raw = service.GenerativeAIService.get_agent(user_id, selected_agent_id, showsql)["answer"]
+                            analytics_raw = service.GenerativeAIService.get_agent(user_id, selected_agent_id, showsql)
+
+                            print(analytics_raw)
+                            print("--------------------------------")
 
                             # Si el servicio está ocupado, mostramos mensaje controlado y evitamos ejecutar código
                             if "Service busy. Please try again later." in analytics_raw:
@@ -145,10 +148,10 @@ if login:
                             showsql_time = f"{(time.time() - start_time) * 1000:.2f} ms"
                             annotated_text(annotation("Analytics Agent", showsql_time, background="#484c54", color="#ffffff"))
                             
-                            #print(showsql)
-                            #print(df)
-                            #print(analytics)
-                            #print("--------------------------------")
+                            print(showsql)
+                            print(df)
+                            print(analytics)
+                            print("--------------------------------")
                             if analytics:
                                 exec(analytics)
 
