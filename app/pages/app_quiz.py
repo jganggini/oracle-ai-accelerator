@@ -82,7 +82,8 @@ if login:
                 # Evaluation name
                 evaluation_name_input = st.text_input(
                     "Evaluation Name",
-                    value=st.session_state['username'],
+                    value="",
+                    placeholder="Enter evaluation name...",
                     help="Enter a name for this evaluation (date will be added automatically)"
                 )
                 
@@ -108,16 +109,18 @@ if login:
                 
                 st.divider()
                 
-                # Validate and show start button
-                if len(selected_langs) == 0:
-                    st.warning("You must select at least one language.", icon=":material/warning:")
-                elif len(selected_langs) > 2:
-                    st.warning("You can select a maximum of 2 languages.", icon=":material/warning:")
-                else:
-                    # Start Quiz button
-                    if st.button("Start Quiz", type="primary", icon=":material/play_arrow:", width="stretch"):
+                # Start Quiz button (always visible)
+                if st.button("Start Quiz", type="primary", icon=":material/play_arrow:", width="stretch"):
+                    # Validate inputs when button is pressed
+                    if len(selected_langs) == 0:
+                        st.info("You must select at least one language.", icon=":material/warning:")
+                    elif len(selected_langs) > 2:
+                        st.info("You can select a maximum of 2 languages.", icon=":material/warning:")
+                    elif not evaluation_name_input or evaluation_name_input.strip() == "":
+                        st.info("You must enter an **Evaluation Name** before starting.", icon=":material/warning:")
+                    else:
                         try:
-                            evaluation_name = f"{evaluation_name_input}-{datetime.now().strftime('%Y%m%d%H%M%S%f')[:-3]}"
+                            evaluation_name = f"{evaluation_name_input.strip()}-{datetime.now().strftime('%Y%m%d%H%M%S%f')[:-3]}"
                             
                             if db_quiz_service.check_evaluation_exists(user_id, evaluation_name):
                                 st.error("An evaluation with this name already exists. Please use a different name.", icon=":material/error:")
