@@ -60,12 +60,14 @@ if login:
             if message["role"] == "ai":
                 with st.chat_message(message["role"], avatar="images/llm_meta.svg"):
                     # Render Select AI response
-                    annotated_text(annotation("Select AI", message["response_time"], background="#484c54", color="#ffffff"))
-                    st.markdown(message["response"])
+                    response_time = message.get("response_time", "N/A")
+                    annotated_text(annotation("Select AI", response_time, background="#484c54", color="#ffffff"))
+                    st.markdown(message.get("response", message.get("narrate", "")))
 
                     # Render Analytics visualization if available
                     if message.get("analytics"):
-                        annotated_text(annotation("Analytics Agent", message["analytics_time"], background="#484c54", color="#ffffff"))
+                        analytics_time = message.get("analytics_time", "N/A")
+                        annotated_text(annotation("Analytics Agent", analytics_time, background="#484c54", color="#ffffff"))
                         df = message["analytics_df"]
                         exec(message["analytics"])
             else:

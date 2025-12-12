@@ -60,8 +60,9 @@ if login:
             if message["role"] == "ai":
                 with st.chat_message(message["role"], avatar="images/llm_aix.svg"):
                     # Render each section of the stored response
-                    annotated_text(annotation("Narrate", message["narrate_time"], background="#484c54", color="#ffffff"))
-                    st.markdown(message["narrate"])
+                    narrate_time = message.get("narrate_time", "N/A")
+                    annotated_text(annotation("Narrate", narrate_time, background="#484c54", color="#ffffff"))
+                    st.markdown(message.get("narrate", ""))
             else:
                 with st.chat_message(message["role"], avatar=":material/psychology:"):
                     st.markdown(message["content"])
