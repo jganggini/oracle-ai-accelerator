@@ -56,3 +56,7 @@
     INSERT INTO modules (module_id, module_name, module_folder, module_src_type, module_trg_type, module_vector_store)
     VALUES (7, 'Text Documents', 'module-text-documents', 'TXT, MD', 'TXT, MD', 1);
     --
+
+    INSERT INTO modules (module_id, module_name, module_folder, module_src_type, module_trg_type)
+    VALUES (8, 'Quiz', 'module-quiz', 'JSON', 'Autonomous Database');
+    --

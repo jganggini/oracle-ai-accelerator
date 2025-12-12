@@ -266,27 +266,33 @@ def main():
     
     exec('developer', 'j.TABLE_DOCS.sql',
         '[OK][J] CREATE TABLE DOCS...................................[ CREATE_TABLE ]')
+    
+    exec('developer', 'k.TABLE_QUIZ.sql',
+        '[OK][K] CREATE TABLE QUIZ...................................[ CREATE_TABLE ]')
+    
+    exec('developer', 'l.TABLE_QUIZ_USER.sql',
+        '[OK][L] CREATE TABLE QUIZ USER..............................[ CREATE_TABLE ]')
 
-    exec('developer', 'k.SP_SEL_AI_TBL_CSV.sql',
-        '[OK][K] CREATE PROCEDURE FOR SELECT AI [CSV]............[ CREATE_PROCEDURE ]')
+    exec('developer', 'm.SP_SEL_AI_TBL_CSV.sql',
+        '[OK][M] CREATE PROCEDURE FOR SELECT AI [CSV]............[ CREATE_PROCEDURE ]')
 
-    exec('developer', 'l.SP_SEL_AI_PROFILE.sql',
-        '[OK][L] CREATE PROCEDURE FOR SELECT AI [PROFILE]......... CREATE_PROCEDURE ]')
+    exec('developer', 'n.SP_SEL_AI_PROFILE.sql',
+        '[OK][N] CREATE PROCEDURE FOR SELECT AI [PROFILE]......... CREATE_PROCEDURE ]')
 
-    exec('developer', 'm.SP_SEL_AI_RAG_PROFILE.sql',
-        '[OK][M] CREATE PROCEDURE FOR SELECT AI RAG [PROFILE]....[ CREATE_PROCEDURE ]')
+    exec('developer', 'o.SP_SEL_AI_RAG_PROFILE.sql',
+        '[OK][O] CREATE PROCEDURE FOR SELECT AI RAG [PROFILE]....[ CREATE_PROCEDURE ]')
         
-    exec('developer', 'n.SP_SEL_AI_AGENT.sql',
-        '[OK][N] CREATE PROCEDURE AI AGENT [PROFILE].............[ CREATE_PROCEDURE ]')
+    exec('developer', 'p.SP_SEL_AI_AGENT.sql',
+        '[OK][P] CREATE PROCEDURE AI AGENT [PROFILE].............[ CREATE_PROCEDURE ]')
 
-    exec('developer', 'o.SP_AI_NAME_VALIDATE.sql',
-        '[OK][O] CREATE PROCEDURE FOR AI NAME VALIDATE...........[ CREATE_PROCEDURE ]')
+    exec('developer', 'q.SP_AI_NAME_VALIDATE.sql',
+        '[OK][Q] CREATE PROCEDURE FOR AI NAME VALIDATE...........[ CREATE_PROCEDURE ]')
 
-    exec('developer', 'p.VW_DOCS_FILES.sql',
-        '[OK][P] CREATE VIEW DOCS FOR VECTOS STORE....................[ CREATE_VIEW ]')
+    exec('developer', 'r.VW_DOCS_FILES.sql',
+        '[OK][R] CREATE VIEW DOCS FOR VECTOS STORE....................[ CREATE_VIEW ]')
 
-    exec('developer', 'q.SP_VECTOR_STORE.sql',
-        '[OK][Q] CREATE PROCEDURE VECTOS STORRE.......................[ CREATE_VIEW ]')
+    exec('developer', 's.SP_VECTOR_STORE.sql',
+        '[OK][S] CREATE PROCEDURE VECTOS STORRE.......................[ CREATE_VIEW ]')
     
 
     # Copiar .streamlit (Windows: C:\Users\<usuario>\.streamlit, mac: /Users/<usuario>/.streamlit)
