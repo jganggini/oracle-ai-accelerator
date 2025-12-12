@@ -87,25 +87,46 @@ if login:
                     help="Enter a name for this evaluation (date will be added automatically)"
                 )
                 
-                # Language selector (checkboxes)
+                # Language selector (checkboxes) with order tracking
                 st.markdown("**Languages**")
+                
+                # Initialize language order tracking in session state
+                if "quiz_lang_order" not in st.session_state:
+                    st.session_state["quiz_lang_order"] = []
+                
                 col1, col2, col3 = st.columns(3)
                 
                 with col1:
-                    lang_es = st.checkbox("Español", value=True, key="lang_es")
+                    lang_es = st.checkbox("Español", value=False, key="lang_es")
                 with col2:
-                    lang_en = st.checkbox("English", value=True, key="lang_en")
+                    lang_en = st.checkbox("English", value=False, key="lang_en")
                 with col3:
                     lang_pt = st.checkbox("Português", value=False, key="lang_pt")
                 
-                # Validate language selection (1 or 2 languages)
-                selected_langs = []
-                if lang_es:
-                    selected_langs.append("es")
-                if lang_en:
-                    selected_langs.append("en")
-                if lang_pt:
-                    selected_langs.append("pt")
+                # Update language order based on selection
+                current_selections = {"es": lang_es, "en": lang_en, "pt": lang_pt}
+                
+                # Remove unselected languages from order
+                st.session_state["quiz_lang_order"] = [
+                    lang for lang in st.session_state["quiz_lang_order"] 
+                    if current_selections.get(lang, False)
+                ]
+                
+                # Add newly selected languages to order
+                for lang_code, is_selected in current_selections.items():
+                    if is_selected and lang_code not in st.session_state["quiz_lang_order"]:
+                        st.session_state["quiz_lang_order"].append(lang_code)
+                
+                selected_langs = st.session_state["quiz_lang_order"]
+                
+                # Show selection order if languages are selected
+                if len(selected_langs) > 0:
+                    lang_names = {"es": "Español", "en": "English", "pt": "Português"}
+                    order_display = " → ".join([lang_names[lang] for lang in selected_langs])
+                    if len(selected_langs) == 1:
+                        st.caption(f"Selected: {order_display}")
+                    else:
+                        st.caption(f"Order: {order_display} (Primary → Secondary)")
                 
                 st.divider()
                 
@@ -453,3 +474,23 @@ if login:
                         if question.get(f'EXPLANATION_{primary_lang_upper}'):
                             with st.expander(":material/lightbulb: View Explanation"):
                                 st.markdown(question[f'EXPLANATION_{primary_lang_upper}'])
+            
+            st.divider()
+            
+            # Button to take a new quiz
+            if st.button("Take Another Quiz", type="primary", icon=":material/refresh:", use_container_width=True):
+                # Reset all quiz states including language order
+                st.session_state["quiz_started"] = False
+                st.session_state["quiz_questions"] = []
+                st.session_state["quiz_current_index"] = 0
+                st.session_state["quiz_answers"] = {}
+                st.session_state["quiz_start_time"] = None
+                st.session_state["quiz_evaluation_name"] = ""
+                st.session_state["quiz_file_id"] = None
+                st.session_state["quiz_finished"] = False
+                st.session_state["quiz_lang_order"] = []
+                # Clear saved options
+                keys_to_delete = [key for key in st.session_state.keys() if key.startswith("saved_option_")]
+                for key in keys_to_delete:
+                    del st.session_state[key]
+                st.rerun()
