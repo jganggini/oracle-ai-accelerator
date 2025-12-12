@@ -270,8 +270,8 @@ def main():
     exec('developer', 'k.TABLE_QUIZ.sql',
         '[OK][K] CREATE TABLE QUIZ...................................[ CREATE_TABLE ]')
     
-    exec('developer', 'l.TABLE_QUIZ_USER.sql',
-        '[OK][L] CREATE TABLE QUIZ USER..............................[ CREATE_TABLE ]')
+    exec('developer', 'l.TABLE_QUIZ_ANSWERS.sql',
+        '[OK][L] CREATE TABLE QUIZ ANSWERS...........................[ CREATE_TABLE ]')
 
     exec('developer', 'm.SP_SEL_AI_TBL_CSV.sql',
         '[OK][M] CREATE PROCEDURE FOR SELECT AI [CSV]............[ CREATE_PROCEDURE ]')
