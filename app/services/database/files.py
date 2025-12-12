@@ -1,3 +1,4 @@
+python
 import streamlit as st
 import pandas as pd
 from services.database.connection import Connection
@@ -21,7 +22,7 @@ class FileService:
         return self.conn_instance.get_connection()
 
     @st.cache_data
-    def get_all_files(_self, user_id):
+    def get_all_files(self, user_id):
         """
         Retrieves all files associated with a user, including OWNER status, username, email, and user count.
 
@@ -31,7 +32,7 @@ class FileService:
         Returns:
             pd.DataFrame: A DataFrame containing file information.
         """
-        query = f"""
+        query = """
             SELECT 
                 A.FILE_ID,
                 A.MODULE_ID,
@@ -74,7 +75,7 @@ class FileService:
             JOIN
                 FILE_USER FU1
                 ON FU1.FILE_ID = A.FILE_ID
-                AND FU1.USER_ID = {user_id}
+                AND FU1.USER_ID = :user_id
             JOIN
                 USERS U1
                 ON U1.USER_ID = FU1.USER_ID
@@ -90,7 +91,7 @@ class FileService:
             ORDER BY
                 A.FILE_ID DESC
         """
-        return pd.read_sql(query, con=_self.conn)
+        return pd.read_sql(query, con=self.conn, params={"user_id": user_id})
 
     def delete_file_user_by_user(self, file_id, user_id, file_name):
         delete_query = """
@@ -103,6 +104,7 @@ class FileService:
                 "user_id": user_id
             })
 
+        self.conn.commit()
         return f"You have been removed from access to file **{file_name}**."
     
     def insert_file(
@@ -122,66 +124,81 @@ class FileService:
         Inserts or updates a file record and its user association.
         """
 
-        # Verificar si el FILE ya existe (por file name, module y pii)
-        check_query = f"""
+        check_query = """
             SELECT FILE_ID, FILE_VERSION
             FROM FILES
-            WHERE FILE_SRC_FILE_NAME = '{file_src_file_name}'
-            AND MODULE_ID = {module_id}
-            AND FILE_TRG_PII = {file_trg_pii}
+            WHERE FILE_SRC_FILE_NAME = :file_src_file_name
+            AND MODULE_ID = :module_id
+            AND FILE_TRG_PII = :file_trg_pii
         """
-        df = pd.read_sql(check_query, con=self.conn)
+        df = pd.read_sql(
+            check_query,
+            con=self.conn,
+            params={
+                "file_src_file_name": file_src_file_name,
+                "module_id": module_id,
+                "file_trg_pii": file_trg_pii
+            }
+        )
 
-        if not df.empty:
-            file_id = df['FILE_ID'].iloc[0]
-            file_version = df['FILE_VERSION'].iloc[0]
+        with self.conn.cursor() as cur:
+            if not df.empty:
+                file_id = df['FILE_ID'].iloc[0]
+                file_version = df['FILE_VERSION'].iloc[0]
 
-            # Verificar si ya existe la relación con el usuario
-            user_file_query = f"""
-                SELECT 1 FROM FILE_USER
-                WHERE FILE_ID = {file_id} AND USER_ID = {user_id}
-            """
-            df_user_file = pd.read_sql(user_file_query, con=self.conn)
+                user_file_query = """
+                    SELECT 1 FROM FILE_USER
+                    WHERE FILE_ID = :file_id AND USER_ID = :user_id
+                """
+                df_user_file = pd.read_sql(
+                    user_file_query,
+                    con=self.conn,
+                    params={
+                        "file_id": file_id,
+                        "user_id": user_id
+                    }
+                )
 
-            if not df_user_file.empty:
-                # El archivo existe y ya está asociado al usuario → actualizar versión
-                with self.conn.cursor() as cur:
-                    cur.execute(f"""
+                if not df_user_file.empty:
+                    cur.execute("""
                         UPDATE FILES SET
-                            FILE_SRC_SIZE      = {file_src_size},
-                            FILE_SRC_STRATEGY  = '{file_src_strategy}',
-                            FILE_TRG_LANGUAGE  = '{file_trg_language}',
-                            FILE_VERSION       = {file_version} + 1,
-                            FILE_DESCRIPTION   = '{file_description}',
+                            FILE_SRC_SIZE      = :file_src_size,
+                            FILE_SRC_STRATEGY  = :file_src_strategy,
+                            FILE_TRG_LANGUAGE  = :file_trg_language,
+                            FILE_VERSION       = :file_version_new,
+                            FILE_DESCRIPTION   = :file_description,
                             FILE_STATE         = 1,
                             FILE_DATE          = SYSDATE
-                        WHERE FILE_ID = {file_id}
-                    """)
-                self.conn.commit()
+                        WHERE FILE_ID = :file_id
+                    """, {
+                        "file_src_size": file_src_size,
+                        "file_src_strategy": file_src_strategy,
+                        "file_trg_language": file_trg_language,
+                        "file_version_new": file_version + 1,
+                        "file_description": file_description,
+                        "file_id": file_id
+                    })
 
-                # Borrar documentos asociados anteriores
-                with self.conn.cursor() as cur:
-                    cur.execute(f"DELETE FROM DOCS WHERE FILE_ID = {file_id}")
-                self.conn.commit()
+                    cur.execute("DELETE FROM DOCS WHERE FILE_ID = :file_id", {"file_id": file_id})
 
-                return f"File '{file_name}' already existed and added new version.", int(file_id)
+                    self.conn.commit()
+                    return f"File '{file_name}' already existed and added new version.", int(file_id)
+
+                else:
+                    cur.execute("""
+                        INSERT INTO FILE_USER (FILE_ID, USER_ID, OWNER)
+                        VALUES (:file_id, :user_id, 0)
+                    """, {
+                        "file_id": file_id,
+                        "user_id": user_id
+                    })
+                    self.conn.commit()
+
+                    return f"File '{file_name}' existed but was linked to user.", file_id
 
             else:
-                # El archivo existe pero no está asociado al usuario → asociar en FILE_USER
-                with self.conn.cursor() as cur:
-                    cur.execute(f"""
-                        INSERT INTO FILE_USER (FILE_ID, USER_ID)
-                        VALUES ({file_id}, {user_id})
-                    """)
-                self.conn.commit()
-
-                return f"File '{file_name}' existed but was linked to user.", file_id
-
-        else:
-            # El archivo no existe → crear nuevo FILE y FILE_USER
-            with self.conn.cursor() as cur:
-                file_id_var = cur.var(int)
-                cur.execute(f"""
+                new_file_id_var = cur.var(int)
+                cur.execute("""
                     INSERT INTO FILES (
                         MODULE_ID,
                         FILE_SRC_FILE_NAME,
@@ -190,31 +207,47 @@ class FileService:
                         FILE_TRG_OBJ_NAME,
                         FILE_TRG_LANGUAGE,
                         FILE_TRG_PII,
-                        FILE_DESCRIPTION
+                        FILE_DESCRIPTION,
+                        FILE_VERSION,
+                        FILE_DATE,
+                        FILE_STATE
                     ) VALUES (
-                        {module_id},
-                        '{file_src_file_name}',
-                        {file_src_size},
-                        '{file_src_strategy}',
-                        '{file_trg_obj_name}',
-                        '{file_trg_language}',
-                        {file_trg_pii},
-                        '{file_description}'
-                    ) RETURNING FILE_ID INTO :file_id
-                """, {"file_id": file_id_var})
-            self.conn.commit()
+                        :module_id,
+                        :file_src_file_name,
+                        :file_src_size,
+                        :file_src_strategy,
+                        :file_trg_obj_name,
+                        :file_trg_language,
+                        :file_trg_pii,
+                        :file_description,
+                        1,
+                        SYSDATE,
+                        1
+                    ) RETURNING FILE_ID INTO :new_file_id
+                """, {
+                    "module_id": module_id,
+                    "file_src_file_name": file_src_file_name,
+                    "file_src_size": file_src_size,
+                    "file_src_strategy": file_src_strategy,
+                    "file_trg_obj_name": file_trg_obj_name,
+                    "file_trg_language": file_trg_language,
+                    "file_trg_pii": file_trg_pii,
+                    "file_description": file_description,
+                    "new_file_id": new_file_id_var
+                })
 
-            file_id_new = file_id_var.getvalue()[0]
+                file_id_new = new_file_id_var.getvalue()[0]
 
-            # Asociar el nuevo FILE con el USER
-            with self.conn.cursor() as cur:
-                cur.execute(f"""
-                    INSERT INTO FILE_USER (FILE_ID, USER_ID)
-                    VALUES ({file_id_new}, {user_id})
-                """)
-            self.conn.commit()
+                cur.execute("""
+                    INSERT INTO FILE_USER (FILE_ID, USER_ID, OWNER)
+                    VALUES (:file_id, :user_id, 1)
+                """, {
+                    "file_id": file_id_new,
+                    "user_id": user_id
+                })
+                self.conn.commit()
 
-            return f"File '{file_name}' has been created successfully.", file_id_new
+                return f"File '{file_name}' has been created successfully.", file_id_new
 
     
     def update_extraction(
@@ -223,31 +256,27 @@ class FileService:
             file_trg_extraction
         ):
         """
-        Updates the file extraction information in the database using CLOB for large text.
+        Updates the file extraction information in the database.
+        Replaces the existing extraction content with the new content.
 
         Args:
             file_id (int)             : ID of the file to update.
             file_trg_extraction (str) : Extraction content to update.
 
         Returns:
-            str: Success message or error message.
+            str: Success message.
         """
-        # Define chunk size for splitting the content
-        chunk_size     = 4000  # Oracle supports up to 4000 characters per chunk
-        tot_characters = len(file_trg_extraction)
-        for i in range(0, tot_characters, chunk_size):
-            chunk = file_trg_extraction[i:i + chunk_size]
-
-            with self.conn.cursor() as cur:
-                # Append the current chunk to the CLOB column
-                cur.execute(f"""
-                    UPDATE FILES SET
-                        FILE_TRG_EXTRACTION     = CONCAT(FILE_TRG_EXTRACTION,'{chunk.replace("'", "''")}')
-                    WHERE FILE_ID = {file_id}
-                """)
-            self.conn.commit()
-
-        return f"File extraction has been updated successfully."
+        with self.conn.cursor() as cur:
+            cur.execute("""
+                UPDATE FILES SET
+                    FILE_TRG_EXTRACTION = :file_trg_extraction
+                WHERE FILE_ID = :file_id
+            """, {
+                "file_trg_extraction": file_trg_extraction,
+                "file_id": file_id
+            })
+        self.conn.commit()
+        return "File extraction has been updated successfully."
 
     def update_file(
             self,
@@ -264,28 +293,33 @@ class FileService:
         Args:
             file_id (int)                 : ID of the file to update.
             file_trg_obj_name (str)       : Target object name.
-            file_trg_extraction (str)     : Extraction content to update.
             file_trg_tot_pages (int)      : Total number of pages.
             file_trg_tot_characters (int) : Total number of characters.
             file_trg_tot_time (str)       : Total processing time.
             file_trg_language (str)       : Language of the file.
 
         Returns:
-            str: Success message or error message.
+            str: Success message.
         """
-        # Update the existing file record
         with self.conn.cursor() as cur:
-            cur.execute(f"""
+            cur.execute("""
                 UPDATE FILES SET
-                    FILE_TRG_OBJ_NAME       = '{file_trg_obj_name}',
-                    FILE_TRG_TOT_PAGES      = {file_trg_tot_pages},
-                    FILE_TRG_TOT_CHARACTERS = {file_trg_tot_characters},
-                    FILE_TRG_TOT_TIME       = '{file_trg_tot_time}',
-                    FILE_TRG_LANGUAGE       = '{file_trg_language}'
-                WHERE FILE_ID = {file_id}
-            """)
+                    FILE_TRG_OBJ_NAME       = :file_trg_obj_name,
+                    FILE_TRG_TOT_PAGES      = :file_trg_tot_pages,
+                    FILE_TRG_TOT_CHARACTERS = :file_trg_tot_characters,
+                    FILE_TRG_TOT_TIME       = :file_trg_tot_time,
+                    FILE_TRG_LANGUAGE       = :file_trg_language
+                WHERE FILE_ID = :file_id
+            """, {
+                "file_trg_obj_name": file_trg_obj_name,
+                "file_trg_tot_pages": file_trg_tot_pages,
+                "file_trg_tot_characters": file_trg_tot_characters,
+                "file_trg_tot_time": file_trg_tot_time,
+                "file_trg_language": file_trg_language,
+                "file_id": file_id
+            })
         self.conn.commit()
-        return f"The file was updated successfully."
+        return "The file was updated successfully."
 
 
     def delete_file(self, file_name, file_id):
@@ -299,7 +333,6 @@ class FileService:
         Returns:
             str: Success or error message.
         """
-        # Verificar que el archivo exista y esté activo
         query_check = """
             SELECT FILE_ID FROM FILES
             WHERE FILE_ID = :file_id AND FILE_STATE <> 0
@@ -311,17 +344,14 @@ class FileService:
 
         try:
             with self.conn.cursor() as cur:
-                # Eliminar de DOCS
                 cur.execute("""
                     DELETE FROM DOCS WHERE FILE_ID = :file_id
                 """, {"file_id": file_id})
 
-                # Eliminar de FILE_USER
                 cur.execute("""
                     DELETE FROM FILE_USER WHERE FILE_ID = :file_id
                 """, {"file_id": file_id})
 
-                # Eliminar de FILES
                 cur.execute("""
                     DELETE FROM FILES WHERE FILE_ID = :file_id
                 """, {"file_id": file_id})
@@ -345,7 +375,6 @@ class FileService:
         Returns:
             str: Success message.
         """
-        # Eliminar solo las asociaciones de usuarios que no son owner
         delete_query = """
             DELETE FROM FILE_USER
             WHERE FILE_ID = :file_id AND OWNER = 0
@@ -353,12 +382,10 @@ class FileService:
         with self.conn.cursor() as cur:
             cur.execute(delete_query, {"file_id": file_id})
         
-        # Insertar los nuevos usuarios (si hay)
-        insert_query = """
-            INSERT INTO FILE_USER (FILE_USER_ID, FILE_ID, USER_ID, OWNER)
-            VALUES (FILE_USER_ID_SEQ.NEXTVAL, :file_id, :user_id, 0)
-        """
-        with self.conn.cursor() as cur:
+            insert_query = """
+                INSERT INTO FILE_USER (FILE_USER_ID, FILE_ID, USER_ID, OWNER)
+                VALUES (FILE_USER_ID_SEQ.NEXTVAL, :file_id, :user_id, 0)
+            """
             for user_id in user_ids:
                 cur.execute(insert_query, {"file_id": file_id, "user_id": user_id})
         
@@ -370,11 +397,11 @@ class FileService:
         """
         Deletes a record from FILE_USER.
         """
-        query = f"""
-            DELETE FROM FILE_USER WHERE FILE_USER_ID = {file_user_id}
+        query = """
+            DELETE FROM FILE_USER WHERE FILE_USER_ID = :file_user_id
         """
         with self.conn.cursor() as cur:
-            cur.execute(query)
+            cur.execute(query, {"file_user_id": file_user_id})
         self.conn.commit()
         return f"Shared FileUser ID {file_user_id} deleted successfully."
 
@@ -384,7 +411,7 @@ class FileService:
         return self.get_all_file_user(user_id)
 
     @st.cache_data
-    def get_all_file_user(_self, user_id):
+    def get_all_file_user(self, user_id):
         """
         Retrieves FILE_USER records for files shared with other users (excluding current user_id).
 
@@ -394,7 +421,7 @@ class FileService:
         Returns:
             pd.DataFrame: Shared FILE_USER records (excluding files belonging to user_id).
         """
-        query = f"""
+        query = """
             SELECT 
                 FU.FILE_USER_ID,
                 FU.FILE_ID,
@@ -417,10 +444,10 @@ class FileService:
             JOIN USER_GROUP UG
                 ON U.USER_GROUP_ID = UG.USER_GROUP_ID
             WHERE
-                FU.USER_ID <> {user_id}
+                FU.USER_ID <> :user_id
                 AND FU.OWNER <> 1
                 AND F.FILE_STATE <> 0
             ORDER BY
                 FU.FILE_USER_ID
         """
-        return pd.read_sql(query, con=_self.conn)
+        return pd.read_sql(query, con=self.conn, params={"user_id": user_id})
