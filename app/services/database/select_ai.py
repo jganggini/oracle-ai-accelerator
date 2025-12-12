@@ -129,7 +129,7 @@ class SelectAIService:
             annotation_name (str): The name of the annotation.
             annotation_value (str, optional): The value for the annotation. Defaults to None.
         """
-        # Escapar comillas simples en el valor si existe
+        # Escape single quotes in value if exists
         if annotation_value:
             annotation_value = annotation_value.replace("'", "''")
             annotation_clause = f"{annotation_name} '{annotation_value}'"
@@ -158,7 +158,7 @@ class SelectAIService:
             annotation_name (str): The name of the annotation.
             annotation_value (str, optional): The value for the annotation. Defaults to None.
         """
-        # Escapar comillas simples en el valor si existe
+        # Escape single quotes in value if exists
         if annotation_value:
             annotation_value = annotation_value.replace("'", "''")
             annotation_clause = f"{annotation_name} '{annotation_value}'"
@@ -187,10 +187,10 @@ class SelectAIService:
         if not column_names:
             return
         
-        # Unir las columnas en una lista separada por comas
+        # Join columns in a comma-separated list
         columns_str = ", ".join(column_names)
         
-        # Generar nombre del constraint
+        # Generate constraint name
         constraint_name = f"PK_{table_name.split('.')[-1]}"
         
         with self.conn.cursor() as cur:
@@ -247,22 +247,39 @@ class SelectAIService:
             prompt,
             profile_name,
             action,
-            language
+            language,
+            prompt_extra=None
         ):
         """
-        Genera una respuesta usando el perfil de Select AI con manejo
-        controlado de errores y mensajes en el idioma elegido.
+        Generates a response using Select AI profile with controlled
+        error handling and messages in the chosen language.
+        
+        Args:
+            prompt (str): The user's message.
+            profile_name (str): The Select AI profile name.
+            action (str): The action to perform.
+            language (str): The response language.
+            prompt_extra (str, optional): Additional instructions for the model.
         """
-        # Normalizamos el mensaje del usuario para evitar problemas de sintaxis
+        # Normalize user message to avoid syntax issues
         prompt = prompt.replace("'", "''")
         prompt = prompt.replace("%", "%%")
 
-        # Indicaciones adicionales para el modelo
-        prompt_with_instructions = (
-            f"{prompt} /** Do not underline titles. Queries must always be written in uppercase. Answer only in {language}. **/"
-        )
+        # Additional instructions for the model
+        base_instructions = f"Do not underline titles. Queries must always be written in uppercase. Answer only in {language}."
+        
+        # If there's prompt_extra, add it to instructions
+        if prompt_extra and prompt_extra.strip():
+            prompt_extra_clean = prompt_extra.replace("'", "''").replace("%", "%%")
+            prompt_with_instructions = (
+                f"{prompt} /** {base_instructions} {prompt_extra_clean} **/"
+            )
+        else:
+            prompt_with_instructions = (
+                f"{prompt} /** {base_instructions} **/"
+            )
 
-        # Mensajes por idioma (simple y directo)
+        # Messages by language (simple and direct)
         language_messages = {
             "Spanish": (
                 "Lo siento, no se pudo generar una sentencia SQL válida para tu solicitud. "
@@ -285,7 +302,7 @@ class SelectAIService:
             language_messages["English"]
         )
 
-        # Ejecutamos un bloque PL/SQL que captura excepciones y devuelve el CLOB tal cual
+        # Execute a PL/SQL block that captures exceptions and returns the CLOB as is
         with self.conn.cursor() as cur:
             response_var = cur.var(oracledb.CLOB)
             cur.execute(
@@ -318,7 +335,7 @@ class SelectAIService:
                 response = response.read()
             response = response or ""
 
-        # Si Select AI devolvió el mensaje de "Sorry..." lo reemplazamos por el mensaje localizado
+        # If Select AI returned the 'Sorry...' message, replace it with the localized message
         generic_sorry = "Sorry, unfortunately a valid SELECT statement could not be generated"
         if response.startswith(generic_sorry):
             return fallback_sorry
@@ -327,7 +344,7 @@ class SelectAIService:
     
     def get_tables_cache(self, user_id, force_update=False):
         if force_update:
-            # Borra la caché de la función
+            # Clear function cache
             self.get_tables.clear()
         return self.get_tables(user_id)
     
@@ -394,7 +411,7 @@ class SelectAIService:
 
     def get_data(self, sql):
         """
-        Ejecuta el SQL recibido y devuelve el DataFrame completo sin modificaciones.
+        Executes the received SQL and returns the complete DataFrame without modifications.
         """
         try:
             return pd.read_sql(sql, con=self.conn)

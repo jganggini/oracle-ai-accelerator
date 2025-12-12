@@ -55,7 +55,8 @@ def initialize_session_state():
         "speech_was_playing": False,
         "speech_autoplay_id": None,  # ID of the message that should autoplay
         "speech_playing_audio_id": None,  # ID of audio currently playing
-        "speech_playing_audio_time": 0.0  # Current playback time
+        "speech_playing_audio_time": 0.0,  # Current playback time
+        "speech_prompt_extra": ""  # Additional instructions for Select AI
     }
     for key, value in defaults.items():
         if key not in st.session_state:
@@ -256,16 +257,18 @@ def process_llm_response(user_id, agent_id, user_message, language):
             # Use Select AI service (similar to app_chat_01.py)
             profile_name = select_ai_service.get_profile(user_id)
             action = 'narrate'
+            prompt_extra = st.session_state.get("speech_prompt_extra", "")
             response_text = db_select_ai_service.get_chat(
                 user_message,
                 profile_name,
                 action,
-                language
+                language,
+                prompt_extra=prompt_extra
             )
             
             # Handle "NNN" response (no information available)
             if "NNN" in response_text:
-                response_text = st.session_state.get("language-message", "No tengo esa información.")
+                response_text = st.session_state.get("language-message", "I don't have that information.")
         else:
             # Use configured voice agent (original behavior)
             # Build context from recent conversation history
@@ -273,14 +276,14 @@ def process_llm_response(user_id, agent_id, user_message, language):
             recent_msgs = st.session_state.speech_conversation[-6:] if len(st.session_state.speech_conversation) > 6 else st.session_state.speech_conversation
             
             if recent_msgs:
-                context = "Historial de conversación reciente:\n"
+                context = "Recent conversation history:\n"
                 for msg in recent_msgs:
-                    role = "Usuario" if msg["role"] == "user" else "Asistente"
+                    role = "User" if msg["role"] == "user" else "Assistant"
                     context += f"{role}: {msg['content']}\n"
-                context += "\nConsidera el historial anterior para responder coherentemente.\n\n"
+                context += "\nConsider the previous history to respond coherently.\n\n"
             
             # Build full input with context
-            full_input = f"{context}Pregunta actual: {user_message}"
+            full_input = f"{context}Current question: {user_message}"
             
             # Use get_agent method (simpler, more reliable)
             result = generative_service.get_agent(
@@ -289,10 +292,19 @@ def process_llm_response(user_id, agent_id, user_message, language):
                 input=full_input
             )
             
-            response_text = result.get("answer", "Lo siento, no pude generar una respuesta.")
+            # Interpret result according to returned type
+            if isinstance(result, dict):
+                response_text = result.get("answer", "Sorry, I couldn't generate a response.")
+                branch = "dict"
+            elif isinstance(result, str):
+                response_text = result
+                branch = "str_passthrough"
+            else:
+                response_text = str(result)
+                branch = f"fallback_{type(result).__name__}"
     except Exception as e:
         print(f"Error in LLM processing: {e}")
-        response_text = f"Error al procesar: {str(e)}"
+        response_text = f"Error processing: {str(e)}"
     
     # Generate TTS audio
     audio_base64 = None
@@ -436,9 +448,19 @@ if login:
     
     # Validate agent is selected (only if Select AI is not enabled)
     if not use_select_ai and not selected_agent_id:
-        st.info("Por favor, selecciona un agente en el menú lateral para comenzar.", icon=":material/settings:")
+        st.info("Please select an agent in the sidebar to get started.", icon=":material/settings:")
         st.stop()
     
+    # Show prompt_extra textarea if Select AI is enabled
+    if use_select_ai:
+        st.session_state.speech_prompt_extra = st.text_area(
+            "Configure response behavior (optional)",
+            value=st.session_state.get("speech_prompt_extra", ""),
+            placeholder="Respond in a natural and conversational way. Convert large numbers into text (for example: 'three hundred forty-two' instead of '342'). Avoid using complex punctuation.",
+            height=100,
+            key="speech_prompt_extra_input",
+            help="These instructions will be added to the prompt to control how Select AI responds. Useful for making responses more natural for the TTS service."
+        )
     
     conversation_container = st.empty()
     status_caption = st.empty()
@@ -463,7 +485,7 @@ if login:
             # Update conversation display after processing
             render_conversation(conversation_container, st.session_state.speech_current_partial)
         except Exception as e:
-            st.error(f"Error procesando mensaje: {e}")
+            st.error(f"Error processing message: {e}")
         finally:
             st.session_state.speech_processing_llm = False
             st.rerun()

@@ -144,9 +144,9 @@ def get_menu(modules, user):
                         data=json.dumps([
                             {k: v for k, v in msg.items() if k not in ("analytics_df", "analytics")}
                             for msg in st.session_state["chat-select-ai"]
-                        ], indent=4),
-                        file_name=f"chat_history_{datetime.now().strftime('%H%M%S%f')}.json",
-                        mime="text/plain",
+                        ], indent=4, ensure_ascii=False),
+                        file_name=f"chat_history_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                        mime="application/json",
                         disabled=(not st.session_state["chat-select-ai"]), 
                         width="stretch"
                     )
