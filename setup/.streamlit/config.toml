@@ -1,30 +1,8 @@
-# Streamlit Configuration for Production Multi-Worker Environment
-# This config is optimized for high concurrency with multiple workers
-
 [client]
 showSidebarNavigation = false
-toolbarMode = "minimal"
-showErrorDetails = true
 
 [theme]
 base = "dark"
 
 [server]
-headless = true
-enableCORS = false
-enableXsrfProtection = true
 maxUploadSize = 500
-maxMessageSize = 200
-enableWebsocketCompression = true
-serverAddress = "127.0.0.1"
-
-[browser]
-gatherUsageStats = false
-
-[runner]
-magicEnabled = true
-fastReruns = true
-
-[logger]
-level = "info"
-messageFormat = "%(asctime)s %(levelname)s: %(message)s"
