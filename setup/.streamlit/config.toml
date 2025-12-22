@@ -12,11 +12,11 @@ base = "dark"
 [server]
 headless = true
 enableCORS = false
-enableXsrfProtection = true
+enableXsrfProtection = false
 maxUploadSize = 500
 maxMessageSize = 500
 enableWebsocketCompression = true
-serverAddress = "127.0.0.1"
+address = "127.0.0.1"
 
 [browser]
 gatherUsageStats = false

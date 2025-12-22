@@ -136,10 +136,7 @@ resource "null_resource" "wait_for_userdata" {
       "echo '[INI] Setup started...............'",
       "while [ ! -f /var/local/userdata.done ]; do sleep 5; done",
       "echo ''",
-      "echo ''",
-      "echo 'Network URL: http://${oci_core_instance.linux_instance.public_ip}:8501'",
-      "echo 'Network URL: https://${oci_core_instance.linux_instance.public_ip}'",
-      "echo ''",
+      "cat /home/opc/startup_info.txt | sed 's/\\[PUBLIC-IP\\]/${oci_core_instance.linux_instance.public_ip}/g'",
       "echo ''",
       "echo '[END] Setup completed.............'",
     ]

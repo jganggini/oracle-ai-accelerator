@@ -1093,21 +1093,149 @@ if login:
                 st.rerun()
 
 
-# View Installation Log (Oracle Linux)
-# sudo tail -n 200 /var/log/cloud-init-output.log
+# ═══════════════════════════════════════════════════════════════════════════════
+# COMANDOS ÚTILES PARA DESARROLLO Y PRODUCCIÓN
+# ═══════════════════════════════════════════════════════════════════════════════
 
-# Run the application (Windows)
-# .venv/Scripts/Activate.ps1
-# cd .\app\
-# streamlit run .\app.py --server.port 8501
+# ─── WINDOWS (Desarrollo Local) ───────────────────────────────────────────────
+# Activar entorno virtual:
+#   .venv/Scripts/Activate.ps1
+#
+# Ejecutar aplicación:
+#   cd .\app\
+#   streamlit run .\app.py --server.port 8501
+# ──────────────────────────────────────────────────────────────────────────────
 
-# Show the last 200 lines of the log file (Oracle Linux)
-# tail -n 200 /home/opc/streamlit.log
-
-# Kill the process running on port 8501 (Oracle Linux)
-# sudo lsof -t -i:8501 | xargs sudo kill -9
-
-# Run the application (Oracle Linux)
-# cd /home/opc/oracle-ai-accelerator/app
-# echo "Using Python from: $(which python)"
-# nohup python -m streamlit run app.py --server.port 8501 --logger.level=INFO > /home/opc/streamlit.log 2>&1 &
+# ─── ORACLE LINUX (Producción - Multi-Worker con Nginx) ──────────────────────
+# 
+# 📊 MONITOREO Y ANÁLISIS:
+# ────────────────────────────────────────────────────────────────────────────
+#   Ver estado general del sistema y workers:
+#     /home/opc/monitor_system.sh
+#
+#   Verificar salud de los workers:
+#     /home/opc/health_check.sh
+#
+#   Ver logs del deployment inicial:
+#     sudo tail -n 200 /var/log/cloud-init-output.log
+#
+#   Ver logs de un worker específico (puertos 8501-8504):
+#     tail -n 200 /home/opc/streamlit_8501.log
+#     tail -f /home/opc/streamlit_8502.log
+#
+#   Ver logs de Nginx:
+#     sudo tail -f /var/log/nginx/access.log
+#     sudo tail -f /var/log/nginx/error.log
+#
+#   Ver resultados de pruebas de carga:
+#     cat /home/opc/load_test_results.txt
+#
+# 🔄 GESTIÓN DE WORKERS:
+# ────────────────────────────────────────────────────────────────────────────
+#   Reiniciar un worker específico:
+#     /home/opc/restart_worker.sh 8501
+#     /home/opc/restart_worker.sh 8502
+#
+#   Reiniciar todos los workers:
+#     for PORT in 8501 8502 8503 8504; do /home/opc/restart_worker.sh $PORT; done
+#
+#   Ver PIDs de los workers:
+#     cat /home/opc/streamlit_8501.pid
+#
+#   Matar un worker específico:
+#     kill $(cat /home/opc/streamlit_8501.pid)
+#     sudo lsof -t -i:8501 | xargs sudo kill -9
+#
+#   Matar todos los workers:
+#     for PORT in 8501 8502 8503 8504; do sudo lsof -t -i:$PORT | xargs sudo kill -9; done
+#
+# 🌐 NGINX (Load Balancer con Sticky Sessions):
+# ────────────────────────────────────────────────────────────────────────────
+#   Estado de Nginx:
+#     sudo systemctl status nginx
+#
+#   Reiniciar Nginx:
+#     sudo systemctl restart nginx
+#
+#   Recargar configuración (sin downtime):
+#     sudo systemctl reload nginx
+#
+#   Verificar configuración:
+#     sudo nginx -t
+#
+#   Ver configuración actual:
+#     cat /etc/nginx/conf.d/streamlit.conf
+#     cat /etc/nginx/conf.d/streamlit-ssl.conf
+#
+#   Ver logs de acceso:
+#     tail -f /var/log/nginx/access.log
+#     tail -f /var/log/nginx/error.log
+#
+#   NOTA: Nginx usa 'ip_hash' para sticky sessions. Cada cliente siempre
+#   se conecta al mismo worker, evitando problemas de archivos de medios.
+#
+# 🚀 INICIAR APLICACIÓN MANUALMENTE:
+# ────────────────────────────────────────────────────────────────────────────
+#   Iniciar un worker individual:
+#     cd /home/opc/oracle-ai-accelerator/app
+#     source /home/opc/.venv/bin/activate
+#     nohup python -m streamlit run app.py \
+#         --server.port 8501 \
+#         > /home/opc/streamlit_8501.log 2>&1 &
+#     echo $! > /home/opc/streamlit_8501.pid
+#
+#   Iniciar todos los workers:
+#     cd /home/opc/oracle-ai-accelerator/app
+#     source /home/opc/.venv/bin/activate
+#     for PORT in 8501 8502 8503 8504; do nohup python -m streamlit run app.py --server.port $PORT > /home/opc/streamlit_$PORT.log 2>&1 & echo $! > /home/opc/streamlit_$PORT.pid; sleep 2; done; deactivate
+#
+# 🔧 TROUBLESHOOTING:
+# ────────────────────────────────────────────────────────────────────────────
+#   Ver procesos de Streamlit activos:
+#     ps aux | grep streamlit
+#
+#   Ver puertos en uso:
+#     ss -tuln | grep '850[1-4]'
+#
+#   Verificar conectividad interna de Nginx a workers:
+#     curl -I http://127.0.0.1:8501
+#     curl -I http://127.0.0.1:8502
+#
+#   Health check de Nginx:
+#     curl http://127.0.0.1/_health
+#
+#   Revisar uso de recursos:
+#     top
+#     htop
+#     free -h
+#     df -h
+#
+#   Ver logs en tiempo real de todos los workers:
+#     tail -f /home/opc/streamlit_*.log
+#
+# 📦 ACTUALIZAR CÓDIGO DESDE GIT:
+# ────────────────────────────────────────────────────────────────────────────
+#   cd /home/opc/oracle-ai-accelerator
+#   git pull
+#   # Luego reiniciar todos los workers
+#   for PORT in 8501 8502 8503 8504; do /home/opc/restart_worker.sh $PORT; done
+#
+# ═══════════════════════════════════════════════════════════════════════════════
+# ARQUITECTURA DE DEPLOYMENT:
+# ═══════════════════════════════════════════════════════════════════════════════
+# 
+#   Internet (Port 80/443)
+#         ↓
+#   Nginx Load Balancer
+#         ↓
+#   ┌─────┴──────┬──────┬──────┐
+#   ↓            ↓      ↓      ↓
+#  Worker1   Worker2  Worker3  Worker4
+#  :8501     :8502    :8503    :8504
+#
+# - Nginx balancea la carga entre 4 workers de Streamlit
+# - Cada worker es un proceso independiente de Python/Streamlit
+# - Los workers escuchan en 127.0.0.1 (localhost) por seguridad
+# - Nginx maneja SSL/TLS (HTTPS) con certificado auto-firmado
+# - Health check automático cada 5 minutos vía cron
+# ═══════════════════════════════════════════════════════════════════════════════
