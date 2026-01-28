@@ -58,7 +58,7 @@ o descarguelo abriendo [esta url](https://github.com/jganggini/oracle-ai-acceler
 
 #### Paso 4: Generar la key
 
-- Ingrese a ➡️ `Identity & Security` ➡️ `profile`
+- Ingrese a ➡️ `Identity & Security` ➡️ `Domains` ➡️ `My profile`
 - Seleccione su usuario.
 - Ingrese a ➡️ `Tokens and keys` ➡️ `Add API Key` ➡️ `Generate API Key pair` ➡️ `[Download private key]`
   - Seleccione `[Add]`
