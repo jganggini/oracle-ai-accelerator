@@ -94,7 +94,7 @@ En el respositorio descargado encontrará una carpeta setup-tf.
 
 #### d) Create Stack in OCI Resource Manager
 
-- Ingrese a ➡️ `Resource Manager` ➡️ `Stacks` ➡️ `Create Stack`.
+- Ingrese a ➡️ `Developer Services` ➡️ `Resource Manager` ➡️ `Stacks` ➡️ `Create Stack`.
 - Cree un `Stack` para el proyecto:
 
   - Stack infomation:
